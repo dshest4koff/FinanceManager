@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #pragma once
 #include <iostream>
 #include <vector>
@@ -107,8 +107,8 @@ namespace FNM {
         Expenses expenses;
     public:
         void printReport() {
-            cout << "Общий доход: " << incomes.get_total_income() << endl;
-            cout << "Общий расход: " << expenses.get_total_expense() << endl;
+            cout << "ГЋГЎГ№ГЁГ© Г¤Г®ГµГ®Г¤: " << incomes.get_total_income() << endl;
+            cout << "ГЋГЎГ№ГЁГ© Г°Г Г±ГµГ®Г¤: " << expenses.get_total_expense() << endl;
         }
     };
 
@@ -123,7 +123,7 @@ namespace FNM {
     public:
         static void analyze(Incomes& incomes, Expenses& expenses) {
             double profit = Analyzer::calculateProfit(incomes, expenses);
-            cout << "Прибыль: " << profit << endl;
+            cout << "ГЏГ°ГЁГЎГ»Г«Гј: " << profit << endl;
         }
     };
 
@@ -186,7 +186,7 @@ namespace FNM {
         string encrypt_data(const string& data) {
             string encrypted_data;
             for (char c : data) {
-                encrypted_data += static_cast<char>(c + 1); // сдвиг на 1 символ
+                encrypted_data += static_cast<char>(c + 1); // Г±Г¤ГўГЁГЈ Г­Г  1 Г±ГЁГ¬ГўГ®Г«
             }
             return encrypted_data;
         }
@@ -194,7 +194,7 @@ namespace FNM {
         string decrypt_data(const string& encrypted_data) {
             string decrypted_data;
             for (char c : encrypted_data) {
-                decrypted_data += static_cast<char>(c - 1); // сдвиг на 1 симфол
+                decrypted_data += static_cast<char>(c - 1); // Г±Г¤ГўГЁГЈ Г­Г  1 Г±ГЁГ¬ГґГ®Г«
             }
             return decrypted_data;
         }
@@ -203,7 +203,7 @@ namespace FNM {
             ifstream file(pyth_to_file);
             vector<string> fields;
             if (!file.is_open()) {
-                cerr << "Ошибка открытия файла!" << std::endl;
+                cerr << "ГЋГёГЁГЎГЄГ  Г®ГІГЄГ°Г»ГІГЁГї ГґГ Г©Г«Г !" << std::endl;
                 return fields;
             }
 
@@ -225,7 +225,7 @@ namespace FNM {
         int write_to_file(string pyth_to_file, vector<string> data) {
             ofstream file(pyth_to_file);
             if (!file.is_open()) {
-                cerr << "Ошибка открытия файла!" << endl;
+                cerr << "ГЋГёГЁГЎГЄГ  Г®ГІГЄГ°Г»ГІГЁГї ГґГ Г©Г«Г !" << endl;
                 return 1;
             }
 
@@ -334,11 +334,11 @@ namespace FNM {
             string command = "cd " + pyth;
             int result = system(command.c_str());
             if (result == 0) {
-                std::cout << "Директория '" << pyth << std::endl;
+                std::cout << L"Р”РёСЂРµРєС‚РѕСЂРёСЏ" << pyth << std::endl;
                 return true;
             }
             else {
-                std::cerr << "Ошибка при смене директории '" << pyth << "'." << std::endl;
+                std::cerr << L"РќРµРІРѕР·РјРѕР¶РЅРѕ РїРµСЂРµР№С‚Рё РІ РґРёСЂРµРєС‚РѕСЂРёСЋ " << pyth << "'." << std::endl;
                 return false;
             }
         }
@@ -347,13 +347,38 @@ namespace FNM {
             string command = "mkdir " + dirname;
             int result = system(command.c_str());
             if (result == 0) {
-                std::cout << "Директория '" << dirname << "' создана." << std::endl;
+                std::cout << L"Р”РёСЂРµРєС‚РѕСЂРёСЏ " << dirname << L" СЃРѕР·РґР°РЅР°" << std::endl;
                 return true;
             }
             else {
-                std::cerr << "Ошибка при создании директории '" << dirname << "'." << std::endl;
+                std::cerr << L"РќРµРІРѕР·РјРѕР¶РЅРѕ СЃРѕР·РґР°С‚СЊ РґРёСЂРµРєС‚РѕСЂРёСЋ " << dirname << "'." << std::endl;
                 return false;
             }
+        }
+
+        const bool validate_login(string login) {
+            bool result = true;
+            for (auto& c : login) {
+                if (!isalpha(c)) {
+                    result = false;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        const bool validate_set_budget(string sum) {
+            bool result = false;
+            float value;
+            try {
+                value = stof(sum);
+                if (value > 0) {
+                    result = true;
+                }
+            }catch (const std::invalid_argument&) {
+                cout << "РќРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ РІРІРѕРґ." << endl;
+            }
+            return result;
         }
     };
 }

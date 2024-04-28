@@ -42,17 +42,9 @@ namespace FNM {
 			}
 		}
 	private: System::Windows::Forms::Label^ label_header;
-	protected:
-
-	protected:
-
 	private: System::Windows::Forms::TextBox^ user_login;
-
 	private: System::Windows::Forms::TextBox^ user_password;
 	private: System::Windows::Forms::Label^ label_login;
-
-
-
 	private: System::Windows::Forms::Label^ label_password;
 	private: System::Windows::Forms::Button^ button_login;
 	private: System::Windows::Forms::LinkLabel^ link_sing_up;
@@ -64,24 +56,9 @@ namespace FNM {
 	private: System::Windows::Forms::Button^ button_report;
 	private: System::Windows::Forms::Button^ button_exit;
 	private: System::Windows::Forms::DataGridView^ dataGridView;
-
 	private: System::Windows::Forms::Label^ label_header_transaction;
 	private: System::Windows::Forms::Label^ label_total_sum_transactions;
-
-
-
-
-
-
-
-
-
 	private: System::Windows::Forms::Label^ label_total_sum;
-
-
-
-
-
 	private: System::Windows::Forms::Button^ button_delete_incomes;
 	private: System::Windows::Forms::Button^ button_back;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ID;
@@ -92,9 +69,6 @@ namespace FNM {
 	private: System::Windows::Forms::DateTimePicker^ dateTimePicker;
 	private: System::Windows::Forms::TextBox^ sum_transaction;
 	private: System::Windows::Forms::TextBox^ type_transaction;
-
-
-
 	private: System::Windows::Forms::Label^ label_date;
 	private: System::Windows::Forms::Label^ label_sum;
 	private: System::Windows::Forms::Label^ label_type;
@@ -108,26 +82,6 @@ namespace FNM {
 	private: System::Windows::Forms::Label^ label_set_budget;
 	private: System::Windows::Forms::TextBox^ set_budget;
 	private: System::Windows::Forms::Button^ button_set_budget;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	protected:
 
 	private:
@@ -695,22 +649,39 @@ namespace FNM {
 
 	private: System::Boolean create_user() {
 		if (String::IsNullOrEmpty(this->user_login->Text) || String::IsNullOrEmpty(this->user_password->Text)) {
-			this->label_error->Visible = true;
-			this->label_error->Text = L"Поле логин или пароль\nне должно быть пустым!";
+			send_message(L"Поле логин или пароль\nне должно быть пустым!");
 			return false;
 		}
+		else if (utils.validate_login(utils.convert_system_string_to_stdString(this->user_login->Text))) {
+				bool is_exists = false;
+				for (User user : users.get_users()) {
+					if (this->user_login->Text->CompareTo(gcnew System::String(user.get_login().c_str()))) {
+						is_exists = true;
+						break;
+					}
+				}
+				if (!is_exists) {
+					cout << "agag" << endl;
+					users.add_user(User(utils.convert_system_string_to_stdString(this->user_login->Text), utils.convert_system_string_to_stdString(this->user_password->Text), 0.0f));
+					utils.write_to_file("users", utils.convert_users_to_string(users.get_users()));
+					utils.create_directory(utils.convert_system_string_to_stdString(this->user_login->Text));
+					utils.write_to_file(utils.convert_system_string_to_stdString(this->user_login->Text) + "/incomes", utils.convert_incomes_to_string(incomes.get_incomes()));
+					utils.write_to_file(utils.convert_system_string_to_stdString(this->user_login->Text) + "/expenses", utils.convert_expenses_to_string(expenses.get_expenses()));
+					return true;
+				}
+				else {
+					send_message(L"Такой логин\nуже занят");
+					return false;
+				}
+		}
 		else {
-			users.add_user(User(utils.convert_system_string_to_stdString(this->user_login->Text), utils.convert_system_string_to_stdString(this->user_password->Text), stof(utils.convert_system_string_to_stdString(this->set_budget->Text))));
-			utils.write_to_file("users", utils.convert_users_to_string(users.get_users()));
-			utils.create_directory(utils.convert_system_string_to_stdString(this->user_login->Text));
-			utils.write_to_file(utils.convert_system_string_to_stdString(this->user_login->Text) + "/incomes", utils.convert_incomes_to_string(incomes.get_incomes()));
-			utils.write_to_file(utils.convert_system_string_to_stdString(this->user_login->Text) + "/expenses", utils.convert_expenses_to_string(expenses.get_expenses()));
-			return true;
+			send_message(L"Логин может содержать буквы\nтолько латинского алфавита");
+			return false;
 		}
 	}
 
 	private: System::Void login() {
-		auto& users = utils.read_from_file("users");
+		/*auto& users = utils.read_from_file("users");
 		if (!users.empty()) {
 			for (size_t i = 0; i < users.size() - 1; i++) {
 				if (this->user_login->Text->CompareTo(gcnew System::String(users[i].c_str()))) {
@@ -732,13 +703,38 @@ namespace FNM {
 		else {
 			this->label_error->Visible = true;
 			this->label_error->Text = L"Список пользователей пуст, \nнеобходимо зарегистрироваться";
+		}*/
+		if (!users.get_users().empty()) {
+			bool correct_auth = false;
+			for (User user : users.get_users()) {
+				if(this->user_login->Text->CompareTo(gcnew System::String(user.get_login().c_str()) && 
+					this->user_password->Text->CompareTo(gcnew System::String(user.get_password().c_str())))){
+					this->label_error->Visible = false;
+					go_to_main_window(utils.convert_system_string_to_stdString(this->user_login->Text));
+					correct_auth = true;
+					break;
+				}
+			}
+			if (!correct_auth) {
+				send_message(L"Неправильный логин\nили пароль!");
+			}
 		}
+		else {
+			send_message(L"Список пользователей пуст,\nнеобходимо зарегистрироваться");
+		}
+		
+
 	}
 
 	private: System::Void go_to_main_window(string login) {
 		hide_all();
 		load_data(login);
 		show_menu();
+	}
+
+	private: System::Void send_message(wstring message) {
+		this->label_error->Visible = true;
+		this->label_error->Text = gcnew System::String(message.c_str());
 	}
 
 	private: System::Void button_exit_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -849,14 +845,14 @@ namespace FNM {
 	private: System::Void button_incomes_Click(System::Object^ sender, System::EventArgs^ e) {
 		hide_all();
 		set_incomes_to_dataGridView();
-		this->label_total_sum->Text = incomes.get_total_income().ToString() + " руб.";
+		this->label_total_sum->Text = incomes.get_total_income().ToString() + L" руб.";
 		show_incomes();
 	}
 
 	private: System::Void button_expenses_Click(System::Object^ sender, System::EventArgs^ e) {
 		hide_all();
 		set_expenses_to_dataGridView();
-		this->label_total_sum->Text = expenses.get_total_expense().ToString() + " руб.";
+		this->label_total_sum->Text = expenses.get_total_expense().ToString() + L" руб.";
 		show_expenses();
 	}
 
@@ -872,7 +868,7 @@ namespace FNM {
 			if (row->Cells[4]->Value != nullptr && row->Cells[4]->Value->ToString() == "True") {
 				incomes.delete_income(stoi(utils.convert_system_string_to_stdString(row->Cells[0]->Value->ToString())));
 				dataGridView->Rows->RemoveAt(i);
-				this->label_total_sum->Text = incomes.get_total_income().ToString() + " руб.";
+				this->label_total_sum->Text = incomes.get_total_income().ToString() + L" руб.";
 			}
 		}
 
@@ -937,7 +933,7 @@ namespace FNM {
 		string date = utils.convert_system_string_to_stdString(dateTimePicker->Value.Day.ToString() + "/" + dateTimePicker->Value.Month.ToString() + "/" + dateTimePicker->Value.Year.ToString());
 		Income income = Income(date, stof(utils.convert_system_string_to_stdString(this->sum_transaction->Text)), utils.convert_system_string_to_stdString(this->type_transaction->Text));
 		incomes.add_income(income);
-		this->label_total_sum->Text = incomes.get_total_income().ToString() + " руб.";
+		this->label_total_sum->Text = incomes.get_total_income().ToString() + L" руб.";
 		this->dataGridView->Rows->Add(income.get_id(), (gcnew System::String(income.get_date().c_str())), income.get_sum(), (gcnew System::String(income.get_type().c_str())));
 	}
 
@@ -949,7 +945,7 @@ namespace FNM {
 		string date = utils.convert_system_string_to_stdString(dateTimePicker->Value.Day.ToString() + "/" + dateTimePicker->Value.Month.ToString() + "/" + dateTimePicker->Value.Year.ToString());
 		Expense expense = Expense(date, stof(utils.convert_system_string_to_stdString(this->sum_transaction->Text)), utils.convert_system_string_to_stdString(this->type_transaction->Text));
 		expenses.add_expense(expense);
-		this->label_total_sum->Text = expenses.get_total_expense().ToString() + " руб.";
+		this->label_total_sum->Text = expenses.get_total_expense().ToString() + L" руб.";
 		this->dataGridView->Rows->Add(expense.get_id(), (gcnew System::String(expense.get_date().c_str())), expense.get_sum(), (gcnew System::String(expense.get_type().c_str())));
 	}
 
@@ -963,19 +959,30 @@ namespace FNM {
 			if (row->Cells[4]->Value != nullptr && row->Cells[4]->Value->ToString() == "True") {
 				expenses.delete_expense(stoi(utils.convert_system_string_to_stdString(row->Cells[0]->Value->ToString())));
 				dataGridView->Rows->RemoveAt(i);
-				this->label_total_sum->Text = expenses.get_total_expense().ToString() + " руб.";
+				this->label_total_sum->Text = expenses.get_total_expense().ToString() + L" руб.";
 			}
 		}
 	}
 
 	private: System::Void button_set_budget_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (String::IsNullOrEmpty(this->set_budget->Text)) {
-			this->label_error->Visible = true;
-			this->label_error->Text = "Поле не должно быть пустым!";
+			send_message(L"Поле не должно быть пустым!");
 		}
 		else {
-			go_to_main_window(utils.convert_system_string_to_stdString(this->user_login->Text));
+			if (utils.validate_set_budget(utils.convert_system_string_to_stdString(this->set_budget->Text))) {
+				for (User user : users.get_users()) {
+					if (this->user_login->Text->CompareTo(gcnew System::String(user.get_login().c_str()))) {
+						user.set_budget(stof(utils.convert_system_string_to_stdString(this->set_budget->Text)));
+						break;
+					}
+				}
+				go_to_main_window(utils.convert_system_string_to_stdString(this->user_login->Text));
+			}
+			else {
+				send_message(L"Введите корректное число!");
+			}
 		}
+		
 	}
 };
 }

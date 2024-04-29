@@ -953,6 +953,8 @@ namespace FNM {
 	}
 
 	private: System::Void show_incomes() {
+		this->sum_transaction->Clear();
+		this->type_transaction->Clear();
 		this->label_header_transaction->Text = L"Доходы";
 		this->label_head_of_list->Text = L"Список доходов";
 		this->dataGridView->Visible = true;
@@ -971,6 +973,8 @@ namespace FNM {
 	}
 
 	private: System::Void show_expenses() {
+		this->sum_transaction->Clear();
+		this->type_transaction->Clear();
 		this->dataGridView->Visible = true;
 		this->label_header_transaction->Text = L"Расходы";
 		this->label_header_transaction->Visible = true;
@@ -1035,6 +1039,7 @@ namespace FNM {
 			if (row->Cells[4]->Value != nullptr && row->Cells[4]->Value->ToString() == "True") {
 				incomes.delete_income(stoi(utils.convert_system_string_to_stdString(row->Cells[0]->Value->ToString())));
 				dataGridView->Rows->RemoveAt(i);
+				send_message_ok(L"Удаление выполнено!");
 			}
 		}
 
@@ -1100,10 +1105,12 @@ namespace FNM {
 		Income income = Income(date, stof(utils.convert_system_string_to_stdString(this->sum_transaction->Text)), utils.convert_system_string_to_stdString(this->type_transaction->Text));
 		incomes.add_income(income);
 		this->dataGridView->Rows->Add(income.get_id(), (gcnew System::String(income.get_date().c_str())), income.get_sum(), (gcnew System::String(income.get_type().c_str())));
+		send_message_ok(L"Запись успешно добавлена!");
 	}
 
 	private: System::Void button_save_incomes_Click(System::Object^ sender, System::EventArgs^ e) {
 		utils.write_to_file(utils.convert_system_string_to_stdString(this->user_login->Text) + "/incomes",  utils.convert_incomes_to_string(incomes.get_incomes()));
+		send_message_ok(L"Сохранение выполнено!");
 	}
 
 	private: System::Void button_add_expense_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -1111,10 +1118,12 @@ namespace FNM {
 		Expense expense = Expense(date, stof(utils.convert_system_string_to_stdString(this->sum_transaction->Text)), utils.convert_system_string_to_stdString(this->type_transaction->Text));
 		expenses.add_expense(expense);
 		this->dataGridView->Rows->Add(expense.get_id(), (gcnew System::String(expense.get_date().c_str())), expense.get_sum(), (gcnew System::String(expense.get_type().c_str())));
+		send_message_ok(L"Запись успешно добавлена!");
 	}
 
 	private: System::Void button_save_expenses_Click(System::Object^ sender, System::EventArgs^ e) {
 		utils.write_to_file(utils.convert_system_string_to_stdString(this->user_login->Text) + "/expenses", utils.convert_expenses_to_string(expenses.get_expenses()));
+		send_message_ok(L"Сохранение выполнено!");
 	}
 
 	private: System::Void button_delete_expense_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -1123,6 +1132,7 @@ namespace FNM {
 			if (row->Cells[4]->Value != nullptr && row->Cells[4]->Value->ToString() == "True") {
 				expenses.delete_expense(stoi(utils.convert_system_string_to_stdString(row->Cells[0]->Value->ToString())));
 				dataGridView->Rows->RemoveAt(i);
+				send_message_ok(L"Удаление выполнено!");
 			}
 		}
 	}

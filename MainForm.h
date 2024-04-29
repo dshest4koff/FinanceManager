@@ -379,7 +379,7 @@ namespace FNM {
 			// label_total_sum_icomes
 			// 
 			this->label_total_sum_icomes->AutoSize = true;
-			this->label_total_sum_icomes->Location = System::Drawing::Point(377, 161);
+			this->label_total_sum_icomes->Location = System::Drawing::Point(47, 144);
 			this->label_total_sum_icomes->Name = L"label_total_sum_icomes";
 			this->label_total_sum_icomes->Size = System::Drawing::Size(281, 25);
 			this->label_total_sum_icomes->TabIndex = 16;
@@ -388,7 +388,7 @@ namespace FNM {
 			// 
 			// total_sum_incomes
 			// 
-			this->total_sum_incomes->Location = System::Drawing::Point(393, 206);
+			this->total_sum_incomes->Location = System::Drawing::Point(63, 172);
 			this->total_sum_incomes->Name = L"total_sum_incomes";
 			this->total_sum_incomes->Size = System::Drawing::Size(250, 25);
 			this->total_sum_incomes->TabIndex = 17;
@@ -549,7 +549,7 @@ namespace FNM {
 			legend1->Position->X = 50.69782F;
 			legend1->Position->Y = 7;
 			this->chart1->Legends->Add(legend1);
-			this->chart1->Location = System::Drawing::Point(30, 147);
+			this->chart1->Location = System::Drawing::Point(30, 359);
 			this->chart1->Name = L"chart1";
 			series1->ChartArea = L"ChartArea1";
 			series1->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
@@ -670,7 +670,7 @@ namespace FNM {
 			// label_total_sum_expenses
 			// 
 			this->label_total_sum_expenses->AutoSize = true;
-			this->label_total_sum_expenses->Location = System::Drawing::Point(377, 265);
+			this->label_total_sum_expenses->Location = System::Drawing::Point(364, 144);
 			this->label_total_sum_expenses->Name = L"label_total_sum_expenses";
 			this->label_total_sum_expenses->Size = System::Drawing::Size(292, 25);
 			this->label_total_sum_expenses->TabIndex = 43;
@@ -679,7 +679,7 @@ namespace FNM {
 			// 
 			// total_sum_expenses
 			// 
-			this->total_sum_expenses->Location = System::Drawing::Point(393, 307);
+			this->total_sum_expenses->Location = System::Drawing::Point(390, 172);
 			this->total_sum_expenses->Name = L"total_sum_expenses";
 			this->total_sum_expenses->Size = System::Drawing::Size(250, 25);
 			this->total_sum_expenses->TabIndex = 44;
@@ -689,7 +689,7 @@ namespace FNM {
 			// label_sum_budget
 			// 
 			this->label_sum_budget->AutoSize = true;
-			this->label_sum_budget->Location = System::Drawing::Point(738, 206);
+			this->label_sum_budget->Location = System::Drawing::Point(738, 144);
 			this->label_sum_budget->Name = L"label_sum_budget";
 			this->label_sum_budget->Size = System::Drawing::Size(220, 25);
 			this->label_sum_budget->TabIndex = 45;
@@ -698,7 +698,7 @@ namespace FNM {
 			// 
 			// total_sum_budget
 			// 
-			this->total_sum_budget->Location = System::Drawing::Point(724, 254);
+			this->total_sum_budget->Location = System::Drawing::Point(724, 169);
 			this->total_sum_budget->Name = L"total_sum_budget";
 			this->total_sum_budget->Size = System::Drawing::Size(250, 25);
 			this->total_sum_budget->TabIndex = 46;
@@ -995,7 +995,7 @@ namespace FNM {
 	private: System::Void show_analyze() {
 		this->total_sum_expenses->Text = gcnew System::String(expenses.get_total_expense().ToString() + L" руб.");
 		this->total_sum_incomes->Text  = gcnew System::String(incomes.get_total_income().ToString() + L" руб.");
-		float total_budget = incomes.get_total_income() + expenses.get_total_expense();
+		float total_budget = incomes.get_total_income() - expenses.get_total_expense();
 		for (User user : users.get_users()) {
 			if (user.get_login() == utils.convert_system_string_to_stdString(this->user_login->Text)) {
 				total_budget += user.get_budget();
@@ -1226,6 +1226,7 @@ namespace FNM {
 	private: System::Void recover_password_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) {
 		go_to_recover_password();
 	}
+
 	private: System::Void button_get_password_Click(System::Object^ sender, System::EventArgs^ e) {
 		bool correct_recovering = false;
 		if (String::IsNullOrEmpty(this->user_login->Text) || String::IsNullOrEmpty(this->secret_word->Text)) {

@@ -655,13 +655,12 @@ namespace FNM {
 		else if (utils.validate_login(utils.convert_system_string_to_stdString(this->user_login->Text))) {
 				bool is_exists = false;
 				for (User user : users.get_users()) {
-					if (this->user_login->Text->CompareTo(gcnew System::String(user.get_login().c_str()))) {
+					if (this->user_login->Text->CompareTo(gcnew System::String(utils.convert_string_to_wstring(user.get_login()).c_str()))) {
 						is_exists = true;
 						break;
 					}
 				}
 				if (!is_exists) {
-					cout << "agag" << endl;
 					users.add_user(User(utils.convert_system_string_to_stdString(this->user_login->Text), utils.convert_system_string_to_stdString(this->user_password->Text), 0.0f));
 					utils.write_to_file("users", utils.convert_users_to_string(users.get_users()));
 					utils.create_directory(utils.convert_system_string_to_stdString(this->user_login->Text));
@@ -681,38 +680,16 @@ namespace FNM {
 	}
 
 	private: System::Void login() {
-		/*auto& users = utils.read_from_file("users");
-		if (!users.empty()) {
-			for (size_t i = 0; i < users.size() - 1; i++) {
-				if (this->user_login->Text->CompareTo(gcnew System::String(users[i].c_str()))) {
-					if (this->user_password->Text->CompareTo(gcnew System::String(users[i + 1].c_str()))) {
-						go_to_main_window(utils.convert_system_string_to_stdString(this->user_login->Text));
-						cout << "Успешный вход" << endl;
-					}
-					else {
-						this->label_error->Visible = true;
-						this->label_error->Text = L"Неправильный логин \nили пароль!";
-					}
-				}
-				else {
-					this->label_error->Visible = true;
-					this->label_error->Text = L"Неправильный логин \nили пароль!";
-				}
-			}
-		}
-		else {
-			this->label_error->Visible = true;
-			this->label_error->Text = L"Список пользователей пуст, \nнеобходимо зарегистрироваться";
-		}*/
+		users.set_users(utils.convert_string_to_users(utils.read_from_file("users")));
 		if (!users.get_users().empty()) {
 			bool correct_auth = false;
 			for (User user : users.get_users()) {
-				if(this->user_login->Text->CompareTo(gcnew System::String(user.get_login().c_str()) && 
-					this->user_password->Text->CompareTo(gcnew System::String(user.get_password().c_str())))){
-					this->label_error->Visible = false;
-					go_to_main_window(utils.convert_system_string_to_stdString(this->user_login->Text));
-					correct_auth = true;
-					break;
+				if((user.get_login() == (utils.convert_system_string_to_stdString(this->user_login->Text))) 
+					&& (user.get_password() == utils.convert_system_string_to_stdString(this->user_password->Text))){
+						this->label_error->Visible = false;
+						go_to_main_window(utils.convert_system_string_to_stdString(this->user_login->Text));
+						correct_auth = true;
+						break;
 				}
 			}
 			if (!correct_auth) {
@@ -926,7 +903,6 @@ namespace FNM {
 
 	private: System::Void MainForm_Load(System::Object^ sender, System::EventArgs^ e) {
 		init_file_users();
-
 	}
 
 	private: System::Void button_add_income_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -971,7 +947,7 @@ namespace FNM {
 		else {
 			if (utils.validate_set_budget(utils.convert_system_string_to_stdString(this->set_budget->Text))) {
 				for (User user : users.get_users()) {
-					if (this->user_login->Text->CompareTo(gcnew System::String(user.get_login().c_str()))) {
+					if (this->user_login->Text->CompareTo(gcnew System::String(utils.convert_string_to_wstring(user.get_login()).c_str()))) {
 						user.set_budget(stof(utils.convert_system_string_to_stdString(this->set_budget->Text)));
 						break;
 					}

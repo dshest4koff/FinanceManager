@@ -5,6 +5,8 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <locale>
+#include <codecvt>
 
 using namespace std;
 
@@ -299,7 +301,7 @@ namespace FNM {
         vector<string> convert_users_to_string(vector<User> users) {
             vector<string> data_str;
             for (auto& user : users) {
-                data_str.push_back(user.get_login() + "|" + user.get_password());
+                data_str.push_back(user.get_login() + "|" + user.get_password() + "|" + std::to_string(user.get_budget()));
             }
             return data_str;
         }
@@ -316,7 +318,7 @@ namespace FNM {
 
             vector<User> users;
             for (size_t i = 0; i < splited_data.size(); i = i + 3) {
-                users.push_back(User(splited_data.at(i), splited_data.at(i + 1),stof(splited_data.at(i+2))));
+                users.push_back(User(splited_data.at(i), splited_data.at(i + 1), stof(splited_data.at(i + 2))));
             }
 
             return users;
@@ -379,6 +381,13 @@ namespace FNM {
                 cout << "Некорректный ввод." << endl;
             }
             return result;
+        }
+
+        const wstring convert_string_to_wstring(string str) {
+            wstring_convert<codecvt_utf8_utf16<wchar_t>> converter;
+            string narrow = "your_string_here";
+            wstring wide = converter.from_bytes(narrow);
+            return wide;
         }
     };
 }

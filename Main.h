@@ -394,7 +394,7 @@ namespace FNM {
 
         const wstring convert_string_to_wstring(string str) {
             wstring_convert<codecvt_utf8_utf16<wchar_t>> converter;
-            string narrow = "your_string_here";
+            string narrow = str;
             wstring wide = converter.from_bytes(narrow);
             return wide;
         }

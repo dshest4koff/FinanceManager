@@ -58,8 +58,10 @@ namespace FNM {
 	private: System::Windows::Forms::Button^ button_exit;
 	private: System::Windows::Forms::DataGridView^ dataGridView;
 	private: System::Windows::Forms::Label^ label_header_transaction;
-	private: System::Windows::Forms::Label^ label_total_sum_transactions;
-	private: System::Windows::Forms::Label^ label_total_sum;
+	private: System::Windows::Forms::Label^ label_total_sum_icomes;
+	private: System::Windows::Forms::Label^ total_sum_incomes;
+
+
 	private: System::Windows::Forms::Button^ button_delete_incomes;
 	private: System::Windows::Forms::Button^ button_back;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ID;
@@ -89,6 +91,12 @@ namespace FNM {
 	private: System::Windows::Forms::Label^ label_secret_word;
 	private: System::Windows::Forms::LinkLabel^ recover_password;
 	private: System::Windows::Forms::Button^ button_back_to_main;
+	private: System::Windows::Forms::Button^ button_get_password;
+	private: System::Windows::Forms::Label^ label_total_sum_expenses;
+	private: System::Windows::Forms::Label^ total_sum_expenses;
+	private: System::Windows::Forms::Label^ label_sum_budget;
+	private: System::Windows::Forms::Label^ total_sum_budget;
+
 
 
 	protected:
@@ -130,8 +138,8 @@ namespace FNM {
 			this->Type = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Event = (gcnew System::Windows::Forms::DataGridViewCheckBoxColumn());
 			this->label_header_transaction = (gcnew System::Windows::Forms::Label());
-			this->label_total_sum_transactions = (gcnew System::Windows::Forms::Label());
-			this->label_total_sum = (gcnew System::Windows::Forms::Label());
+			this->label_total_sum_icomes = (gcnew System::Windows::Forms::Label());
+			this->total_sum_incomes = (gcnew System::Windows::Forms::Label());
 			this->button_delete_incomes = (gcnew System::Windows::Forms::Button());
 			this->button_back = (gcnew System::Windows::Forms::Button());
 			this->dateTimePicker = (gcnew System::Windows::Forms::DateTimePicker());
@@ -156,6 +164,11 @@ namespace FNM {
 			this->label_secret_word = (gcnew System::Windows::Forms::Label());
 			this->recover_password = (gcnew System::Windows::Forms::LinkLabel());
 			this->button_back_to_main = (gcnew System::Windows::Forms::Button());
+			this->button_get_password = (gcnew System::Windows::Forms::Button());
+			this->label_total_sum_expenses = (gcnew System::Windows::Forms::Label());
+			this->total_sum_expenses = (gcnew System::Windows::Forms::Label());
+			this->label_sum_budget = (gcnew System::Windows::Forms::Label());
+			this->total_sum_budget = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart1))->BeginInit();
 			this->SuspendLayout();
@@ -165,7 +178,7 @@ namespace FNM {
 			this->label_header->AutoSize = true;
 			this->label_header->Font = (gcnew System::Drawing::Font(L"Verdana", 36, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_header->Location = System::Drawing::Point(385, 192);
+			this->label_header->Location = System::Drawing::Point(440, 192);
 			this->label_header->Name = L"label_header";
 			this->label_header->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->label_header->Size = System::Drawing::Size(200, 73);
@@ -363,24 +376,24 @@ namespace FNM {
 			this->label_header_transaction->Text = L"Доходы";
 			this->label_header_transaction->Visible = false;
 			// 
-			// label_total_sum_transactions
+			// label_total_sum_icomes
 			// 
-			this->label_total_sum_transactions->AutoSize = true;
-			this->label_total_sum_transactions->Location = System::Drawing::Point(703, 18);
-			this->label_total_sum_transactions->Name = L"label_total_sum_transactions";
-			this->label_total_sum_transactions->Size = System::Drawing::Size(281, 25);
-			this->label_total_sum_transactions->TabIndex = 16;
-			this->label_total_sum_transactions->Text = L"Общая сумма доходов:";
-			this->label_total_sum_transactions->Visible = false;
+			this->label_total_sum_icomes->AutoSize = true;
+			this->label_total_sum_icomes->Location = System::Drawing::Point(377, 161);
+			this->label_total_sum_icomes->Name = L"label_total_sum_icomes";
+			this->label_total_sum_icomes->Size = System::Drawing::Size(281, 25);
+			this->label_total_sum_icomes->TabIndex = 16;
+			this->label_total_sum_icomes->Text = L"Общая сумма доходов:";
+			this->label_total_sum_icomes->Visible = false;
 			// 
-			// label_total_sum
+			// total_sum_incomes
 			// 
-			this->label_total_sum->Location = System::Drawing::Point(724, 60);
-			this->label_total_sum->Name = L"label_total_sum";
-			this->label_total_sum->Size = System::Drawing::Size(250, 25);
-			this->label_total_sum->TabIndex = 17;
-			this->label_total_sum->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
-			this->label_total_sum->Visible = false;
+			this->total_sum_incomes->Location = System::Drawing::Point(393, 206);
+			this->total_sum_incomes->Name = L"total_sum_incomes";
+			this->total_sum_incomes->Size = System::Drawing::Size(250, 25);
+			this->total_sum_incomes->TabIndex = 17;
+			this->total_sum_incomes->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->total_sum_incomes->Visible = false;
 			// 
 			// button_delete_incomes
 			// 
@@ -603,7 +616,6 @@ namespace FNM {
 			// 
 			this->secret_word->Location = System::Drawing::Point(408, 419);
 			this->secret_word->Name = L"secret_word";
-			this->secret_word->PasswordChar = '*';
 			this->secret_word->Size = System::Drawing::Size(230, 32);
 			this->secret_word->TabIndex = 38;
 			this->secret_word->Visible = false;
@@ -629,6 +641,7 @@ namespace FNM {
 			this->recover_password->TabIndex = 40;
 			this->recover_password->TabStop = true;
 			this->recover_password->Text = L"Восстановить пароль";
+			this->recover_password->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &MainForm::recover_password_LinkClicked);
 			// 
 			// button_back_to_main
 			// 
@@ -643,12 +656,67 @@ namespace FNM {
 			this->button_back_to_main->Visible = false;
 			this->button_back_to_main->Click += gcnew System::EventHandler(this, &MainForm::button_back_to_main_Click);
 			// 
+			// button_get_password
+			// 
+			this->button_get_password->Location = System::Drawing::Point(444, 415);
+			this->button_get_password->Name = L"button_get_password";
+			this->button_get_password->Size = System::Drawing::Size(194, 66);
+			this->button_get_password->TabIndex = 42;
+			this->button_get_password->Text = L"Восстановить пароль";
+			this->button_get_password->UseVisualStyleBackColor = true;
+			this->button_get_password->Visible = false;
+			this->button_get_password->Click += gcnew System::EventHandler(this, &MainForm::button_get_password_Click);
+			// 
+			// label_total_sum_expenses
+			// 
+			this->label_total_sum_expenses->AutoSize = true;
+			this->label_total_sum_expenses->Location = System::Drawing::Point(377, 265);
+			this->label_total_sum_expenses->Name = L"label_total_sum_expenses";
+			this->label_total_sum_expenses->Size = System::Drawing::Size(281, 25);
+			this->label_total_sum_expenses->TabIndex = 43;
+			this->label_total_sum_expenses->Text = L"Общая сумма доходов:";
+			this->label_total_sum_expenses->Visible = false;
+			// 
+			// total_sum_expenses
+			// 
+			this->total_sum_expenses->Location = System::Drawing::Point(393, 307);
+			this->total_sum_expenses->Name = L"total_sum_expenses";
+			this->total_sum_expenses->Size = System::Drawing::Size(250, 25);
+			this->total_sum_expenses->TabIndex = 44;
+			this->total_sum_expenses->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->total_sum_expenses->Visible = false;
+			// 
+			// label_sum_budget
+			// 
+			this->label_sum_budget->AutoSize = true;
+			this->label_sum_budget->Location = System::Drawing::Point(702, 206);
+			this->label_sum_budget->Name = L"label_sum_budget";
+			this->label_sum_budget->Size = System::Drawing::Size(281, 25);
+			this->label_sum_budget->TabIndex = 45;
+			this->label_sum_budget->Text = L"Общая сумма доходов:";
+			this->label_sum_budget->Visible = false;
+			// 
+			// total_sum_budget
+			// 
+			this->total_sum_budget->Location = System::Drawing::Point(724, 254);
+			this->total_sum_budget->Name = L"total_sum_budget";
+			this->total_sum_budget->Size = System::Drawing::Size(250, 25);
+			this->total_sum_budget->TabIndex = 46;
+			this->total_sum_budget->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->total_sum_budget->Visible = false;
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(14, 25);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::Window;
 			this->ClientSize = System::Drawing::Size(1006, 721);
+			this->Controls->Add(this->total_sum_budget);
+			this->Controls->Add(this->label_sum_budget);
+			this->Controls->Add(this->total_sum_expenses);
+			this->Controls->Add(this->label_total_sum_expenses);
+			this->Controls->Add(this->label_total_sum_icomes);
+			this->Controls->Add(this->button_get_password);
 			this->Controls->Add(this->button_back_to_main);
 			this->Controls->Add(this->recover_password);
 			this->Controls->Add(this->label_secret_word);
@@ -672,8 +740,7 @@ namespace FNM {
 			this->Controls->Add(this->dateTimePicker);
 			this->Controls->Add(this->button_back);
 			this->Controls->Add(this->button_delete_incomes);
-			this->Controls->Add(this->label_total_sum);
-			this->Controls->Add(this->label_total_sum_transactions);
+			this->Controls->Add(this->total_sum_incomes);
 			this->Controls->Add(this->label_header_transaction);
 			this->Controls->Add(this->button_analyze);
 			this->Controls->Add(this->button_expenses);
@@ -692,9 +759,11 @@ namespace FNM {
 			this->Controls->Add(this->dataGridView);
 			this->Font = (gcnew System::Drawing::Font(L"Verdana", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedToolWindow;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Margin = System::Windows::Forms::Padding(5, 3, 5, 3);
 			this->Name = L"MainForm";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Финансовый менеджер";
 			this->Load += gcnew System::EventHandler(this, &MainForm::MainForm_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView))->EndInit();
@@ -711,6 +780,12 @@ namespace FNM {
 
 	private: System::Void link_sing_up_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) {
 		this->label_header->Text = L"Регистрация";
+		this->label_header->Location = System::Drawing::Point(340, 192);
+		this->secret_word->Location = System::Drawing::Point(408, 419);
+		this->label_secret_word->Location = System::Drawing::Point(218, 422);
+		this->user_login->Clear();
+		this->user_password->Clear();
+		this->secret_word->Clear();
 		this->button_login->Visible = false;
 		this->link_sing_up->Visible = false;
 		this->button_sing_up->Visible = true;
@@ -739,7 +814,7 @@ namespace FNM {
 						break;
 					}
 				}
-				if (!is_exists) {
+				if (is_exists == false) {
 					users.add_user(User(utils.convert_system_string_to_stdString(this->user_login->Text), utils.convert_system_string_to_stdString(this->user_password->Text), 0.0f, utils.convert_system_string_to_stdString(this->secret_word->Text)));
 					utils.write_to_file("users", utils.convert_users_to_string(users.get_users()));
 					utils.create_directory(utils.convert_system_string_to_stdString(this->user_login->Text));
@@ -759,7 +834,6 @@ namespace FNM {
 	}
 
 	private: System::Void login() {
-		users.set_users(utils.convert_string_to_users(utils.read_from_file("users")));
 		if (!users.get_users().empty()) {
 			bool correct_auth = false;
 			if (String::IsNullOrEmpty(this->user_login->Text) || String::IsNullOrEmpty(this->user_password->Text)) {
@@ -836,8 +910,6 @@ namespace FNM {
 		this->button_report->Visible = false;
 		this->button_exit->Visible = false;
 		this->dataGridView->Visible = false;
-		this->label_total_sum_transactions->Visible = false;
-		this->label_total_sum->Visible = false;
 		this->label_header_transaction->Visible = false;
 		this->button_delete_incomes->Visible = false;
 		this->label_header->Visible = false;
@@ -871,15 +943,19 @@ namespace FNM {
 		this->secret_word->Visible = false;
 		this->recover_password->Visible = false;
 		this->button_back_to_main->Visible = false;
+		this->button_get_password->Visible = false;
+		this->label_total_sum_expenses->Visible = false;
+		this->total_sum_expenses->Visible = false;
+		this->label_total_sum_icomes->Visible = false;
+		this->total_sum_incomes->Visible = false;
+		this->label_sum_budget->Visible = false;
+		this->total_sum_budget->Visible = false;
 	}
 
 	private: System::Void show_incomes() {
-		this->label_total_sum_transactions->Text = L"Общая сумма доходов:";
 		this->label_header_transaction->Text = L"Доходы";
 		this->label_head_of_list->Text = L"Список доходов";
 		this->dataGridView->Visible = true;
-		this->label_total_sum_transactions->Visible = true;
-		this->label_total_sum->Visible = true;
 		this->label_header_transaction->Visible = true;
 		this->button_delete_incomes->Visible = true;
 		this->button_back->Visible = true;
@@ -896,9 +972,6 @@ namespace FNM {
 
 	private: System::Void show_expenses() {
 		this->dataGridView->Visible = true;
-		this->label_total_sum_transactions->Text = L"Общая сумма расходов:";
-		this->label_total_sum_transactions->Visible = true;
-		this->label_total_sum->Visible = true;
 		this->label_header_transaction->Text = L"Расходы";
 		this->label_header_transaction->Visible = true;
 		this->button_delete_expense->Visible = true;
@@ -918,19 +991,23 @@ namespace FNM {
 	private: System::Void show_analyze() {
 		this->button_back->Visible = true;
 		this->chart1->Visible = true;
+		this->label_total_sum_expenses->Visible = true;
+		this->total_sum_expenses->Visible = true;
+		this->label_total_sum_icomes->Visible = true;
+		this->total_sum_incomes->Visible = true;
+		this->label_sum_budget->Visible = true;
+		this->total_sum_budget->Visible = true;
 	}
 
 	private: System::Void button_incomes_Click(System::Object^ sender, System::EventArgs^ e) {
 		hide_all();
 		set_incomes_to_dataGridView();
-		this->label_total_sum->Text = incomes.get_total_income().ToString() + L" руб.";
 		show_incomes();
 	}
 
 	private: System::Void button_expenses_Click(System::Object^ sender, System::EventArgs^ e) {
 		hide_all();
 		set_expenses_to_dataGridView();
-		this->label_total_sum->Text = expenses.get_total_expense().ToString() + L" руб.";
 		show_expenses();
 	}
 
@@ -946,7 +1023,6 @@ namespace FNM {
 			if (row->Cells[4]->Value != nullptr && row->Cells[4]->Value->ToString() == "True") {
 				incomes.delete_income(stoi(utils.convert_system_string_to_stdString(row->Cells[0]->Value->ToString())));
 				dataGridView->Rows->RemoveAt(i);
-				this->label_total_sum->Text = incomes.get_total_income().ToString() + L" руб.";
 			}
 		}
 
@@ -1004,13 +1080,13 @@ namespace FNM {
 
 	private: System::Void MainForm_Load(System::Object^ sender, System::EventArgs^ e) {
 		init_file_users();
+		users.set_users(utils.convert_string_to_users(utils.read_from_file("users")));
 	}
 
 	private: System::Void button_add_income_Click(System::Object^ sender, System::EventArgs^ e) {
 		string date = utils.convert_system_string_to_stdString(dateTimePicker->Value.Day.ToString() + "/" + dateTimePicker->Value.Month.ToString() + "/" + dateTimePicker->Value.Year.ToString());
 		Income income = Income(date, stof(utils.convert_system_string_to_stdString(this->sum_transaction->Text)), utils.convert_system_string_to_stdString(this->type_transaction->Text));
 		incomes.add_income(income);
-		this->label_total_sum->Text = incomes.get_total_income().ToString() + L" руб.";
 		this->dataGridView->Rows->Add(income.get_id(), (gcnew System::String(income.get_date().c_str())), income.get_sum(), (gcnew System::String(income.get_type().c_str())));
 	}
 
@@ -1022,7 +1098,6 @@ namespace FNM {
 		string date = utils.convert_system_string_to_stdString(dateTimePicker->Value.Day.ToString() + "/" + dateTimePicker->Value.Month.ToString() + "/" + dateTimePicker->Value.Year.ToString());
 		Expense expense = Expense(date, stof(utils.convert_system_string_to_stdString(this->sum_transaction->Text)), utils.convert_system_string_to_stdString(this->type_transaction->Text));
 		expenses.add_expense(expense);
-		this->label_total_sum->Text = expenses.get_total_expense().ToString() + L" руб.";
 		this->dataGridView->Rows->Add(expense.get_id(), (gcnew System::String(expense.get_date().c_str())), expense.get_sum(), (gcnew System::String(expense.get_type().c_str())));
 	}
 
@@ -1036,7 +1111,6 @@ namespace FNM {
 			if (row->Cells[4]->Value != nullptr && row->Cells[4]->Value->ToString() == "True") {
 				expenses.delete_expense(stoi(utils.convert_system_string_to_stdString(row->Cells[0]->Value->ToString())));
 				dataGridView->Rows->RemoveAt(i);
-				this->label_total_sum->Text = expenses.get_total_expense().ToString() + L" руб.";
 			}
 		}
 	}
@@ -1086,9 +1160,18 @@ namespace FNM {
 	private: System::Void button_go_to_reset_budget_Click(System::Object^ sender, System::EventArgs^ e) {
 		go_to_reset_budget();
 	}
+
 	private: System::Void button_back_to_main_Click(System::Object^ sender, System::EventArgs^ e) {
+		go_to_login();
+	}
+
+	private: System::Void go_to_login() {
 		hide_all();
 		this->label_header->Text = L"Вход";
+		this->label_header->Location = System::Drawing::Point(440, 192);
+		this->user_login->Clear();
+		this->user_password->Clear();
+		this->secret_word->Clear();
 		this->label_header->Visible = true;
 		this->label_login->Visible = true;
 		this->user_login->Visible = true;
@@ -1097,6 +1180,49 @@ namespace FNM {
 		this->button_login->Visible = true;
 		this->link_sing_up->Visible = true;
 		this->recover_password->Visible = true;
+	}
+
+	private: System::Void go_to_recover_password() {
+		hide_all();
+		this->label_header->Text = L"Восстановление пароля";
+		this->user_login->Clear();
+		this->user_password->Clear();
+		this->secret_word->Clear();
+		this->label_header->Location = System::Drawing::Point(170, 182);
+		this->label_secret_word->Location = System::Drawing::Point(225, 374);
+		this->secret_word->Location = System::Drawing::Point(408, 374);
+		this->label_header->Visible = true;
+		this->label_login->Visible = true;
+		this->user_login->Visible = true;
+		this->label_secret_word->Visible = true;
+		this->secret_word->Visible = true;
+		this->button_get_password->Visible = true;
+		this->button_back_to_main->Visible = true;
+
+	}
+
+	private: System::Void recover_password_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) {
+		go_to_recover_password();
+	}
+	private: System::Void button_get_password_Click(System::Object^ sender, System::EventArgs^ e) {
+		bool correct_recovering = false;
+		if (String::IsNullOrEmpty(this->user_login->Text) || String::IsNullOrEmpty(this->secret_word->Text)) {
+			send_error(L"Поле логин или кодовое слово не должно быть пустым!");
+		}
+		else {
+			for (User user : users.get_users()) {
+				if ((user.get_login() == (utils.convert_system_string_to_stdString(this->user_login->Text)))
+					&& (user.get_secret_word() == utils.convert_system_string_to_stdString(this->secret_word->Text))) {
+					send_message_ok(L"Ваш пароль: " + utils.convert_string_to_wstring(user.get_password()));
+					go_to_login();
+					correct_recovering = true;
+					break;
+				}
+			}
+			if (!correct_recovering) {
+				send_error(L"Неправильный логин или кодовое слово!");
+			}
+		}
 	}
 };
 }

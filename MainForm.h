@@ -85,6 +85,10 @@ namespace FNM {
 	private: System::Windows::Forms::Button^ button_set_budget;
 	private: System::Windows::Forms::Button^ button_go_to_reset_budget;
 	private: System::Windows::Forms::Button^ button_reset_budget;
+	private: System::Windows::Forms::TextBox^ secret_word;
+	private: System::Windows::Forms::Label^ label_secret_word;
+	private: System::Windows::Forms::LinkLabel^ recover_password;
+	private: System::Windows::Forms::Button^ button_back_to_main;
 
 
 	protected:
@@ -148,6 +152,10 @@ namespace FNM {
 			this->button_set_budget = (gcnew System::Windows::Forms::Button());
 			this->button_go_to_reset_budget = (gcnew System::Windows::Forms::Button());
 			this->button_reset_budget = (gcnew System::Windows::Forms::Button());
+			this->secret_word = (gcnew System::Windows::Forms::TextBox());
+			this->label_secret_word = (gcnew System::Windows::Forms::Label());
+			this->recover_password = (gcnew System::Windows::Forms::LinkLabel());
+			this->button_back_to_main = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart1))->BeginInit();
 			this->SuspendLayout();
@@ -199,7 +207,7 @@ namespace FNM {
 			// 
 			// button_login
 			// 
-			this->button_login->Location = System::Drawing::Point(408, 442);
+			this->button_login->Location = System::Drawing::Point(408, 422);
 			this->button_login->Name = L"button_login";
 			this->button_login->Size = System::Drawing::Size(230, 53);
 			this->button_login->TabIndex = 5;
@@ -212,7 +220,7 @@ namespace FNM {
 			this->link_sing_up->AutoSize = true;
 			this->link_sing_up->Font = (gcnew System::Drawing::Font(L"Verdana", 7.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->link_sing_up->Location = System::Drawing::Point(455, 498);
+			this->link_sing_up->Location = System::Drawing::Point(455, 478);
 			this->link_sing_up->Name = L"link_sing_up";
 			this->link_sing_up->Size = System::Drawing::Size(146, 16);
 			this->link_sing_up->TabIndex = 6;
@@ -222,7 +230,7 @@ namespace FNM {
 			// 
 			// button_sing_up
 			// 
-			this->button_sing_up->Location = System::Drawing::Point(382, 442);
+			this->button_sing_up->Location = System::Drawing::Point(382, 461);
 			this->button_sing_up->Name = L"button_sing_up";
 			this->button_sing_up->Size = System::Drawing::Size(274, 53);
 			this->button_sing_up->TabIndex = 7;
@@ -591,12 +599,60 @@ namespace FNM {
 			this->button_reset_budget->Visible = false;
 			this->button_reset_budget->Click += gcnew System::EventHandler(this, &MainForm::button_reset_budget_Click);
 			// 
+			// secret_word
+			// 
+			this->secret_word->Location = System::Drawing::Point(408, 419);
+			this->secret_word->Name = L"secret_word";
+			this->secret_word->PasswordChar = '*';
+			this->secret_word->Size = System::Drawing::Size(230, 32);
+			this->secret_word->TabIndex = 38;
+			this->secret_word->Visible = false;
+			// 
+			// label_secret_word
+			// 
+			this->label_secret_word->AutoSize = true;
+			this->label_secret_word->Location = System::Drawing::Point(218, 422);
+			this->label_secret_word->Name = L"label_secret_word";
+			this->label_secret_word->Size = System::Drawing::Size(193, 25);
+			this->label_secret_word->TabIndex = 39;
+			this->label_secret_word->Text = L"Кодовое слово:";
+			this->label_secret_word->Visible = false;
+			// 
+			// recover_password
+			// 
+			this->recover_password->AutoSize = true;
+			this->recover_password->Font = (gcnew System::Drawing::Font(L"Verdana", 7.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->recover_password->Location = System::Drawing::Point(455, 498);
+			this->recover_password->Name = L"recover_password";
+			this->recover_password->Size = System::Drawing::Size(152, 16);
+			this->recover_password->TabIndex = 40;
+			this->recover_password->TabStop = true;
+			this->recover_password->Text = L"Восстановить пароль";
+			// 
+			// button_back_to_main
+			// 
+			this->button_back_to_main->Font = (gcnew System::Drawing::Font(L"Verdana", 19.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->button_back_to_main->Location = System::Drawing::Point(13, 13);
+			this->button_back_to_main->Name = L"button_back_to_main";
+			this->button_back_to_main->Size = System::Drawing::Size(65, 50);
+			this->button_back_to_main->TabIndex = 41;
+			this->button_back_to_main->Text = L"←";
+			this->button_back_to_main->UseVisualStyleBackColor = true;
+			this->button_back_to_main->Visible = false;
+			this->button_back_to_main->Click += gcnew System::EventHandler(this, &MainForm::button_back_to_main_Click);
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(14, 25);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::Window;
 			this->ClientSize = System::Drawing::Size(1006, 721);
+			this->Controls->Add(this->button_back_to_main);
+			this->Controls->Add(this->recover_password);
+			this->Controls->Add(this->label_secret_word);
+			this->Controls->Add(this->secret_word);
 			this->Controls->Add(this->button_reset_budget);
 			this->Controls->Add(this->button_go_to_reset_budget);
 			this->Controls->Add(this->button_set_budget);
@@ -619,12 +675,9 @@ namespace FNM {
 			this->Controls->Add(this->label_total_sum);
 			this->Controls->Add(this->label_total_sum_transactions);
 			this->Controls->Add(this->label_header_transaction);
-			this->Controls->Add(this->button_exit);
-			this->Controls->Add(this->button_report);
 			this->Controls->Add(this->button_analyze);
 			this->Controls->Add(this->button_expenses);
 			this->Controls->Add(this->button_incomes);
-			this->Controls->Add(this->button_sing_up);
 			this->Controls->Add(this->link_sing_up);
 			this->Controls->Add(this->button_login);
 			this->Controls->Add(this->label_password);
@@ -633,6 +686,9 @@ namespace FNM {
 			this->Controls->Add(this->user_login);
 			this->Controls->Add(this->label_header);
 			this->Controls->Add(this->label_set_budget);
+			this->Controls->Add(this->button_exit);
+			this->Controls->Add(this->button_report);
+			this->Controls->Add(this->button_sing_up);
 			this->Controls->Add(this->dataGridView);
 			this->Font = (gcnew System::Drawing::Font(L"Verdana", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
@@ -658,6 +714,10 @@ namespace FNM {
 		this->button_login->Visible = false;
 		this->link_sing_up->Visible = false;
 		this->button_sing_up->Visible = true;
+		this->label_secret_word->Visible = true;
+		this->secret_word->Visible = true;
+		this->recover_password->Visible = false;
+		this->button_back_to_main->Visible = true;
 	}
 
 	private: System::Void button_sing_up_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -667,8 +727,8 @@ namespace FNM {
 	}
 
 	private: System::Boolean create_user() {
-		if (String::IsNullOrEmpty(this->user_login->Text) || String::IsNullOrEmpty(this->user_password->Text)) {
-			send_error(L"Поле логин или пароль\nне должно быть пустым!");
+		if (String::IsNullOrEmpty(this->user_login->Text) || String::IsNullOrEmpty(this->user_password->Text) || String::IsNullOrEmpty(this->secret_word->Text)) {
+			send_error(L"Поле логин или пароль не должно быть пустым!");
 			return false;
 		}
 		else if (utils.validate_login(utils.convert_system_string_to_stdString(this->user_login->Text))) {
@@ -680,7 +740,7 @@ namespace FNM {
 					}
 				}
 				if (!is_exists) {
-					users.add_user(User(utils.convert_system_string_to_stdString(this->user_login->Text), utils.convert_system_string_to_stdString(this->user_password->Text), 0.0f));
+					users.add_user(User(utils.convert_system_string_to_stdString(this->user_login->Text), utils.convert_system_string_to_stdString(this->user_password->Text), 0.0f, utils.convert_system_string_to_stdString(this->secret_word->Text)));
 					utils.write_to_file("users", utils.convert_users_to_string(users.get_users()));
 					utils.create_directory(utils.convert_system_string_to_stdString(this->user_login->Text));
 					utils.write_to_file(utils.convert_system_string_to_stdString(this->user_login->Text) + "/incomes", utils.convert_incomes_to_string(incomes.get_incomes()));
@@ -688,12 +748,12 @@ namespace FNM {
 					return true;
 				}
 				else {
-					send_error(L"Такой логин\nуже занят");
+					send_error(L"Такой логин уже занят");
 					return false;
 				}
 		}
 		else {
-			send_error(L"Логин может содержать буквы\nтолько латинского алфавита");
+			send_error(L"Логин может содержать буквы только латинского алфавита");
 			return false;
 		}
 	}
@@ -703,24 +763,25 @@ namespace FNM {
 		if (!users.get_users().empty()) {
 			bool correct_auth = false;
 			if (String::IsNullOrEmpty(this->user_login->Text) || String::IsNullOrEmpty(this->user_password->Text)) {
-				send_error(L"Поле логин или пароль\nне должно быть пустым!");
+				send_error(L"Поле логин или пароль не должно быть пустым!");
 			}
 			else {
 				for (User user : users.get_users()) {
 					if ((user.get_login() == (utils.convert_system_string_to_stdString(this->user_login->Text)))
 						&& (user.get_password() == utils.convert_system_string_to_stdString(this->user_password->Text))) {
+						send_message_ok(L"Успешный вход");
 						go_to_main_window(utils.convert_system_string_to_stdString(this->user_login->Text));
 						correct_auth = true;
 						break;
 					}
 				}
 				if (!correct_auth) {
-					send_error(L"Неправильный логин\nили пароль!");
+					send_error(L"Неправильный логин или пароль!");
 				}
 			}
 		}
 		else {
-			send_error(L"Список пользователей пуст,\nнеобходимо зарегистрироваться");
+			send_error(L"Список пользователей пуст, необходимо зарегистрироваться");
 		}
 	}
 
@@ -734,6 +795,7 @@ namespace FNM {
 		wstring error = L"Ошибка";
 		MessageBox::Show(this, gcnew System::String(message.c_str()), gcnew System::String(error.c_str()), MessageBoxButtons::OK, MessageBoxIcon::Error);
 	}
+
 	private: System::Void send_message_ok(wstring message) {
 		wstring error = L"Успех";
 		MessageBox::Show(this, gcnew System::String(message.c_str()), gcnew System::String(error.c_str()), MessageBoxButtons::OK, MessageBoxIcon::Information);
@@ -805,6 +867,10 @@ namespace FNM {
 		this->set_budget->Visible = false;
 		this->button_reset_budget->Visible = false;
 		this->button_go_to_reset_budget->Visible = false;
+		this->label_secret_word->Visible = false;
+		this->secret_word->Visible = false;
+		this->recover_password->Visible = false;
+		this->button_back_to_main->Visible = false;
 	}
 
 	private: System::Void show_incomes() {
@@ -987,6 +1053,7 @@ namespace FNM {
 						break;
 					}
 				}
+				send_message_ok(L"Аккаунт успешно создан");
 				go_to_main_window(utils.convert_system_string_to_stdString(this->user_login->Text));
 			}
 			else {
@@ -1015,8 +1082,21 @@ namespace FNM {
 			}
 		}
 	}
+
 	private: System::Void button_go_to_reset_budget_Click(System::Object^ sender, System::EventArgs^ e) {
 		go_to_reset_budget();
+	}
+	private: System::Void button_back_to_main_Click(System::Object^ sender, System::EventArgs^ e) {
+		hide_all();
+		this->label_header->Text = L"Вход";
+		this->label_header->Visible = true;
+		this->label_login->Visible = true;
+		this->user_login->Visible = true;
+		this->label_password->Visible = true;
+		this->user_password->Visible = true;
+		this->button_login->Visible = true;
+		this->link_sing_up->Visible = true;
+		this->recover_password->Visible = true;
 	}
 };
 }

@@ -134,9 +134,10 @@ namespace FNM {
         string login;
         string password;
         float budget;
+        string secret_word;
     public:
         User() {}
-        User(string login, string password, float budget) : login(login), password(password), budget(budget) {}
+        User(string login, string password, float budget, string secret_word) : login(login), password(password), budget(budget), secret_word(secret_word) {}
 
         void set_login(string login) {
             this->login = login;
@@ -150,6 +151,10 @@ namespace FNM {
             this->budget = budget;
         }
 
+        void set_secret_word(string secret_word) {
+            this->secret_word = secret_word;
+        }
+
         string get_login() {
             return this->login;
         }
@@ -160,6 +165,10 @@ namespace FNM {
 
         float get_budget() {
             return this->budget;
+        }
+
+        string get_secret_word() {
+            return this->secret_word;
         }
     };
 
@@ -301,7 +310,7 @@ namespace FNM {
         vector<string> convert_users_to_string(vector<User> users) {
             vector<string> data_str;
             for (auto& user : users) {
-                data_str.push_back(user.get_login() + "|" + user.get_password() + "|" + std::to_string(user.get_budget()));
+                data_str.push_back(user.get_login() + "|" + user.get_password() + "|" + std::to_string(user.get_budget()) + "|" + user.get_secret_word());
             }
             return data_str;
         }
@@ -317,8 +326,8 @@ namespace FNM {
             }
 
             vector<User> users;
-            for (size_t i = 0; i < splited_data.size(); i = i + 3) {
-                users.push_back(User(splited_data.at(i), splited_data.at(i + 1), stof(splited_data.at(i + 2))));
+            for (size_t i = 0; i < splited_data.size(); i = i + 4) {
+                users.push_back(User(splited_data.at(i), splited_data.at(i + 1), stof(splited_data.at(i + 2)), splited_data.at(i + 3)));
             }
 
             return users;

@@ -15,6 +15,7 @@ namespace FNM {
 	FNM::Expenses expenses;
 	FNM::Utils utils;
 	FNM::Users users;
+	FNM::User auth_user;
 
 
 	/// <summary>
@@ -815,11 +816,12 @@ namespace FNM {
 					}
 				}
 				if (is_exists == false) {
-					users.add_user(User(utils.convert_system_string_to_stdString(this->user_login->Text), utils.convert_system_string_to_stdString(this->user_password->Text), 0.0f, utils.convert_system_string_to_stdString(this->secret_word->Text)));
+					auth_user = User(utils.convert_system_string_to_stdString(this->user_login->Text), utils.convert_system_string_to_stdString(this->user_password->Text), 0.0f, utils.convert_system_string_to_stdString(this->secret_word->Text));
+					users.add_user(auth_user);
 					utils.write_to_file("users", utils.convert_users_to_string(users.get_users()));
-					utils.create_directory(utils.convert_system_string_to_stdString(this->user_login->Text));
-					utils.write_to_file(utils.convert_system_string_to_stdString(this->user_login->Text) + "/incomes", utils.convert_incomes_to_string(incomes.get_incomes()));
-					utils.write_to_file(utils.convert_system_string_to_stdString(this->user_login->Text) + "/expenses", utils.convert_expenses_to_string(expenses.get_expenses()));
+					utils.create_directory(auth_user.get_login());
+					utils.write_to_file(auth_user.get_login() + "/incomes", utils.convert_incomes_to_string(incomes.get_incomes()));
+					utils.write_to_file(auth_user.get_login() + "/expenses", utils.convert_expenses_to_string(expenses.get_expenses()));
 					return true;
 				}
 				else {
@@ -844,7 +846,8 @@ namespace FNM {
 					if ((user.get_login() == (utils.convert_system_string_to_stdString(this->user_login->Text)))
 						&& (user.get_password() == utils.convert_system_string_to_stdString(this->user_password->Text))) {
 						send_message_ok(L"Успешный вход");
-						go_to_main_window(utils.convert_system_string_to_stdString(this->user_login->Text));
+						auth_user = user;
+						go_to_main_window(auth_user.get_login());
 						correct_auth = true;
 						break;
 					}
@@ -995,13 +998,7 @@ namespace FNM {
 	private: System::Void show_analyze() {
 		this->total_sum_expenses->Text = gcnew System::String(expenses.get_total_expense().ToString() + L" руб.");
 		this->total_sum_incomes->Text  = gcnew System::String(incomes.get_total_income().ToString() + L" руб.");
-		float total_budget = incomes.get_total_income() - expenses.get_total_expense();
-		for (User user : users.get_users()) {
-			if (user.get_login() == utils.convert_system_string_to_stdString(this->user_login->Text)) {
-				total_budget += user.get_budget();
-				break;
-			}
-		}
+		float total_budget = incomes.get_total_income() - expenses.get_total_expense() + auth_user.get_budget();
 		this->total_sum_budget->Text = gcnew System::String(total_budget.ToString() + L" руб.");
 		this->label_header_transaction->Text = L"Анализ";
 		this->label_header_transaction->Visible = true;
@@ -1146,6 +1143,7 @@ namespace FNM {
 				for (User user : users.get_users()) {
 					if (user.get_login() == utils.convert_system_string_to_stdString(this->user_login->Text)) {
 						user.set_budget(stof(utils.convert_system_string_to_stdString(this->set_budget->Text)));
+						auth_user = user;
 						break;
 					}
 				}
@@ -1168,6 +1166,7 @@ namespace FNM {
 				for (User user : users.get_users()) {
 					if (user.get_login() == utils.convert_system_string_to_stdString(this->user_login->Text)) {
 						user.set_budget(stof(utils.convert_system_string_to_stdString(this->set_budget->Text)));
+						auth_user = user;
 						break;
 					}
 				}

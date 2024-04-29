@@ -270,7 +270,7 @@ namespace FNM {
 
             vector<Income> incomes;
             for (size_t i = 0; i < splited_data.size(); i = i + 4) {
-                incomes.push_back(Income(splited_data.at(i + 1), stoi(splited_data.at(i + 2)), splited_data.at(i + 3)));
+                incomes.push_back(Income(splited_data.at(i + 1), stof(splited_data.at(i + 2)), splited_data.at(i + 3)));
             }
 
             return incomes;
@@ -296,7 +296,7 @@ namespace FNM {
 
             vector<Expense> expense;
             for (size_t i = 0; i < splited_data.size(); i = i + 4) {
-                expense.push_back(Expense(splited_data.at(i + 1), stoi(splited_data.at(i + 2)), splited_data.at(i + 3)));
+                expense.push_back(Expense(splited_data.at(i + 1), stof(splited_data.at(i + 2)), splited_data.at(i + 3)));
             }
 
             return expense;
@@ -387,7 +387,7 @@ namespace FNM {
                     result = true;
                 }
             }catch (const std::invalid_argument&) {
-                cout << "Некорректный ввод." << endl;
+                cout << L"Некорректный ввод." << endl;
             }
             return result;
         }

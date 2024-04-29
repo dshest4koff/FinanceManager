@@ -672,9 +672,9 @@ namespace FNM {
 			this->label_total_sum_expenses->AutoSize = true;
 			this->label_total_sum_expenses->Location = System::Drawing::Point(377, 265);
 			this->label_total_sum_expenses->Name = L"label_total_sum_expenses";
-			this->label_total_sum_expenses->Size = System::Drawing::Size(281, 25);
+			this->label_total_sum_expenses->Size = System::Drawing::Size(292, 25);
 			this->label_total_sum_expenses->TabIndex = 43;
-			this->label_total_sum_expenses->Text = L"Общая сумма доходов:";
+			this->label_total_sum_expenses->Text = L"Общая сумма расходов:";
 			this->label_total_sum_expenses->Visible = false;
 			// 
 			// total_sum_expenses
@@ -689,11 +689,11 @@ namespace FNM {
 			// label_sum_budget
 			// 
 			this->label_sum_budget->AutoSize = true;
-			this->label_sum_budget->Location = System::Drawing::Point(702, 206);
+			this->label_sum_budget->Location = System::Drawing::Point(738, 206);
 			this->label_sum_budget->Name = L"label_sum_budget";
-			this->label_sum_budget->Size = System::Drawing::Size(281, 25);
+			this->label_sum_budget->Size = System::Drawing::Size(220, 25);
 			this->label_sum_budget->TabIndex = 45;
-			this->label_sum_budget->Text = L"Общая сумма доходов:";
+			this->label_sum_budget->Text = L"Текущий бюджет:";
 			this->label_sum_budget->Visible = false;
 			// 
 			// total_sum_budget
@@ -989,14 +989,26 @@ namespace FNM {
 	}
 
 	private: System::Void show_analyze() {
+		this->total_sum_expenses->Text = gcnew System::String(expenses.get_total_expense().ToString() + L" руб.");
+		this->total_sum_incomes->Text  = gcnew System::String(incomes.get_total_income().ToString() + L" руб.");
+		float total_budget = incomes.get_total_income() + expenses.get_total_expense();
+		for (User user : users.get_users()) {
+			if (user.get_login() == utils.convert_system_string_to_stdString(this->user_login->Text)) {
+				total_budget += user.get_budget();
+				break;
+			}
+		}
+		this->total_sum_budget->Text = gcnew System::String(total_budget.ToString() + L" руб.");
+		this->label_header_transaction->Text = L"Анализ";
+		this->label_header_transaction->Visible = true;
+		this->label_sum_budget->Visible = true;
+		this->total_sum_budget->Visible = true;
+		this->total_sum_expenses->Visible = true;
 		this->button_back->Visible = true;
 		this->chart1->Visible = true;
 		this->label_total_sum_expenses->Visible = true;
-		this->total_sum_expenses->Visible = true;
 		this->label_total_sum_icomes->Visible = true;
 		this->total_sum_incomes->Visible = true;
-		this->label_sum_budget->Visible = true;
-		this->total_sum_budget->Visible = true;
 	}
 
 	private: System::Void button_incomes_Click(System::Object^ sender, System::EventArgs^ e) {

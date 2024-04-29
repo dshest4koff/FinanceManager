@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Main.h"
 
+
 namespace FNM {
 
 	using namespace System;
@@ -49,7 +50,7 @@ namespace FNM {
 	private: System::Windows::Forms::Button^ button_login;
 	private: System::Windows::Forms::LinkLabel^ link_sing_up;
 	private: System::Windows::Forms::Button^ button_sing_up;
-	private: System::Windows::Forms::Label^ label_error;
+
 	private: System::Windows::Forms::Button^ button_incomes;
 	private: System::Windows::Forms::Button^ button_expenses;
 	private: System::Windows::Forms::Button^ button_analyze;
@@ -82,6 +83,10 @@ namespace FNM {
 	private: System::Windows::Forms::Label^ label_set_budget;
 	private: System::Windows::Forms::TextBox^ set_budget;
 	private: System::Windows::Forms::Button^ button_set_budget;
+	private: System::Windows::Forms::Button^ button_go_to_reset_budget;
+	private: System::Windows::Forms::Button^ button_reset_budget;
+
+
 	protected:
 
 	private:
@@ -109,7 +114,6 @@ namespace FNM {
 			this->button_login = (gcnew System::Windows::Forms::Button());
 			this->link_sing_up = (gcnew System::Windows::Forms::LinkLabel());
 			this->button_sing_up = (gcnew System::Windows::Forms::Button());
-			this->label_error = (gcnew System::Windows::Forms::Label());
 			this->button_incomes = (gcnew System::Windows::Forms::Button());
 			this->button_expenses = (gcnew System::Windows::Forms::Button());
 			this->button_analyze = (gcnew System::Windows::Forms::Button());
@@ -142,6 +146,8 @@ namespace FNM {
 			this->label_set_budget = (gcnew System::Windows::Forms::Label());
 			this->set_budget = (gcnew System::Windows::Forms::TextBox());
 			this->button_set_budget = (gcnew System::Windows::Forms::Button());
+			this->button_go_to_reset_budget = (gcnew System::Windows::Forms::Button());
+			this->button_reset_budget = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart1))->BeginInit();
 			this->SuspendLayout();
@@ -224,16 +230,6 @@ namespace FNM {
 			this->button_sing_up->UseVisualStyleBackColor = true;
 			this->button_sing_up->Visible = false;
 			this->button_sing_up->Click += gcnew System::EventHandler(this, &MainForm::button_sing_up_Click);
-			// 
-			// label_error
-			// 
-			this->label_error->AutoSize = true;
-			this->label_error->Location = System::Drawing::Point(678, 309);
-			this->label_error->Name = L"label_error";
-			this->label_error->Size = System::Drawing::Size(80, 25);
-			this->label_error->TabIndex = 8;
-			this->label_error->Text = L"label1";
-			this->label_error->Visible = false;
 			// 
 			// button_incomes
 			// 
@@ -573,15 +569,38 @@ namespace FNM {
 			this->button_set_budget->Visible = false;
 			this->button_set_budget->Click += gcnew System::EventHandler(this, &MainForm::button_set_budget_Click);
 			// 
+			// button_go_to_reset_budget
+			// 
+			this->button_go_to_reset_budget->Location = System::Drawing::Point(382, 133);
+			this->button_go_to_reset_budget->Name = L"button_go_to_reset_budget";
+			this->button_go_to_reset_budget->Size = System::Drawing::Size(274, 53);
+			this->button_go_to_reset_budget->TabIndex = 36;
+			this->button_go_to_reset_budget->Text = L"Начальный бюджет";
+			this->button_go_to_reset_budget->UseVisualStyleBackColor = true;
+			this->button_go_to_reset_budget->Visible = false;
+			this->button_go_to_reset_budget->Click += gcnew System::EventHandler(this, &MainForm::button_go_to_reset_budget_Click);
+			// 
+			// button_reset_budget
+			// 
+			this->button_reset_budget->Location = System::Drawing::Point(444, 289);
+			this->button_reset_budget->Name = L"button_reset_budget";
+			this->button_reset_budget->Size = System::Drawing::Size(194, 66);
+			this->button_reset_budget->TabIndex = 37;
+			this->button_reset_budget->Text = L"Установить";
+			this->button_reset_budget->UseVisualStyleBackColor = true;
+			this->button_reset_budget->Visible = false;
+			this->button_reset_budget->Click += gcnew System::EventHandler(this, &MainForm::button_reset_budget_Click);
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(14, 25);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::Window;
 			this->ClientSize = System::Drawing::Size(1006, 721);
+			this->Controls->Add(this->button_reset_budget);
+			this->Controls->Add(this->button_go_to_reset_budget);
 			this->Controls->Add(this->button_set_budget);
 			this->Controls->Add(this->set_budget);
-			this->Controls->Add(this->label_set_budget);
 			this->Controls->Add(this->chart1);
 			this->Controls->Add(this->button_delete_expense);
 			this->Controls->Add(this->button_save_expenses);
@@ -600,13 +619,11 @@ namespace FNM {
 			this->Controls->Add(this->label_total_sum);
 			this->Controls->Add(this->label_total_sum_transactions);
 			this->Controls->Add(this->label_header_transaction);
-			this->Controls->Add(this->dataGridView);
 			this->Controls->Add(this->button_exit);
 			this->Controls->Add(this->button_report);
 			this->Controls->Add(this->button_analyze);
 			this->Controls->Add(this->button_expenses);
 			this->Controls->Add(this->button_incomes);
-			this->Controls->Add(this->label_error);
 			this->Controls->Add(this->button_sing_up);
 			this->Controls->Add(this->link_sing_up);
 			this->Controls->Add(this->button_login);
@@ -615,6 +632,8 @@ namespace FNM {
 			this->Controls->Add(this->user_password);
 			this->Controls->Add(this->user_login);
 			this->Controls->Add(this->label_header);
+			this->Controls->Add(this->label_set_budget);
+			this->Controls->Add(this->dataGridView);
 			this->Font = (gcnew System::Drawing::Font(L"Verdana", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
@@ -649,13 +668,13 @@ namespace FNM {
 
 	private: System::Boolean create_user() {
 		if (String::IsNullOrEmpty(this->user_login->Text) || String::IsNullOrEmpty(this->user_password->Text)) {
-			send_message(L"Поле логин или пароль\nне должно быть пустым!");
+			send_error(L"Поле логин или пароль\nне должно быть пустым!");
 			return false;
 		}
 		else if (utils.validate_login(utils.convert_system_string_to_stdString(this->user_login->Text))) {
 				bool is_exists = false;
 				for (User user : users.get_users()) {
-					if (this->user_login->Text->CompareTo(gcnew System::String(utils.convert_string_to_wstring(user.get_login()).c_str()))) {
+					if (user.get_login() == utils.convert_system_string_to_stdString(this->user_login->Text)) {
 						is_exists = true;
 						break;
 					}
@@ -669,12 +688,12 @@ namespace FNM {
 					return true;
 				}
 				else {
-					send_message(L"Такой логин\nуже занят");
+					send_error(L"Такой логин\nуже занят");
 					return false;
 				}
 		}
 		else {
-			send_message(L"Логин может содержать буквы\nтолько латинского алфавита");
+			send_error(L"Логин может содержать буквы\nтолько латинского алфавита");
 			return false;
 		}
 	}
@@ -683,24 +702,26 @@ namespace FNM {
 		users.set_users(utils.convert_string_to_users(utils.read_from_file("users")));
 		if (!users.get_users().empty()) {
 			bool correct_auth = false;
-			for (User user : users.get_users()) {
-				if((user.get_login() == (utils.convert_system_string_to_stdString(this->user_login->Text))) 
-					&& (user.get_password() == utils.convert_system_string_to_stdString(this->user_password->Text))){
-						this->label_error->Visible = false;
+			if (String::IsNullOrEmpty(this->user_login->Text) || String::IsNullOrEmpty(this->user_password->Text)) {
+				send_error(L"Поле логин или пароль\nне должно быть пустым!");
+			}
+			else {
+				for (User user : users.get_users()) {
+					if ((user.get_login() == (utils.convert_system_string_to_stdString(this->user_login->Text)))
+						&& (user.get_password() == utils.convert_system_string_to_stdString(this->user_password->Text))) {
 						go_to_main_window(utils.convert_system_string_to_stdString(this->user_login->Text));
 						correct_auth = true;
 						break;
+					}
 				}
-			}
-			if (!correct_auth) {
-				send_message(L"Неправильный логин\nили пароль!");
+				if (!correct_auth) {
+					send_error(L"Неправильный логин\nили пароль!");
+				}
 			}
 		}
 		else {
-			send_message(L"Список пользователей пуст,\nнеобходимо зарегистрироваться");
+			send_error(L"Список пользователей пуст,\nнеобходимо зарегистрироваться");
 		}
-		
-
 	}
 
 	private: System::Void go_to_main_window(string login) {
@@ -709,9 +730,13 @@ namespace FNM {
 		show_menu();
 	}
 
-	private: System::Void send_message(wstring message) {
-		this->label_error->Visible = true;
-		this->label_error->Text = gcnew System::String(message.c_str());
+	private: System::Void send_error(wstring message) {
+		wstring error = L"Ошибка";
+		MessageBox::Show(this, gcnew System::String(message.c_str()), gcnew System::String(error.c_str()), MessageBoxButtons::OK, MessageBoxIcon::Error);
+	}
+	private: System::Void send_message_ok(wstring message) {
+		wstring error = L"Успех";
+		MessageBox::Show(this, gcnew System::String(message.c_str()), gcnew System::String(error.c_str()), MessageBoxButtons::OK, MessageBoxIcon::Information);
 	}
 
 	private: System::Void button_exit_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -719,6 +744,7 @@ namespace FNM {
 	}
 
 	private: System::Void show_menu() {
+		this->button_go_to_reset_budget->Visible = true;
 		this->button_incomes->Visible = true;
 		this->button_expenses->Visible = true;
 		this->button_analyze->Visible = true;
@@ -733,6 +759,14 @@ namespace FNM {
 		this->button_set_budget->Visible = true;
 	}
 
+	private: System::Void go_to_reset_budget() {
+		hide_all();
+		this->label_set_budget->Visible = true;
+		this->set_budget->Visible = true;
+		this->button_reset_budget->Visible = true;
+		this->button_back->Visible = true;
+	}
+
 	private: System::Void hide_all() {
 		this->button_incomes->Visible = false;
 		this->button_expenses->Visible = false;
@@ -744,7 +778,6 @@ namespace FNM {
 		this->label_total_sum->Visible = false;
 		this->label_header_transaction->Visible = false;
 		this->button_delete_incomes->Visible = false;
-		this->label_error->Visible = false;
 		this->label_header->Visible = false;
 		this->label_login->Visible = false;
 		this->label_password->Visible = false;
@@ -770,6 +803,8 @@ namespace FNM {
 		this->button_set_budget->Visible = false;
 		this->label_set_budget->Visible = false;
 		this->set_budget->Visible = false;
+		this->button_reset_budget->Visible = false;
+		this->button_go_to_reset_budget->Visible = false;
 	}
 
 	private: System::Void show_incomes() {
@@ -942,12 +977,12 @@ namespace FNM {
 
 	private: System::Void button_set_budget_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (String::IsNullOrEmpty(this->set_budget->Text)) {
-			send_message(L"Поле не должно быть пустым!");
+			send_error(L"Поле не должно быть пустым!");
 		}
 		else {
 			if (utils.validate_set_budget(utils.convert_system_string_to_stdString(this->set_budget->Text))) {
 				for (User user : users.get_users()) {
-					if (this->user_login->Text->CompareTo(gcnew System::String(utils.convert_string_to_wstring(user.get_login()).c_str()))) {
+					if (user.get_login() == utils.convert_system_string_to_stdString(this->user_login->Text)) {
 						user.set_budget(stof(utils.convert_system_string_to_stdString(this->set_budget->Text)));
 						break;
 					}
@@ -955,10 +990,33 @@ namespace FNM {
 				go_to_main_window(utils.convert_system_string_to_stdString(this->user_login->Text));
 			}
 			else {
-				send_message(L"Введите корректное число!");
+				send_error(L"Введите корректное число!");
 			}
 		}
 		
+	}
+
+	private: System::Void button_reset_budget_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (String::IsNullOrEmpty(this->set_budget->Text)) {
+			send_error(L"Поле не должно быть пустым!");
+		}
+		else {
+			if (utils.validate_set_budget(utils.convert_system_string_to_stdString(this->set_budget->Text))) {
+				for (User user : users.get_users()) {
+					if (user.get_login() == utils.convert_system_string_to_stdString(this->user_login->Text)) {
+						user.set_budget(stof(utils.convert_system_string_to_stdString(this->set_budget->Text)));
+						break;
+					}
+				}
+				send_message_ok(L"Бюджет успешно изменен!");
+			}
+			else {
+				send_error(L"Введите корректное число!");
+			}
+		}
+	}
+	private: System::Void button_go_to_reset_budget_Click(System::Object^ sender, System::EventArgs^ e) {
+		go_to_reset_budget();
 	}
 };
 }

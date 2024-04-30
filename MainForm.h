@@ -18,6 +18,7 @@ namespace FNM {
 	FNM::User auth_user;
 
 
+
 	/// <summary>
 	/// Сводка для MainForm
 	/// </summary>
@@ -82,7 +83,9 @@ namespace FNM {
 	private: System::Windows::Forms::Button^ button_add_expense;
 	private: System::Windows::Forms::Button^ button_save_expenses;
 	private: System::Windows::Forms::Button^ button_delete_expense;
-	private: System::Windows::Forms::DataVisualization::Charting::Chart^ chart1;
+	private: System::Windows::Forms::DataVisualization::Charting::Chart^ chart_incomes;
+
+
 	private: System::Windows::Forms::Label^ label_set_budget;
 	private: System::Windows::Forms::TextBox^ set_budget;
 	private: System::Windows::Forms::Button^ button_set_budget;
@@ -97,6 +100,7 @@ namespace FNM {
 	private: System::Windows::Forms::Label^ total_sum_expenses;
 	private: System::Windows::Forms::Label^ label_sum_budget;
 	private: System::Windows::Forms::Label^ total_sum_budget;
+	private: System::Windows::Forms::DataVisualization::Charting::Chart^ chart_expenses;
 
 
 
@@ -118,6 +122,11 @@ namespace FNM {
 			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea1 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
 			System::Windows::Forms::DataVisualization::Charting::Legend^ legend1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
 			System::Windows::Forms::DataVisualization::Charting::Series^ series1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::Title^ title1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Title());
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea2 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::Legend^ legend2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::Title^ title2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Title());
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
 			this->label_header = (gcnew System::Windows::Forms::Label());
 			this->user_login = (gcnew System::Windows::Forms::TextBox());
@@ -155,7 +164,7 @@ namespace FNM {
 			this->button_add_expense = (gcnew System::Windows::Forms::Button());
 			this->button_save_expenses = (gcnew System::Windows::Forms::Button());
 			this->button_delete_expense = (gcnew System::Windows::Forms::Button());
-			this->chart1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
+			this->chart_incomes = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
 			this->label_set_budget = (gcnew System::Windows::Forms::Label());
 			this->set_budget = (gcnew System::Windows::Forms::TextBox());
 			this->button_set_budget = (gcnew System::Windows::Forms::Button());
@@ -170,8 +179,10 @@ namespace FNM {
 			this->total_sum_expenses = (gcnew System::Windows::Forms::Label());
 			this->label_sum_budget = (gcnew System::Windows::Forms::Label());
 			this->total_sum_budget = (gcnew System::Windows::Forms::Label());
+			this->chart_expenses = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart_incomes))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart_expenses))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// label_header
@@ -539,28 +550,32 @@ namespace FNM {
 			this->button_delete_expense->Visible = false;
 			this->button_delete_expense->Click += gcnew System::EventHandler(this, &MainForm::button_delete_expense_Click);
 			// 
-			// chart1
+			// chart_incomes
 			// 
 			chartArea1->Name = L"ChartArea1";
-			this->chart1->ChartAreas->Add(chartArea1);
+			this->chart_incomes->ChartAreas->Add(chartArea1);
 			legend1->Name = L"Legend1";
 			legend1->Position->Auto = false;
 			legend1->Position->Height = 8.910892F;
 			legend1->Position->Width = 43.30218F;
 			legend1->Position->X = 50.69782F;
-			legend1->Position->Y = 7;
-			this->chart1->Legends->Add(legend1);
-			this->chart1->Location = System::Drawing::Point(30, 359);
-			this->chart1->Name = L"chart1";
+			legend1->Position->Y = 3;
+			this->chart_incomes->Legends->Add(legend1);
+			this->chart_incomes->Location = System::Drawing::Point(24, 324);
+			this->chart_incomes->Name = L"chart_incomes";
 			series1->ChartArea = L"ChartArea1";
 			series1->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
 			series1->Legend = L"Legend1";
 			series1->Name = L" Сумма дохода";
-			this->chart1->Series->Add(series1);
-			this->chart1->Size = System::Drawing::Size(322, 304);
-			this->chart1->TabIndex = 32;
-			this->chart1->Text = L"Доходы";
-			this->chart1->Visible = false;
+			this->chart_incomes->Series->Add(series1);
+			this->chart_incomes->Size = System::Drawing::Size(469, 355);
+			this->chart_incomes->TabIndex = 32;
+			this->chart_incomes->Text = L"Доходы";
+			title1->Alignment = System::Drawing::ContentAlignment::TopLeft;
+			title1->Name = L"title_chart_incomes";
+			title1->Text = L"Последние доходы(макс. 5)";
+			this->chart_incomes->Titles->Add(title1);
+			this->chart_incomes->Visible = false;
 			// 
 			// label_set_budget
 			// 
@@ -706,12 +721,40 @@ namespace FNM {
 			this->total_sum_budget->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			this->total_sum_budget->Visible = false;
 			// 
+			// chart_expenses
+			// 
+			chartArea2->Name = L"ChartArea1";
+			this->chart_expenses->ChartAreas->Add(chartArea2);
+			legend2->Name = L"Legend1";
+			legend2->Position->Auto = false;
+			legend2->Position->Height = 8.910892F;
+			legend2->Position->Width = 43.30218F;
+			legend2->Position->X = 50.69782F;
+			legend2->Position->Y = 3;
+			this->chart_expenses->Legends->Add(legend2);
+			this->chart_expenses->Location = System::Drawing::Point(514, 324);
+			this->chart_expenses->Name = L"chart_expenses";
+			series2->ChartArea = L"ChartArea1";
+			series2->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
+			series2->Legend = L"Legend1";
+			series2->Name = L" Сумма расхода";
+			this->chart_expenses->Series->Add(series2);
+			this->chart_expenses->Size = System::Drawing::Size(469, 355);
+			this->chart_expenses->TabIndex = 47;
+			this->chart_expenses->Text = L"Доходы";
+			title2->Alignment = System::Drawing::ContentAlignment::TopLeft;
+			title2->Name = L"title_chart_expenses";
+			title2->Text = L"Последние расходы(макс. 5)";
+			this->chart_expenses->Titles->Add(title2);
+			this->chart_expenses->Visible = false;
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(14, 25);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::Window;
 			this->ClientSize = System::Drawing::Size(1006, 721);
+			this->Controls->Add(this->chart_expenses);
 			this->Controls->Add(this->total_sum_budget);
 			this->Controls->Add(this->label_sum_budget);
 			this->Controls->Add(this->total_sum_expenses);
@@ -726,7 +769,7 @@ namespace FNM {
 			this->Controls->Add(this->button_go_to_reset_budget);
 			this->Controls->Add(this->button_set_budget);
 			this->Controls->Add(this->set_budget);
-			this->Controls->Add(this->chart1);
+			this->Controls->Add(this->chart_incomes);
 			this->Controls->Add(this->button_delete_expense);
 			this->Controls->Add(this->button_save_expenses);
 			this->Controls->Add(this->button_add_expense);
@@ -768,7 +811,8 @@ namespace FNM {
 			this->Text = L"Финансовый менеджер";
 			this->Load += gcnew System::EventHandler(this, &MainForm::MainForm_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart_incomes))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart_expenses))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -936,7 +980,8 @@ namespace FNM {
 		this->button_add_expense->Visible = false;
 		this->button_save_expenses->Visible = false;
 		this->button_delete_expense->Visible = false;
-		this->chart1->Visible = false;
+		this->chart_incomes->Visible = false;
+		this->chart_expenses->Visible = false;
 		this->button_set_budget->Visible = false;
 		this->label_set_budget->Visible = false;
 		this->set_budget->Visible = false;
@@ -1006,7 +1051,6 @@ namespace FNM {
 		this->total_sum_budget->Visible = true;
 		this->total_sum_expenses->Visible = true;
 		this->button_back->Visible = true;
-		this->chart1->Visible = true;
 		this->label_total_sum_expenses->Visible = true;
 		this->label_total_sum_icomes->Visible = true;
 		this->total_sum_incomes->Visible = true;
@@ -1026,7 +1070,8 @@ namespace FNM {
 
 	private: System::Void button_analyze_Click(System::Object^ sender, System::EventArgs^ e) {
 		hide_all();
-		calc_chart1();
+		calc_chart_incomes();
+		calc_chart_expenses();
 		show_analyze();
 	}
 
@@ -1064,25 +1109,35 @@ namespace FNM {
 		}
 	}
 
-	private: System::Void calc_chart1() {
-		this->chart1->Series[0]->Points->Clear();
-		/*if (incomes.get_incomes().size() > 5) {
-			int i = 0;
-			for (auto% income : incomes.get_incomes()) {
-				string str = utils.convert_system_string_to_stdString(income.get_date().at(0).ToString()->Concat(income.get_date().at(1).ToString()));
-				this->chart1->Series[0]->Points->AddXY(i, income.get_sum());
-				i++;
+	private: System::Void calc_chart_incomes() {
+		this->chart_incomes->Series[0]->Points->Clear();
+		this->chart_incomes->Series[0]->BorderWidth = 3;
+		vector<float> data = utils.get_data_for_chart_last_incomes(incomes.get_last_five_incomes());
+		if (data.size() != 0) {
+			for (size_t i = 0; i < data.size(); i = i + 2) {
+				this->chart_incomes->Series[0]->Points->AddXY(data.at(i), data.at(i + 1));
+				this->chart_incomes->Visible = true;
 			}
 		}
 		else {
-			for (size_t i = 0; i < 5; i++) {
-				string str = utils.convert_system_string_to_stdString(incomes.get_incomes().at(i).get_date().at(0).ToString()->Concat(incomes.get_incomes().at(i).get_date().at(1).ToString()));
-				this->chart1->Series[0]->Points->AddXY(i, incomes.get_incomes().at(i).get_sum());
+			this->chart_incomes->Visible = false;
+		}
+	}
+
+	private: System::Void calc_chart_expenses() {
+		this->chart_expenses->Series[0]->Points->Clear();
+		this->chart_expenses->Series[0]->BorderWidth = 3;
+		vector<float> data = utils.get_data_for_chart_last_expenses(expenses.get_last_five_expenses());
+		if (data.size() != 0) {
+			for (size_t i = 0; i < data.size(); i = i + 2) {
+				this->chart_expenses->Series[0]->Points->AddXY(data.at(i), data.at(i + 1));
+				this->chart_expenses->Visible = true;
 			}
-		}*/
-		this->chart1->Series[0]->Points->AddXY(0, 0);
-		this->chart1->Series[0]->Points->AddXY(1, 1);
-		this->chart1->Series[0]->Points->AddXY(2, 4);
+		}
+		else {
+			this->chart_expenses->Visible = false;
+		}
+		
 	}
 
 	private: System::Void set_incomes_to_dataGridView() {

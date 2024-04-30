@@ -20,15 +20,25 @@ namespace FNM {
     public:
         Transaction() : date(""), sum(0.0f), type("") {}
         Transaction(string date, float sum, string type) : date(date), sum(sum), type(type) {}
-
         void set_type(string type) { this->type = type; }
         string get_type() { return type; }
-
         void set_sum(float sum) { this->sum = sum; }
         float get_sum() { return sum; }
-
         void set_date(string date) { this->date = date; }
         string get_date() { return date; }
+
+        int get_day(vector<string> date) {
+            return stoi(date.at(0));
+        }
+
+        int get_month(vector<string> date) {
+            return stoi(date.at(1));
+        }
+
+        int get_year(vector<string> date) {
+            return stoi(date.at(2));
+        }
+        
     };
 
     class Income : public Transaction {
@@ -82,6 +92,23 @@ namespace FNM {
             }
             return total_income;
         }
+        Income get_last_income() {
+            return incomes.at(incomes.size() - 1);
+        }
+        vector<Income> get_last_five_incomes() {
+            vector<Income> last_incomes;
+            if (incomes.size() > 5) {
+                for (size_t i = 4; i >= 0; i--) {
+                    last_incomes.push_back(incomes.at(incomes.size() - i));
+                }
+                return last_incomes;
+            }
+            else {
+                last_incomes = incomes;
+                return last_incomes;
+            }
+            
+        }
     };
 
     class Expenses {
@@ -100,6 +127,23 @@ namespace FNM {
                 total_expense += expense.get_sum();
             }
             return total_expense;
+        }
+        Expense get_last_Expense() {
+            return expenses.at(expenses.size() - 1);
+        }
+        vector<Expense> get_last_five_expenses() {
+            vector<Expense> last_expenses;
+            if (expenses.size() > 5) {
+                for (size_t i = 4; i >= 0; i--) {
+                    last_expenses.push_back(expenses.at(expenses.size() - i));
+                }
+                return last_expenses;
+            }
+            else {
+                last_expenses = expenses;
+                return last_expenses;
+            }
+
         }
     };
 
@@ -397,6 +441,34 @@ namespace FNM {
             string narrow = str;
             wstring wide = converter.from_bytes(narrow);
             return wide;
+        }
+
+        const vector<string> get_splited_data(string str, char delimiter) {
+            vector<string> splited_data;
+            stringstream ss(str);
+            string token;
+            while (getline(ss, token, delimiter)) {
+                splited_data.push_back(token);
+            }
+            return splited_data;
+        }
+
+        const vector<float> get_data_for_chart_last_incomes(vector<Income> incomes) {
+            vector<float> data;
+            for (size_t i = 0; i < incomes.size(); i++) {
+                data.push_back(i + 1);
+                data.push_back(incomes.at(i).get_sum());
+            }
+            return data;
+        }
+
+        const vector<float> get_data_for_chart_last_expenses(vector<Expense> expenses) {
+            vector<float> data;
+            for (size_t i = 0; i < expenses.size(); i++) {
+                data.push_back(i + 1);
+                data.push_back(expenses.at(i).get_sum());
+            }
+            return data;
         }
     };
 }

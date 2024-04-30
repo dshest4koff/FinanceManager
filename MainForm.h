@@ -1031,13 +1031,18 @@ namespace FNM {
 	}
 
 	private: System::Void button_delete_incomes_Click(System::Object^ sender, System::EventArgs^ e) {
+		bool result = false;
 		for (int i = dataGridView->RowCount - 1; i >= 0; i--) {
 			DataGridViewRow^ row = dataGridView->Rows[i];
 			if (row->Cells[4]->Value != nullptr && row->Cells[4]->Value->ToString() == "True") {
 				incomes.delete_income(stoi(utils.convert_system_string_to_stdString(row->Cells[0]->Value->ToString())));
 				dataGridView->Rows->RemoveAt(i);
+				result = true;
 				send_message_ok(L"Удаление выполнено!");
 			}
+		}
+		if (!result) {
+			send_error(L"Записи для удаления не выбраны");
 		}
 
 	}
@@ -1099,10 +1104,19 @@ namespace FNM {
 
 	private: System::Void button_add_income_Click(System::Object^ sender, System::EventArgs^ e) {
 		string date = utils.convert_system_string_to_stdString(dateTimePicker->Value.Day.ToString() + "/" + dateTimePicker->Value.Month.ToString() + "/" + dateTimePicker->Value.Year.ToString());
-		Income income = Income(date, stof(utils.convert_system_string_to_stdString(this->sum_transaction->Text)), utils.convert_system_string_to_stdString(this->type_transaction->Text));
-		incomes.add_income(income);
-		this->dataGridView->Rows->Add(income.get_id(), (gcnew System::String(income.get_date().c_str())), income.get_sum(), (gcnew System::String(income.get_type().c_str())));
-		send_message_ok(L"Запись успешно добавлена!");
+		if (String::IsNullOrEmpty(this->sum_transaction->Text) || String::IsNullOrEmpty(this->type_transaction->Text)) {
+			send_error(L"Поля не должны быть пустыми");
+		}
+		else if (utils.validate_set_budget(utils.convert_system_string_to_stdString(this->sum_transaction->Text))) {
+			Income income = Income(date, stof(utils.convert_system_string_to_stdString(this->sum_transaction->Text)), utils.convert_system_string_to_stdString(this->type_transaction->Text));
+			incomes.add_income(income);
+			this->dataGridView->Rows->Add(income.get_id(), (gcnew System::String(income.get_date().c_str())), income.get_sum(), (gcnew System::String(income.get_type().c_str())));
+			send_message_ok(L"Запись успешно добавлена!");
+		}
+		else {
+			send_error(L"Введите корректную сумму");
+		}
+		
 	}
 
 	private: System::Void button_save_incomes_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -1112,10 +1126,19 @@ namespace FNM {
 
 	private: System::Void button_add_expense_Click(System::Object^ sender, System::EventArgs^ e) {
 		string date = utils.convert_system_string_to_stdString(dateTimePicker->Value.Day.ToString() + "/" + dateTimePicker->Value.Month.ToString() + "/" + dateTimePicker->Value.Year.ToString());
-		Expense expense = Expense(date, stof(utils.convert_system_string_to_stdString(this->sum_transaction->Text)), utils.convert_system_string_to_stdString(this->type_transaction->Text));
-		expenses.add_expense(expense);
-		this->dataGridView->Rows->Add(expense.get_id(), (gcnew System::String(expense.get_date().c_str())), expense.get_sum(), (gcnew System::String(expense.get_type().c_str())));
-		send_message_ok(L"Запись успешно добавлена!");
+		if (String::IsNullOrEmpty(this->sum_transaction->Text) || String::IsNullOrEmpty(this->type_transaction->Text)) {
+			send_error(L"Поля не должны быть пустыми");
+		}
+		else if (utils.validate_set_budget(utils.convert_system_string_to_stdString(this->sum_transaction->Text))) {
+			Expense expense = Expense(date, stof(utils.convert_system_string_to_stdString(this->sum_transaction->Text)), utils.convert_system_string_to_stdString(this->type_transaction->Text));
+			expenses.add_expense(expense);
+			this->dataGridView->Rows->Add(expense.get_id(), (gcnew System::String(expense.get_date().c_str())), expense.get_sum(), (gcnew System::String(expense.get_type().c_str())));
+			send_message_ok(L"Запись успешно добавлена!");
+		}
+		else {
+			send_error(L"Введите корректную сумму");
+		}
+		
 	}
 
 	private: System::Void button_save_expenses_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -1124,13 +1147,18 @@ namespace FNM {
 	}
 
 	private: System::Void button_delete_expense_Click(System::Object^ sender, System::EventArgs^ e) {
+		bool result = false;
 		for (int i = dataGridView->RowCount - 1; i >= 0; i--) {
 			DataGridViewRow^ row = dataGridView->Rows[i];
 			if (row->Cells[4]->Value != nullptr && row->Cells[4]->Value->ToString() == "True") {
 				expenses.delete_expense(stoi(utils.convert_system_string_to_stdString(row->Cells[0]->Value->ToString())));
 				dataGridView->Rows->RemoveAt(i);
+				result = true;
 				send_message_ok(L"Удаление выполнено!");
 			}
+		}
+		if (!result) {
+			send_error(L"Записи для удаления не выбраны");
 		}
 	}
 

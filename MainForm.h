@@ -1,9 +1,8 @@
 ﻿#pragma once
 #include "Main.h"
 
-
 namespace FNM {
-
+	using namespace FNM;
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
@@ -13,8 +12,8 @@ namespace FNM {
 
 	FNM::Incomes incomes;
 	FNM::Expenses expenses;
-	FNM::Utils utils;
 	FNM::Users users;
+	FNM::Utils utils;
 	FNM::User auth_user;
 
 
@@ -854,18 +853,18 @@ namespace FNM {
 		else if (utils.validate_login(utils.convert_system_string_to_stdString(this->user_login->Text))) {
 				bool is_exists = false;
 				for (User user : users.get_users()) {
-					if (user.get_login() == utils.convert_system_string_to_stdString(this->user_login->Text)) {
+					if (user.get_login() == utils.convert_String_to_wstring(this->user_login->Text)) {
 						is_exists = true;
 						break;
 					}
 				}
 				if (is_exists == false) {
-					auth_user = User(utils.convert_system_string_to_stdString(this->user_login->Text), utils.convert_system_string_to_stdString(this->user_password->Text), 0.0f, utils.convert_system_string_to_stdString(this->secret_word->Text));
+					auth_user = User(utils.convert_String_to_wstring(this->user_login->Text), utils.convert_String_to_wstring(this->user_password->Text), 0.0f, utils.convert_String_to_wstring(this->secret_word->Text));
 					users.add_user(auth_user);
 					utils.write_to_file("users", utils.convert_users_to_string(users.get_users()));
-					utils.create_directory(auth_user.get_login());
-					utils.write_to_file(auth_user.get_login() + "/incomes", utils.convert_incomes_to_string(incomes.get_incomes()));
-					utils.write_to_file(auth_user.get_login() + "/expenses", utils.convert_expenses_to_string(expenses.get_expenses()));
+					utils.create_directory(convert_wstring_to_string(auth_user.get_login()));
+					utils.write_to_file(convert_wstring_to_string(auth_user.get_login()) + "/incomes", utils.convert_incomes_to_string(incomes.get_incomes()));
+					utils.write_to_file(convert_wstring_to_string(auth_user.get_login()) + "/expenses", utils.convert_expenses_to_string(expenses.get_expenses()));
 					return true;
 				}
 				else {
@@ -887,11 +886,11 @@ namespace FNM {
 			}
 			else {
 				for (User user : users.get_users()) {
-					if ((user.get_login() == (utils.convert_system_string_to_stdString(this->user_login->Text)))
-						&& (user.get_password() == utils.convert_system_string_to_stdString(this->user_password->Text))) {
+					if ((user.get_login() == (utils.convert_String_to_wstring(this->user_login->Text)))
+						&& (user.get_password() == utils.convert_String_to_wstring(this->user_password->Text))) {
 						send_message_ok(L"Успешный вход");
 						auth_user = user;
-						go_to_main_window(auth_user.get_login());
+						go_to_main_window(convert_wstring_to_string(auth_user.get_login()));
 						correct_auth = true;
 						break;
 					}
@@ -1083,11 +1082,13 @@ namespace FNM {
 				incomes.delete_income(stoi(utils.convert_system_string_to_stdString(row->Cells[0]->Value->ToString())));
 				dataGridView->Rows->RemoveAt(i);
 				result = true;
-				send_message_ok(L"Удаление выполнено!");
 			}
 		}
 		if (!result) {
 			send_error(L"Записи для удаления не выбраны");
+		}
+		else {
+			send_message_ok(L"Удаление выполнено!");
 		}
 
 	}
@@ -1163,7 +1164,7 @@ namespace FNM {
 			send_error(L"Поля не должны быть пустыми");
 		}
 		else if (utils.validate_set_budget(utils.convert_system_string_to_stdString(this->sum_transaction->Text))) {
-			Income income = Income(date, stof(utils.convert_system_string_to_stdString(this->sum_transaction->Text)), utils.convert_system_string_to_stdString(this->type_transaction->Text));
+			Income income = Income(date, stof(utils.convert_system_string_to_stdString(this->sum_transaction->Text)), utils.convert_String_to_wstring(this->type_transaction->Text));
 			incomes.add_income(income);
 			this->dataGridView->Rows->Add(income.get_id(), (gcnew System::String(income.get_date().c_str())), income.get_sum(), (gcnew System::String(income.get_type().c_str())));
 			send_message_ok(L"Запись успешно добавлена!");
@@ -1175,7 +1176,7 @@ namespace FNM {
 	}
 
 	private: System::Void button_save_incomes_Click(System::Object^ sender, System::EventArgs^ e) {
-		utils.write_to_file(utils.convert_system_string_to_stdString(this->user_login->Text) + "/incomes",  utils.convert_incomes_to_string(incomes.get_incomes()));
+		utils.write_to_file(utils.convert_system_string_to_stdString(this->user_login->Text) + "/incomes", utils.convert_incomes_to_string(incomes.get_incomes()));
 		send_message_ok(L"Сохранение выполнено!");
 	}
 
@@ -1185,7 +1186,7 @@ namespace FNM {
 			send_error(L"Поля не должны быть пустыми");
 		}
 		else if (utils.validate_set_budget(utils.convert_system_string_to_stdString(this->sum_transaction->Text))) {
-			Expense expense = Expense(date, stof(utils.convert_system_string_to_stdString(this->sum_transaction->Text)), utils.convert_system_string_to_stdString(this->type_transaction->Text));
+			Expense expense = Expense(date, stof(utils.convert_system_string_to_stdString(this->sum_transaction->Text)), utils.convert_String_to_wstring(this->type_transaction->Text));
 			expenses.add_expense(expense);
 			this->dataGridView->Rows->Add(expense.get_id(), (gcnew System::String(expense.get_date().c_str())), expense.get_sum(), (gcnew System::String(expense.get_type().c_str())));
 			send_message_ok(L"Запись успешно добавлена!");
@@ -1209,11 +1210,13 @@ namespace FNM {
 				expenses.delete_expense(stoi(utils.convert_system_string_to_stdString(row->Cells[0]->Value->ToString())));
 				dataGridView->Rows->RemoveAt(i);
 				result = true;
-				send_message_ok(L"Удаление выполнено!");
 			}
 		}
 		if (!result) {
 			send_error(L"Записи для удаления не выбраны");
+		}
+		else {
+			send_message_ok(L"Удаление выполнено!");
 		}
 	}
 
@@ -1224,7 +1227,7 @@ namespace FNM {
 		else {
 			if (utils.validate_set_budget(utils.convert_system_string_to_stdString(this->set_budget->Text))) {
 				for (User user : users.get_users()) {
-					if (user.get_login() == utils.convert_system_string_to_stdString(this->user_login->Text)) {
+					if (user.get_login() == utils.convert_String_to_wstring(this->user_login->Text)) {
 						user.set_budget(stof(utils.convert_system_string_to_stdString(this->set_budget->Text)));
 						auth_user = user;
 						break;
@@ -1247,7 +1250,7 @@ namespace FNM {
 		else {
 			if (utils.validate_set_budget(utils.convert_system_string_to_stdString(this->set_budget->Text))) {
 				for (User user : users.get_users()) {
-					if (user.get_login() == utils.convert_system_string_to_stdString(this->user_login->Text)) {
+					if (user.get_login() == utils.convert_String_to_wstring(this->user_login->Text)) {
 						user.set_budget(stof(utils.convert_system_string_to_stdString(this->set_budget->Text)));
 						auth_user = user;
 						break;
@@ -1316,9 +1319,9 @@ namespace FNM {
 		}
 		else {
 			for (User user : users.get_users()) {
-				if ((user.get_login() == (utils.convert_system_string_to_stdString(this->user_login->Text)))
-					&& (user.get_secret_word() == utils.convert_system_string_to_stdString(this->secret_word->Text))) {
-					send_message_ok(L"Ваш пароль: " + utils.convert_string_to_wstring(user.get_password()));
+				if ((user.get_login() == (utils.convert_String_to_wstring(this->user_login->Text)))
+					&& (user.get_secret_word() == utils.convert_String_to_wstring(this->secret_word->Text))) {
+					send_message_ok(L"Ваш пароль: " + user.get_password());
 					go_to_login();
 					correct_recovering = true;
 					break;

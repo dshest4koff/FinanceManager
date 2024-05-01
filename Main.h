@@ -1,5 +1,4 @@
 ﻿#pragma once
-#pragma once
 #include <iostream>
 #include <vector>
 #include <string>
@@ -7,468 +6,472 @@
 #include <sstream>
 #include <locale>
 #include <codecvt>
+#include <vcclr.h>
+
 
 using namespace std;
+using namespace System;
 
 namespace FNM {
-    
-    class Transaction {
-    private:
-        string date;
-        float sum;
-        string type;
-    public:
-        Transaction() : date(""), sum(0.0f), type("") {}
-        Transaction(string date, float sum, string type) : date(date), sum(sum), type(type) {}
-        void set_type(string type) { this->type = type; }
-        string get_type() { return type; }
-        void set_sum(float sum) { this->sum = sum; }
-        float get_sum() { return sum; }
-        void set_date(string date) { this->date = date; }
-        string get_date() { return date; }
 
-        int get_day(vector<string> date) {
-            return stoi(date.at(0));
-        }
+	static wstring convert_string_to_wstring(string str) {
+		wstring_convert<codecvt_utf8_utf16<wchar_t>> converter;
+		wstring wide = converter.from_bytes(str);
+		return wide;
+	}
 
-        int get_month(vector<string> date) {
-            return stoi(date.at(1));
-        }
+	static string convert_wstring_to_string(wstring str) {
+		wstring_convert<codecvt_utf8<wchar_t>> converter;
+		string wide = converter.to_bytes(str);
+		return wide;
+	}
 
-        int get_year(vector<string> date) {
-            return stoi(date.at(2));
-        }
-        
-    };
+	class Transaction {
+	private:
+		string date;
+		float sum;
+		wstring type;
+	public:
+		Transaction() : date(""), sum(0.0f), type(L"") {}
+		Transaction(string date, float sum, wstring type) : date(date), sum(sum), type(type) {}
+		void set_type(wstring type) { this->type = type; }
+		wstring get_type() { return type; }
+		void set_sum(float sum) { this->sum = sum; }
+		float get_sum() { return sum; }
+		void set_date(string date) { this->date = date; }
+		string get_date() { return date; }
 
-    class Income : public Transaction {
-    private:
-        static int ID;
-        int id;
-    public:
-        Income(string date, float sum, string type) : Transaction(date, sum, type), id(++ID) {}
-        Income() : Transaction(), id(++ID) {}
+		int get_day(vector<string> date) {
+			return stoi(date.at(0));
+		}
 
-        int get_id() { return id; }
+		int get_month(vector<string> date) {
+			return stoi(date.at(1));
+		}
 
-        string to_string() {
-            return std::to_string(this->get_id()) + " " + this->get_date() + " " + std::to_string(this->get_sum()) + " " + this->get_type() + "\n";
-        }
-    };
+		int get_year(vector<string> date) {
+			return stoi(date.at(2));
+		}
 
-    int Income::ID = 0;
+	};
 
-    class Expense : public Transaction {
-    private:
-        static int ID;
-        int id;
-    public:
-        Expense(string date, float sum, string type) : Transaction(date, sum, type), id(++ID) {}
-        Expense() : Transaction(), id(++ID) {}
+	class Income : public Transaction {
+	private:
+		static int ID;
+		int id;
+	public:
+		Income(string date, float sum, wstring type) : Transaction(date, sum, type), id(++ID) {}
+		Income() : Transaction(), id(++ID) {}
 
-        int get_id() { return id; }
+		int get_id() { return id; }
 
-        string to_string() {
-            return std::to_string(this->get_id()) + " " + this->get_date() + " " + std::to_string(this->get_sum()) + " " + this->get_type() + "\n";
-        }
-    };
+		string to_string() {
+			return std::to_string(this->get_id()) + " " + this->get_date() + " " + std::to_string(this->get_sum()) + " " + convert_wstring_to_string(this->get_type()) + "\n";
+		}
+	};
 
-    int Expense::ID = 0;
+	int Income::ID = 0;
 
-    class Incomes {
-    private:
-        vector<Income> incomes;
-    public:
-        void add_income(Income income) { incomes.push_back(income); }
-        void delete_income(int id) {
-            incomes.erase(remove_if(incomes.begin(), incomes.end(), [id](Income& income) { return income.get_id() == id; }), incomes.end());
-        }
-        vector<Income> get_incomes() { return incomes; }
-        void set_incomes(vector<Income> incomes) { this->incomes = incomes; }
-        float get_total_income() {
-            float total_income = 0;
-            for (auto& income : incomes) {
-                total_income += income.get_sum();
-            }
-            return total_income;
-        }
-        Income get_last_income() {
-            return incomes.at(incomes.size() - 1);
-        }
-        vector<Income> get_last_five_incomes() {
-            vector<Income> last_incomes;
-            if (incomes.size() > 5) {
-                for (size_t i = 4; i >= 0; i--) {
-                    last_incomes.push_back(incomes.at(incomes.size() - i));
-                }
-                return last_incomes;
-            }
-            else {
-                last_incomes = incomes;
-                return last_incomes;
-            }
-            
-        }
-    };
+	class Expense : public Transaction {
+	private:
+		static int ID;
+		int id;
+	public:
+		Expense(string date, float sum, wstring type) : Transaction(date, sum, type), id(++ID) {}
+		Expense() : Transaction(), id(++ID) {}
 
-    class Expenses {
-    private:
-        vector<Expense> expenses;
-    public:
-        void add_expense(Expense expense) { expenses.push_back(expense); }
-        void delete_expense(int id) {
-            expenses.erase(remove_if(expenses.begin(), expenses.end(), [id](Expense& expense) { return expense.get_id() == id; }), expenses.end());
-        }
-        vector<Expense> get_expenses() { return expenses; }
-        void set_expenses(vector<Expense> expenses) { this->expenses = expenses; }
-        float get_total_expense() {
-            float total_expense = 0;
-            for (auto& expense : expenses) {
-                total_expense += expense.get_sum();
-            }
-            return total_expense;
-        }
-        Expense get_last_Expense() {
-            return expenses.at(expenses.size() - 1);
-        }
-        vector<Expense> get_last_five_expenses() {
-            vector<Expense> last_expenses;
-            if (expenses.size() > 5) {
-                for (size_t i = 4; i >= 0; i--) {
-                    last_expenses.push_back(expenses.at(expenses.size() - i));
-                }
-                return last_expenses;
-            }
-            else {
-                last_expenses = expenses;
-                return last_expenses;
-            }
+		int get_id() { return id; }
 
-        }
-    };
+		string to_string() {
+			return std::to_string(this->get_id()) + " " + this->get_date() + " " + std::to_string(this->get_sum()) + " " + convert_wstring_to_string(this->get_type()) + "\n";
+		}
+	};
 
-    class FinancialReport {
-    private:
-        Incomes incomes;
-        Expenses expenses;
-    public:
-        void printReport() {
-            cout << "Îáùèé äîõîä: " << incomes.get_total_income() << endl;
-            cout << "Îáùèé ðàñõîä: " << expenses.get_total_expense() << endl;
-        }
-    };
+	int Expense::ID = 0;
 
-    class Analyzer {
-    public:
-        static float calculateProfit(Incomes& incomes, Expenses& expenses) {
-            return incomes.get_total_income() - expenses.get_total_expense();
-        }
-    };
+	class Incomes {
+	private:
+		vector<Income> incomes;
+	public:
+		void add_income(Income income) { incomes.push_back(income); }
+		void delete_income(int id) {
+			incomes.erase(remove_if(incomes.begin(), incomes.end(), [id](Income& income) { return income.get_id() == id; }), incomes.end());
+		}
+		vector<Income> get_incomes() { return incomes; }
+		void set_incomes(vector<Income> incomes) { this->incomes = incomes; }
+		float get_total_income() {
+			float total_income = 0;
+			for (auto& income : incomes) {
+				total_income += income.get_sum();
+			}
+			return total_income;
+		}
+		Income get_last_income() {
+			return incomes.at(incomes.size() - 1);
+		}
+		vector<Income> get_last_five_incomes() {
+			vector<Income> last_incomes;
+			if (incomes.size() > 5) {
+				for (size_t i = 4; i >= 0; i--) {
+					last_incomes.push_back(incomes.at(incomes.size() - i));
+				}
+				return last_incomes;
+			}
+			else {
+				last_incomes = incomes;
+				return last_incomes;
+			}
 
-    class Analytics {
-    public:
-        static void analyze(Incomes& incomes, Expenses& expenses) {
-            double profit = Analyzer::calculateProfit(incomes, expenses);
-            cout << "Ïðèáûëü: " << profit << endl;
-        }
-    };
+		}
+	};
 
-    class User {
-    private:
-        string login;
-        string password;
-        float budget;
-        string secret_word;
-    public:
-        User() {}
-        User(string login, string password, float budget, string secret_word) : login(login), password(password), budget(budget), secret_word(secret_word) {}
+	class Expenses {
+	private:
+		vector<Expense> expenses;
+	public:
+		void add_expense(Expense expense) { expenses.push_back(expense); }
+		void delete_expense(int id) {
+			expenses.erase(remove_if(expenses.begin(), expenses.end(), [id](Expense& expense) { return expense.get_id() == id; }), expenses.end());
+		}
+		vector<Expense> get_expenses() { return expenses; }
+		void set_expenses(vector<Expense> expenses) { this->expenses = expenses; }
+		float get_total_expense() {
+			float total_expense = 0;
+			for (auto& expense : expenses) {
+				total_expense += expense.get_sum();
+			}
+			return total_expense;
+		}
+		Expense get_last_Expense() {
+			return expenses.at(expenses.size() - 1);
+		}
+		vector<Expense> get_last_five_expenses() {
+			vector<Expense> last_expenses;
+			if (expenses.size() > 5) {
+				for (size_t i = 4; i >= 0; i--) {
+					last_expenses.push_back(expenses.at(expenses.size() - i));
+				}
+				return last_expenses;
+			}
+			else {
+				last_expenses = expenses;
+				return last_expenses;
+			}
 
-        void set_login(string login) {
-            this->login = login;
-        }
+		}
+	};
 
-        void set_password(string password) {
-            this->password = password;
-        }
+	class FinancialReport {
+	private:
+		Incomes incomes;
+		Expenses expenses;
+	public:
+		FinancialReport(Incomes incomes, Expenses expenses) : incomes(incomes), expenses(expenses) {};
+	};
 
-        void set_budget(float budget) {
-            this->budget = budget;
-        }
+	class User {
+	private:
+		wstring login;
+		wstring password;
+		float budget;
+		wstring secret_word;
+	public:
+		User() {}
+		User(wstring login, wstring password, float budget, wstring secret_word) : login(login), password(password), budget(budget), secret_word(secret_word) {}
 
-        void set_secret_word(string secret_word) {
-            this->secret_word = secret_word;
-        }
+		void set_login(wstring login) {
+			this->login = login;
+		}
 
-        string get_login() {
-            return this->login;
-        }
+		void set_password(wstring password) {
+			this->password = password;
+		}
 
-        string get_password() {
-            return this->password;
-        }
+		void set_budget(float budget) {
+			this->budget = budget;
+		}
 
-        float get_budget() {
-            return this->budget;
-        }
+		void set_secret_word(wstring secret_word) {
+			this->secret_word = secret_word;
+		}
 
-        string get_secret_word() {
-            return this->secret_word;
-        }
-    };
+		wstring get_login() {
+			return this->login;
+		}
 
-    class Users {
-    private:
-        vector<User> users;
-    public:
-        Users() {}
-        Users(vector<User> users) : users(users) {}
+		wstring get_password() {
+			return this->password;
+		}
 
-        vector<User> get_users() {
-            return this->users;
-        }
+		float get_budget() {
+			return this->budget;
+		}
 
-        void set_users(vector<User> users) {
-            this->users = users;
-        }
+		wstring get_secret_word() {
+			return this->secret_word;
+		}
+	};
 
-        void add_user(User user) {
-            this->users.push_back(user);
-        }
-    };
+	class Users {
+	private:
+		vector<User> users;
+	public:
+		Users() {}
+		Users(vector<User> users) : users(users) {}
 
-    class Utils {
-    public:
-        string encrypt_data(const string& data) {
-            string encrypted_data;
-            for (char c : data) {
-                encrypted_data += static_cast<char>(c + 1); // ñäâèã íà 1 ñèìâîë
-            }
-            return encrypted_data;
-        }
+		vector<User> get_users() {
+			return this->users;
+		}
 
-        string decrypt_data(const string& encrypted_data) {
-            string decrypted_data;
-            for (char c : encrypted_data) {
-                decrypted_data += static_cast<char>(c - 1); // ñäâèã íà 1 ñèìôîë
-            }
-            return decrypted_data;
-        }
+		void set_users(vector<User> users) {
+			this->users = users;
+		}
 
-        vector<string> read_from_file(string pyth_to_file) {
-            ifstream file(pyth_to_file);
-            vector<string> fields;
-            if (!file.is_open()) {
-                cerr << "Îøèáêà îòêðûòèÿ ôàéëà!" << std::endl;
-                return fields;
-            }
+		void add_user(User user) {
+			this->users.push_back(user);
+		}
+	};
 
-            string line;
-            while (getline(file, line)) {
-                size_t pos = 0;
-                while ((pos = line.find('||')) != string::npos) {
-                    fields.push_back(decrypt_data(line.substr(0, pos)));
-                    line.erase(0, pos + 1);
-                }
-                fields.push_back(decrypt_data(line));
-            }
+	class Utils {
+	public:
 
-            file.close();
+		static string encrypt_data(string data) {
+			string encrypted_data;
+			for (char c : data) {
+				encrypted_data += static_cast<char>(c + 1);
+			}
+			return encrypted_data;
+		}
 
-            return fields;
-        }
+		static string decrypt_data(string encrypted_data) {
+			string decrypted_data;
+			for (char c : encrypted_data) {
+				decrypted_data += static_cast<char>(c - 1);
+			}
+			return decrypted_data;
+		}
 
-        int write_to_file(string pyth_to_file, vector<string> data) {
-            ofstream file(pyth_to_file);
-            if (!file.is_open()) {
-                cerr << "Îøèáêà îòêðûòèÿ ôàéëà!" << endl;
-                return 1;
-            }
+		static bool file_exists(string filename) {
+			ifstream file(filename);
+			return file.good();
+		}
 
-            for (string str : data) {
-                file << encrypt_data(str);
-                file << "||";
-            }
+		static vector<string> read_from_file(string pyth_to_file) {
+			ifstream file(pyth_to_file);
+			vector<string> fields;
+			if (!file.is_open()) {
+				return fields;
+			}
 
-            file.close();
+			string line;
+			while (getline(file, line)) {
+				size_t pos = 0;
+				while ((pos = line.find('||')) != string::npos) {
+					fields.push_back(decrypt_data(line.substr(0, pos)));
+					line.erase(0, pos + 1);
+				}
+				fields.push_back(decrypt_data(line));
+			}
 
-            return 0;
-        }
+			file.close();
 
-        vector<string> convert_incomes_to_string(vector<Income> data) {
-            vector<string> data_str;
-            for (Income income : data) {
-                data_str.push_back(std::to_string(income.get_id()) + "|" + income.get_date() + "|" + std::to_string(income.get_sum()) + "|" + income.get_type());
-            }
-            return data_str;
-        }
+			return fields;
+		}
 
-        vector<Income> convert_string_to_incomes(vector<string> data) {
-            vector<string> splited_data;
-            for (auto& str : data) {
-                stringstream ss(str);
-                string token;
-                while (std::getline(ss, token, '|')) {
-                    splited_data.push_back(token);
-                }
-            }
+		static int write_to_file(string pyth_to_file, vector<string> data) {
+			ofstream file(pyth_to_file);
+			if (!file.is_open()) {
+				return 1;
+			}
 
-            vector<Income> incomes;
-            for (size_t i = 0; i < splited_data.size(); i = i + 4) {
-                incomes.push_back(Income(splited_data.at(i + 1), stof(splited_data.at(i + 2)), splited_data.at(i + 3)));
-            }
+			for (string str : data) {
+				file << encrypt_data(str);
+				file << "||";
+			}
 
-            return incomes;
-        }
+			file.close();
 
-        vector<string> convert_expenses_to_string(vector<Expense> data) {
-            vector<string> data_str;
-            for (Expense expense : data) {
-                data_str.push_back(std::to_string(expense.get_id()) + "|" + expense.get_date() + "|" + std::to_string(expense.get_sum()) + "|" + expense.get_type());
-            }
-            return data_str;
-        }
+			return 0;
+		}
 
-        vector<Expense> convert_string_to_expenses(vector<string> data) {
-            vector<string> splited_data;
-            for (auto& str : data) {
-                stringstream ss(str);
-                string token;
-                while (std::getline(ss, token, '|')) {
-                    splited_data.push_back(token);
-                }
-            }
+		static vector<string> convert_incomes_to_string(vector<FNM::Income> data) {
+			vector<string> data_str;
+			for (FNM::Income income : data) {
+				data_str.push_back(std::to_string(income.get_id()) + "|" + income.get_date() + "|" + std::to_string(income.get_sum()) + "|" + convert_wstring_to_string(income.get_type()));
+			}
+			return data_str;
+		}
 
-            vector<Expense> expense;
-            for (size_t i = 0; i < splited_data.size(); i = i + 4) {
-                expense.push_back(Expense(splited_data.at(i + 1), stof(splited_data.at(i + 2)), splited_data.at(i + 3)));
-            }
+		static vector<FNM::Income> convert_string_to_incomes(vector<string> data) {
+			vector<string> splited_data;
+			for (auto& str : data) {
+				stringstream ss(str);
+				string token;
+				while (std::getline(ss, token, '|')) {
+					splited_data.push_back(token);
+				}
+			}
 
-            return expense;
-        }
+			vector<FNM::Income> incomes;
+			for (size_t i = 0; i < splited_data.size(); i = i + 4) {
+				incomes.push_back(FNM::Income(splited_data.at(i + 1), stof(splited_data.at(i + 2)), convert_string_to_wstring(splited_data.at(i + 3))));
+			}
 
-        bool file_exists(string filename) {
-            ifstream file(filename);
-            return file.good();
-        }
+			return incomes;
+		}
 
-        vector<string> convert_users_to_string(vector<User> users) {
-            vector<string> data_str;
-            for (auto& user : users) {
-                data_str.push_back(user.get_login() + "|" + user.get_password() + "|" + std::to_string(user.get_budget()) + "|" + user.get_secret_word());
-            }
-            return data_str;
-        }
+		static vector<FNM::Expense> convert_string_to_expenses(vector<string> data) {
+			vector<string> splited_data;
+			for (auto& str : data) {
+				stringstream ss(str);
+				string token;
+				while (std::getline(ss, token, '|')) {
+					splited_data.push_back(token);
+				}
+			}
 
-        vector<User> convert_string_to_users(vector<string> data) {
-            vector<string> splited_data;
-            for (auto& str : data) {
-                stringstream ss(str);
-                string token;
-                while (std::getline(ss, token, '|')) {
-                    splited_data.push_back(token);
-                }
-            }
+			vector<FNM::Expense> expense;
+			for (size_t i = 0; i < splited_data.size(); i = i + 4) {
+				expense.push_back(FNM::Expense(splited_data.at(i + 1), stof(splited_data.at(i + 2)), convert_string_to_wstring(splited_data.at(i + 3))));
+			}
 
-            vector<User> users;
-            for (size_t i = 0; i < splited_data.size(); i = i + 4) {
-                users.push_back(User(splited_data.at(i), splited_data.at(i + 1), stof(splited_data.at(i + 2)), splited_data.at(i + 3)));
-            }
+			return expense;
+		}
 
-            return users;
-        }
+		static vector<FNM::User> convert_string_to_users(vector<string> data) {
+			vector<string> splited_data;
+			for (auto& str : data) {
+				stringstream ss(str);
+				string token;
+				while (std::getline(ss, token, '|')) {
+					splited_data.push_back(token);
+				}
+			}
 
-        string convert_system_string_to_stdString(System::String^ str) {
-            string result;
-            for (int i = 0; i < str->Length; ++i) {
-                result += static_cast<char>(str[i]);
-            }
-            return result;
-        }
+			vector<FNM::User> users;
+			for (size_t i = 0; i < splited_data.size(); i = i + 4) {
+				users.push_back(User(convert_string_to_wstring(splited_data.at(i)), convert_string_to_wstring(splited_data.at(i + 1)), stof(splited_data.at(i + 2)), convert_string_to_wstring(splited_data.at(i + 3))));
+			}
 
-        const bool change_directory(string pyth) {
-            string command = "cd " + pyth;
-            int result = system(command.c_str());
-            if (result == 0) {
-                std::cout << L"Директория" << pyth << std::endl;
-                return true;
-            }
-            else {
-                std::cerr << L"Невозможно перейти в директорию " << pyth << "'." << std::endl;
-                return false;
-            }
-        }
+			return users;
+		}
 
-        const bool create_directory(string dirname) {
-            string command = "mkdir " + dirname;
-            int result = system(command.c_str());
-            if (result == 0) {
-                std::cout << L"Директория " << dirname << L" создана" << std::endl;
-                return true;
-            }
-            else {
-                std::cerr << L"Невозможно создать директорию " << dirname << "'." << std::endl;
-                return false;
-            }
-        }
+		static vector<string> convert_expenses_to_string(vector<FNM::Expense> data) {
+			vector<string> data_str;
+			for (FNM::Expense expense : data) {
+				data_str.push_back(std::to_string(expense.get_id()) + "|" + expense.get_date() + "|" + std::to_string(expense.get_sum()) + "|" + convert_wstring_to_string(expense.get_type()));
+			}
+			return data_str;
+		}
 
-        const bool validate_login(string login) {
-            bool result = true;
-            for (auto& c : login) {
-                if (!isalpha(c)) {
-                    result = false;
-                    break;
-                }
-            }
-            return result;
-        }
+		static vector<string> convert_users_to_string(vector<FNM::User> users) {
+			vector<string> data_str;
+			for (auto& user : users) {
+				data_str.push_back(convert_wstring_to_string(user.get_login()) + "|" + convert_wstring_to_string(user.get_password()) + "|" + std::to_string(user.get_budget()) + "|" + convert_wstring_to_string(user.get_secret_word()));
+			}
+			return data_str;
+		}
 
-        const bool validate_set_budget(string sum) {
-            bool result = false;
-            float value;
-            try {
-                value = stof(sum);
-                if (value > 0) {
-                    result = true;
-                }
-            }catch (const std::invalid_argument&) {
-                cout << L"Некорректный ввод." << endl;
-            }
-            return result;
-        }
+		static string convert_system_string_to_stdString(System::String^ str) {
+			string result;
+			for (int i = 0; i < str->Length; ++i) {
+				result += static_cast<char>(str[i]);
+			}
+			return result;
+		}
 
-        const wstring convert_string_to_wstring(string str) {
-            wstring_convert<codecvt_utf8_utf16<wchar_t>> converter;
-            string narrow = str;
-            wstring wide = converter.from_bytes(narrow);
-            return wide;
-        }
+		static string convert_String_to_string(String^ s) {
+			using namespace Runtime::InteropServices;
+			const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
+			string os = chars;
+			return os;
+		}
 
-        const vector<string> get_splited_data(string str, char delimiter) {
-            vector<string> splited_data;
-            stringstream ss(str);
-            string token;
-            while (getline(ss, token, delimiter)) {
-                splited_data.push_back(token);
-            }
-            return splited_data;
-        }
+		static wstring convert_String_to_wstring(String^ s) {
+			using namespace Runtime::InteropServices;
+			const wchar_t* chars =
+				(const wchar_t*)(Marshal::StringToHGlobalUni(s)).ToPointer();
+			wstring os = chars;
+			return os;
+		}
 
-        const vector<float> get_data_for_chart_last_incomes(vector<Income> incomes) {
-            vector<float> data;
-            for (size_t i = 0; i < incomes.size(); i++) {
-                data.push_back(i + 1);
-                data.push_back(incomes.at(i).get_sum());
-            }
-            return data;
-        }
+		static bool change_directory(string pyth) {
+			string command = "cd " + pyth;
+			int result = system(command.c_str());
+			if (result == 0) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
 
-        const vector<float> get_data_for_chart_last_expenses(vector<Expense> expenses) {
-            vector<float> data;
-            for (size_t i = 0; i < expenses.size(); i++) {
-                data.push_back(i + 1);
-                data.push_back(expenses.at(i).get_sum());
-            }
-            return data;
-        }
-    };
+		static bool create_directory(string dirname) {
+			string command = "mkdir " + dirname;
+			int result = system(command.c_str());
+			if (result == 0) {
+				std::cout << L"Директория " << dirname << L" создана" << std::endl;
+				return true;
+			}
+			else {
+				std::cerr << L"Невозможно создать директорию " << dirname << "'." << std::endl;
+				return false;
+			}
+		}
+
+		static bool validate_login(string login) {
+			for (auto& c : login) {
+				if (!isalpha(c)) {
+					return false;
+				}
+			}
+			return true;
+		}
+
+		static bool validate_set_budget(string sum) {
+			bool result = false;
+			float value;
+			try {
+				value = stof(sum);
+				if (value > 0) {
+					result = true;
+				}
+			}
+			catch (const std::invalid_argument&) {
+				cout << L"Некорректный ввод." << endl;
+			}
+			return result;
+		}
+
+		static vector<string> get_splited_data(string str, char delimiter) {
+			vector<string> splited_data;
+			stringstream ss(str);
+			string token;
+			while (getline(ss, token, delimiter)) {
+				splited_data.push_back(token);
+			}
+			return splited_data;
+		}
+
+		static vector<float> get_data_for_chart_last_incomes(vector<Income> incomes) {
+			vector<float> data;
+			for (size_t i = 0; i < incomes.size(); i++) {
+				data.push_back(i + 1);
+				data.push_back(incomes.at(i).get_sum());
+			}
+			return data;
+		}
+
+		static vector<float> get_data_for_chart_last_expenses(vector<Expense> expenses) {
+			vector<float> data;
+			for (size_t i = 0; i < expenses.size(); i++) {
+				data.push_back(i + 1);
+				data.push_back(expenses.at(i).get_sum());
+			}
+			return data;
+		}
+
+
+	};
+
 }

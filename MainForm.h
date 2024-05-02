@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Main.h"
 
+
 namespace FNM {
 	using namespace FNM;
 	using namespace System;
@@ -9,12 +10,16 @@ namespace FNM {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::IO;
+
+
 
 	FNM::Incomes incomes;
 	FNM::Expenses expenses;
 	FNM::Users users;
 	FNM::Utils utils;
 	FNM::User auth_user;
+	FNM::FinancialReport report;
 
 
 
@@ -100,6 +105,26 @@ namespace FNM {
 	private: System::Windows::Forms::Label^ label_sum_budget;
 	private: System::Windows::Forms::Label^ total_sum_budget;
 	private: System::Windows::Forms::DataVisualization::Charting::Chart^ chart_expenses;
+	private: System::Windows::Forms::Button^ button_report_for_day;
+
+	private: System::Windows::Forms::Button^ button_report_for_month;
+	private: System::Windows::Forms::Button^ button_report_for_year;
+	private: System::Windows::Forms::Label^ label_report_transactions;
+	private: System::Windows::Forms::DataGridView^ dataGridView_report_transactions;
+
+
+
+
+	private: System::Windows::Forms::Button^ button_save_report;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ report_type_transaction;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ report_date_transaction;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ report_sum_transaction;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ report_type_t;
+
+
+
+
+
 
 
 
@@ -179,9 +204,20 @@ namespace FNM {
 			this->label_sum_budget = (gcnew System::Windows::Forms::Label());
 			this->total_sum_budget = (gcnew System::Windows::Forms::Label());
 			this->chart_expenses = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
+			this->button_report_for_day = (gcnew System::Windows::Forms::Button());
+			this->button_report_for_month = (gcnew System::Windows::Forms::Button());
+			this->button_report_for_year = (gcnew System::Windows::Forms::Button());
+			this->label_report_transactions = (gcnew System::Windows::Forms::Label());
+			this->dataGridView_report_transactions = (gcnew System::Windows::Forms::DataGridView());
+			this->report_type_transaction = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->report_date_transaction = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->report_sum_transaction = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->report_type_t = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->button_save_report = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart_incomes))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart_expenses))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView_report_transactions))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// label_header
@@ -305,6 +341,7 @@ namespace FNM {
 			this->button_report->Text = L"Отчет";
 			this->button_report->UseVisualStyleBackColor = true;
 			this->button_report->Visible = false;
+			this->button_report->Click += gcnew System::EventHandler(this, &MainForm::button_report_Click);
 			// 
 			// button_exit
 			// 
@@ -747,28 +784,128 @@ namespace FNM {
 			this->chart_expenses->Titles->Add(title2);
 			this->chart_expenses->Visible = false;
 			// 
+			// button_report_for_day
+			// 
+			this->button_report_for_day->Location = System::Drawing::Point(52, 133);
+			this->button_report_for_day->Name = L"button_report_for_day";
+			this->button_report_for_day->Size = System::Drawing::Size(194, 66);
+			this->button_report_for_day->TabIndex = 48;
+			this->button_report_for_day->Text = L"За день";
+			this->button_report_for_day->UseVisualStyleBackColor = true;
+			this->button_report_for_day->Visible = false;
+			this->button_report_for_day->Click += gcnew System::EventHandler(this, &MainForm::button_report_for_day_Click);
+			// 
+			// button_report_for_month
+			// 
+			this->button_report_for_month->Location = System::Drawing::Point(271, 132);
+			this->button_report_for_month->Name = L"button_report_for_month";
+			this->button_report_for_month->Size = System::Drawing::Size(194, 66);
+			this->button_report_for_month->TabIndex = 50;
+			this->button_report_for_month->Text = L"За месяц";
+			this->button_report_for_month->UseVisualStyleBackColor = true;
+			this->button_report_for_month->Visible = false;
+			this->button_report_for_month->Click += gcnew System::EventHandler(this, &MainForm::button_report_for_month_Click);
+			// 
+			// button_report_for_year
+			// 
+			this->button_report_for_year->Location = System::Drawing::Point(493, 133);
+			this->button_report_for_year->Name = L"button_report_for_year";
+			this->button_report_for_year->Size = System::Drawing::Size(194, 66);
+			this->button_report_for_year->TabIndex = 51;
+			this->button_report_for_year->Text = L"За год";
+			this->button_report_for_year->UseVisualStyleBackColor = true;
+			this->button_report_for_year->Visible = false;
+			this->button_report_for_year->Click += gcnew System::EventHandler(this, &MainForm::button_report_for_year_Click);
+			// 
+			// label_report_transactions
+			// 
+			this->label_report_transactions->AutoSize = true;
+			this->label_report_transactions->Location = System::Drawing::Point(73, 220);
+			this->label_report_transactions->Name = L"label_report_transactions";
+			this->label_report_transactions->Size = System::Drawing::Size(233, 25);
+			this->label_report_transactions->TabIndex = 52;
+			this->label_report_transactions->Text = L"Список транзакций";
+			this->label_report_transactions->Visible = false;
+			// 
+			// dataGridView_report_transactions
+			// 
+			this->dataGridView_report_transactions->AllowUserToAddRows = false;
+			this->dataGridView_report_transactions->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridView_report_transactions->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
+				this->report_type_transaction,
+					this->report_date_transaction, this->report_sum_transaction, this->report_type_t
+			});
+			this->dataGridView_report_transactions->Location = System::Drawing::Point(52, 252);
+			this->dataGridView_report_transactions->MultiSelect = false;
+			this->dataGridView_report_transactions->Name = L"dataGridView_report_transactions";
+			this->dataGridView_report_transactions->RowHeadersWidth = 51;
+			this->dataGridView_report_transactions->RowTemplate->Height = 24;
+			this->dataGridView_report_transactions->Size = System::Drawing::Size(680, 427);
+			this->dataGridView_report_transactions->TabIndex = 53;
+			this->dataGridView_report_transactions->Visible = false;
+			// 
+			// report_type_transaction
+			// 
+			this->report_type_transaction->HeaderText = L"Тип транзакции";
+			this->report_type_transaction->MinimumWidth = 6;
+			this->report_type_transaction->Name = L"report_type_transaction";
+			this->report_type_transaction->Width = 200;
+			// 
+			// report_date_transaction
+			// 
+			this->report_date_transaction->HeaderText = L"Дата";
+			this->report_date_transaction->MinimumWidth = 6;
+			this->report_date_transaction->Name = L"report_date_transaction";
+			this->report_date_transaction->Width = 150;
+			// 
+			// report_sum_transaction
+			// 
+			this->report_sum_transaction->HeaderText = L"Сумма";
+			this->report_sum_transaction->MinimumWidth = 6;
+			this->report_sum_transaction->Name = L"report_sum_transaction";
+			this->report_sum_transaction->Width = 125;
+			// 
+			// report_type_t
+			// 
+			this->report_type_t->HeaderText = L"Тип";
+			this->report_type_t->MinimumWidth = 6;
+			this->report_type_t->Name = L"report_type_t";
+			this->report_type_t->Width = 150;
+			// 
+			// button_save_report
+			// 
+			this->button_save_report->Location = System::Drawing::Point(780, 252);
+			this->button_save_report->Name = L"button_save_report";
+			this->button_save_report->Size = System::Drawing::Size(194, 66);
+			this->button_save_report->TabIndex = 54;
+			this->button_save_report->Text = L"Сохранить";
+			this->button_save_report->UseVisualStyleBackColor = true;
+			this->button_save_report->Visible = false;
+			this->button_save_report->Click += gcnew System::EventHandler(this, &MainForm::button_save_report_Click);
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(14, 25);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::Window;
 			this->ClientSize = System::Drawing::Size(1006, 721);
-			this->Controls->Add(this->chart_expenses);
+			this->Controls->Add(this->button_save_report);
+			this->Controls->Add(this->dataGridView_report_transactions);
+			this->Controls->Add(this->label_report_transactions);
+			this->Controls->Add(this->button_report_for_year);
+			this->Controls->Add(this->button_report_for_month);
+			this->Controls->Add(this->button_report_for_day);
 			this->Controls->Add(this->total_sum_budget);
 			this->Controls->Add(this->label_sum_budget);
 			this->Controls->Add(this->total_sum_expenses);
 			this->Controls->Add(this->label_total_sum_expenses);
 			this->Controls->Add(this->label_total_sum_icomes);
-			this->Controls->Add(this->button_get_password);
 			this->Controls->Add(this->button_back_to_main);
 			this->Controls->Add(this->recover_password);
-			this->Controls->Add(this->label_secret_word);
-			this->Controls->Add(this->secret_word);
 			this->Controls->Add(this->button_reset_budget);
 			this->Controls->Add(this->button_go_to_reset_budget);
 			this->Controls->Add(this->button_set_budget);
 			this->Controls->Add(this->set_budget);
-			this->Controls->Add(this->chart_incomes);
 			this->Controls->Add(this->button_delete_expense);
 			this->Controls->Add(this->button_save_expenses);
 			this->Controls->Add(this->button_add_expense);
@@ -789,10 +926,7 @@ namespace FNM {
 			this->Controls->Add(this->button_expenses);
 			this->Controls->Add(this->button_incomes);
 			this->Controls->Add(this->link_sing_up);
-			this->Controls->Add(this->button_login);
-			this->Controls->Add(this->label_password);
 			this->Controls->Add(this->label_login);
-			this->Controls->Add(this->user_password);
 			this->Controls->Add(this->user_login);
 			this->Controls->Add(this->label_header);
 			this->Controls->Add(this->label_set_budget);
@@ -800,6 +934,14 @@ namespace FNM {
 			this->Controls->Add(this->button_report);
 			this->Controls->Add(this->button_sing_up);
 			this->Controls->Add(this->dataGridView);
+			this->Controls->Add(this->chart_incomes);
+			this->Controls->Add(this->chart_expenses);
+			this->Controls->Add(this->label_secret_word);
+			this->Controls->Add(this->secret_word);
+			this->Controls->Add(this->button_get_password);
+			this->Controls->Add(this->button_login);
+			this->Controls->Add(this->user_password);
+			this->Controls->Add(this->label_password);
 			this->Font = (gcnew System::Drawing::Font(L"Verdana", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedToolWindow;
@@ -812,6 +954,7 @@ namespace FNM {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart_incomes))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart_expenses))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView_report_transactions))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -997,6 +1140,12 @@ namespace FNM {
 		this->total_sum_incomes->Visible = false;
 		this->label_sum_budget->Visible = false;
 		this->total_sum_budget->Visible = false;
+		this->button_report_for_day->Visible = false;
+		this->button_report_for_month->Visible = false;
+		this->button_report_for_year->Visible = false;
+		this->button_save_report->Visible = false;
+		this->label_report_transactions->Visible = false;
+		this->dataGridView_report_transactions->Visible = false;
 	}
 
 	private: System::Void show_incomes() {
@@ -1305,7 +1454,6 @@ namespace FNM {
 		this->secret_word->Visible = true;
 		this->button_get_password->Visible = true;
 		this->button_back_to_main->Visible = true;
-
 	}
 
 	private: System::Void recover_password_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) {
@@ -1332,5 +1480,63 @@ namespace FNM {
 			}
 		}
 	}
+
+	private: System::Void button_report_Click(System::Object^ sender, System::EventArgs^ e) {
+		hide_all();
+		this->label_header_transaction->Text = L"Отчет";
+		this->label_header_transaction->Visible = true;
+		this->button_back->Visible = true;
+		this->button_report_for_day->Visible = true;
+		this->button_report_for_month->Visible = true;
+		this->button_report_for_year->Visible = true;
+		this->button_save_report->Visible = true;
+		this->label_report_transactions->Visible = true;
+		this->dataGridView_report_transactions->Visible = true;
+		this->dateTimePicker->Value = System::DateTime::Now;
+	}
+
+	private: System::Void button_report_for_day_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->dataGridView_report_transactions->Rows->Clear();
+		string date = utils.convert_system_string_to_stdString(dateTimePicker->Value.Day.ToString() + "/" + dateTimePicker->Value.Month.ToString() + "/" + dateTimePicker->Value.Year.ToString());
+		report.set_transactions(utils.get_transaction(incomes.get_incomes(), expenses.get_expenses(), date, "day"));
+		for (auto& trn : report.get_transactions()) {
+			this->dataGridView_report_transactions->Rows->Add((gcnew System::String(trn.get_type_t().c_str())), (gcnew System::String(trn.get_date().c_str())), trn.get_sum(), (gcnew System::String(trn.get_type().c_str())));
+		}
+	}
+	private: System::Void button_report_for_month_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->dataGridView_report_transactions->Rows->Clear();
+		string date = utils.convert_system_string_to_stdString(dateTimePicker->Value.Day.ToString() + "/" + dateTimePicker->Value.Month.ToString() + "/" + dateTimePicker->Value.Year.ToString());
+		report.set_transactions(utils.get_transaction(incomes.get_incomes(), expenses.get_expenses(), date, "month"));
+		for (auto& trn : report.get_transactions()) {
+			this->dataGridView_report_transactions->Rows->Add((gcnew System::String(trn.get_type_t().c_str())), (gcnew System::String(trn.get_date().c_str())), trn.get_sum(), (gcnew System::String(trn.get_type().c_str())));
+		}
+	}
+	private: System::Void button_report_for_year_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->dataGridView_report_transactions->Rows->Clear();
+		string date = utils.convert_system_string_to_stdString(dateTimePicker->Value.Day.ToString() + "/" + dateTimePicker->Value.Month.ToString() + "/" + dateTimePicker->Value.Year.ToString());
+		report.set_transactions(utils.get_transaction(incomes.get_incomes(), expenses.get_expenses(), date, "year"));
+		for (auto& trn : report.get_transactions()) {
+			this->dataGridView_report_transactions->Rows->Add((gcnew System::String(trn.get_type_t().c_str())), (gcnew System::String(trn.get_date().c_str())), trn.get_sum(), (gcnew System::String(trn.get_type().c_str())));
+		}
+	}
+	private: System::Void button_save_report_Click(System::Object^ sender, System::EventArgs^ e) {
+		SaveFileDialog^ saveFileDialog = gcnew SaveFileDialog();
+		saveFileDialog->Filter = "Txt-файлы (*.txt)|*.txt";
+		saveFileDialog->Title = "Сохранение отчета";
+		if (saveFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+		{
+			String^ path = saveFileDialog->FileName;
+			StreamWriter^ writer = gcnew StreamWriter(path);
+			writer->WriteLine("   Тип транзакции\tДата\t\tСумма\t\tТип");
+			for (auto& trn : report.get_transactions()) {
+				wstring wdate = convert_string_to_wstring(trn.get_date());
+				wstring wsum = convert_string_to_wstring(std::to_string(trn.get_sum()));
+				String^ str = L"\t" + gcnew String(trn.get_type_t().c_str()) + L"\t\t" + gcnew String(wdate.c_str()) + L"\t" + gcnew String(wsum.c_str()) + L"\t" + gcnew String(trn.get_type().c_str());
+				writer->WriteLine(str);
+			}
+			writer->Close();
+		}
+	}
+
 };
 }

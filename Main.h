@@ -6,7 +6,7 @@
 #include <sstream>
 #include <locale>
 #include <codecvt>
-#include <vcclr.h>
+#include <windows.h>
 
 
 using namespace std;
@@ -28,18 +28,25 @@ namespace FNM {
 
 	class Transaction {
 	private:
+		wstring type_t;
 		string date;
 		float sum;
 		wstring type;
 	public:
 		Transaction() : date(""), sum(0.0f), type(L"") {}
 		Transaction(string date, float sum, wstring type) : date(date), sum(sum), type(type) {}
+		Transaction(wstring type_t, string date, float sum, wstring type) : type_t(type_t), date(date), sum(sum), type(type) {}
 		void set_type(wstring type) { this->type = type; }
-		wstring get_type() { return type; }
+		wstring get_type() { return this->type; }
 		void set_sum(float sum) { this->sum = sum; }
-		float get_sum() { return sum; }
+		float get_sum() { return this->sum; }
 		void set_date(string date) { this->date = date; }
-		string get_date() { return date; }
+		string get_date() { return this->date; }
+		wstring get_type_t() { return this->type_t; }
+
+		void set_type_t(wstring type_t) {
+			this->type_t = type_t;
+		}
 
 		int get_day(vector<string> date) {
 			return stoi(date.at(0));
@@ -163,10 +170,18 @@ namespace FNM {
 
 	class FinancialReport {
 	private:
-		Incomes incomes;
-		Expenses expenses;
+		vector<Transaction> transactions;
 	public:
-		FinancialReport(Incomes incomes, Expenses expenses) : incomes(incomes), expenses(expenses) {};
+		FinancialReport() {};
+		FinancialReport(vector<Transaction> transactions) : transactions(transactions) {};
+
+		void set_transactions(vector<Transaction> transactions) {
+			this->transactions = transactions;
+		}
+
+		vector<Transaction> get_transactions() {
+			return this->transactions;
+		}
 	};
 
 	class User {
@@ -470,6 +485,58 @@ namespace FNM {
 			}
 			return data;
 		}
+
+		static vector<Transaction> get_transaction(vector<Income> incomes, vector<Expense> expenses, string date, string period) {
+			vector<string> arr_date = get_splited_data(date, '/');
+			vector<Transaction> transactions;
+			if (period == "day") {
+				for (auto& income : incomes) {
+					if (income.get_date() == date) {
+							transactions.push_back(Transaction(L"Доход", income.get_date(), income.get_sum(),income.get_type()));
+					}
+				}
+				for (auto& expense : expenses) {
+					if (expense.get_date() == date) {
+						transactions.push_back(Transaction(L"Расход", expense.get_date(), expense.get_sum(), expense.get_type()));
+					}
+				}
+				return transactions;
+			}
+			else if (period == "month") {
+				for (auto& income : incomes) {
+					vector<string> spl_date = get_splited_data(income.get_date(), '/');
+					if (std::to_string(income.get_month(spl_date)) == arr_date.at(1) 
+						&& std::to_string(income.get_year(spl_date)) == arr_date.at(2)) {
+						transactions.push_back(Transaction(L"Доход", income.get_date(), income.get_sum(), income.get_type()));
+					}
+				}
+				for (auto& expense : expenses) {
+					vector<string> spl_date = get_splited_data(expense.get_date(), '/');
+					if (std::to_string(expense.get_month(spl_date)) == arr_date.at(1)
+						&& std::to_string(expense.get_year(spl_date)) == arr_date.at(2)) {
+						transactions.push_back(Transaction(L"Расход", expense.get_date(), expense.get_sum(), expense.get_type()));
+					}
+				}
+				return transactions;
+			}
+			else {
+				for (auto& income : incomes) {
+					vector<string> spl_date = get_splited_data(income.get_date(), '/');
+					if (std::to_string(income.get_year(spl_date)) == arr_date.at(2)) {
+						transactions.push_back(Transaction(L"Доход", income.get_date(), income.get_sum(), income.get_type()));
+					}
+				}
+				for (auto& expense : expenses) {
+					vector<string> spl_date = get_splited_data(expense.get_date(), '/');
+					if (std::to_string(expense.get_year(spl_date)) == arr_date.at(2)) {
+						transactions.push_back(Transaction(L"Расход", expense.get_date(), expense.get_sum(), expense.get_type()));
+					}
+				}
+				return transactions;
+			}
+		}
+
+
 
 
 	};

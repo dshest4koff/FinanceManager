@@ -1521,22 +1521,59 @@ namespace FNM {
 	}
 	private: System::Void button_save_report_Click(System::Object^ sender, System::EventArgs^ e) {
 		SaveFileDialog^ saveFileDialog = gcnew SaveFileDialog();
-		saveFileDialog->Filter = "Txt-файлы (*.txt)|*.txt";
+		saveFileDialog->Filter = "Docx-файлы (*.docx)|*.docx";
 		saveFileDialog->Title = "Сохранение отчета";
 		if (saveFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK)
 		{
-			String^ path = saveFileDialog->FileName;
-			StreamWriter^ writer = gcnew StreamWriter(path);
-			writer->WriteLine("   Тип транзакции\tДата\t\tСумма\t\tТип");
-			for (auto& trn : report.get_transactions()) {
-				wstring wdate = convert_string_to_wstring(trn.get_date());
-				wstring wsum = convert_string_to_wstring(std::to_string(trn.get_sum()));
-				String^ str = L"\t" + gcnew String(trn.get_type_t().c_str()) + L"\t\t" + gcnew String(wdate.c_str()) + L"\t" + gcnew String(wsum.c_str()) + L"\t" + gcnew String(trn.get_type().c_str());
-				writer->WriteLine(str);
-			}
-			writer->Close();
+			Object^ path = saveFileDialog->FileName;
+			auto Word1 = gcnew Microsoft::Office::Interop::Word::Application();
+			Object^ t = Type::Missing; 
+			auto Doc = Word1->Documents->Add(t, t, t, t);
+			insert_data_word(Doc, this->dataGridView_report_transactions);
+			Object^ tt = Microsoft::Office::Interop::Word::WdSaveOptions::wdDoNotSaveChanges; //Не сохранять документ
+			Doc->SaveAs(path, t, t, t, t, t, t, t, t, t, t, t, t, t, t, t);
+			//Word1->Documents->Close(tt, t, t); // Закрыть документ Word без сохранения
+			Word1->Quit(tt, t, t);
+			Word1 = nullptr;
+			send_message_ok(L"Файл сохранен!");
 		}
+		else {
+			send_error(L"Произошла ошибка!");
+		}
+		
 	}
+
+	private: System::Void insert_data_word(Microsoft::Office::Interop::Word::Document^ doc, DataGridView^ dgv)
+		   {
+				Object^ t1 = 0;
+				Object^ t2 = 1;
+				Object^ t3 = Microsoft::Office::Interop::Word::WdDefaultTableBehavior::wdWord8TableBehavior;
+				Object^ t4 = Microsoft::Office::Interop::Word::WdAutoFitBehavior::wdAutoFitContent;
+				string date = utils.convert_system_string_to_stdString(dateTimePicker->Value.Day.ToString() + "/" + dateTimePicker->Value.Month.ToString() + "/" + dateTimePicker->Value.Year.ToString());
+
+			   auto table = doc->Tables->Add(doc->Range(t1,t2), dgv->Rows->Count + 1, dgv->Columns->Count, t3, t4);
+
+			   for (int j = 0; j < dgv->Columns->Count; j++)
+			   {
+				   table->Rows[1]->Cells[j + 1]->Range->Text = dgv->Columns[j]->HeaderText;
+			   }
+
+			   for (int i = 0; i < dgv->Rows->Count; i++)
+			   {
+				   for (int j = 0; j < dgv->Columns->Count; j++)
+				   {
+					   if (dgv[j, i]->Value != NULL)
+					   {
+						   table->Rows[i + 2]->Cells[j + 1]->Range->Text = dgv[j, i]->Value->ToString();
+					   }
+				   }
+			   }
+
+			   table->Rows[1]->Range->Font->Bold = 1;
+			   table->Rows[1]->Range->ParagraphFormat->Alignment = Microsoft::Office::Interop::Word::WdParagraphAlignment::wdAlignParagraphCenter;
+			   table->Range->ParagraphFormat->SpaceAfter = 6;
+			   table->Borders->Enable = 1;
+		   }
 
 };
 }

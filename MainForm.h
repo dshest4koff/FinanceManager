@@ -56,7 +56,6 @@ namespace FNM {
 	private: System::Windows::Forms::Button^ button_login;
 	private: System::Windows::Forms::LinkLabel^ link_sing_up;
 	private: System::Windows::Forms::Button^ button_sing_up;
-
 	private: System::Windows::Forms::Button^ button_incomes;
 	private: System::Windows::Forms::Button^ button_expenses;
 	private: System::Windows::Forms::Button^ button_analyze;
@@ -66,15 +65,13 @@ namespace FNM {
 	private: System::Windows::Forms::Label^ label_header_transaction;
 	private: System::Windows::Forms::Label^ label_total_sum_icomes;
 	private: System::Windows::Forms::Label^ total_sum_incomes;
-
-
 	private: System::Windows::Forms::Button^ button_delete_incomes;
 	private: System::Windows::Forms::Button^ button_back;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ID;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Date;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Sum;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Type;
-	private: System::Windows::Forms::DataGridViewCheckBoxColumn^ Event;
+
+
+
+
+
 	private: System::Windows::Forms::DateTimePicker^ dateTimePicker;
 	private: System::Windows::Forms::TextBox^ sum_transaction;
 	private: System::Windows::Forms::TextBox^ type_transaction;
@@ -88,8 +85,6 @@ namespace FNM {
 	private: System::Windows::Forms::Button^ button_save_expenses;
 	private: System::Windows::Forms::Button^ button_delete_expense;
 	private: System::Windows::Forms::DataVisualization::Charting::Chart^ chart_incomes;
-
-
 	private: System::Windows::Forms::Label^ label_set_budget;
 	private: System::Windows::Forms::TextBox^ set_budget;
 	private: System::Windows::Forms::Button^ button_set_budget;
@@ -106,15 +101,10 @@ namespace FNM {
 	private: System::Windows::Forms::Label^ total_sum_budget;
 	private: System::Windows::Forms::DataVisualization::Charting::Chart^ chart_expenses;
 	private: System::Windows::Forms::Button^ button_report_for_day;
-
 	private: System::Windows::Forms::Button^ button_report_for_month;
 	private: System::Windows::Forms::Button^ button_report_for_year;
 	private: System::Windows::Forms::Label^ label_report_transactions;
 	private: System::Windows::Forms::DataGridView^ dataGridView_report_transactions;
-
-
-
-
 	private: System::Windows::Forms::Button^ button_save_report;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ report_type_transaction;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ report_date_transaction;
@@ -122,13 +112,11 @@ namespace FNM {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ report_type_t;
 	private: System::Windows::Forms::Label^ label_cur_budget;
 	private: System::Windows::Forms::Label^ cur_budget;
-
-
-
-
-
-
-
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ID;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Date;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Sum;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Type;
+	private: System::Windows::Forms::DataGridViewCheckBoxColumn^ Event;
 
 	protected:
 
@@ -168,11 +156,6 @@ namespace FNM {
 			this->button_report = (gcnew System::Windows::Forms::Button());
 			this->button_exit = (gcnew System::Windows::Forms::Button());
 			this->dataGridView = (gcnew System::Windows::Forms::DataGridView());
-			this->ID = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Sum = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Type = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Event = (gcnew System::Windows::Forms::DataGridViewCheckBoxColumn());
 			this->label_header_transaction = (gcnew System::Windows::Forms::Label());
 			this->label_total_sum_icomes = (gcnew System::Windows::Forms::Label());
 			this->total_sum_incomes = (gcnew System::Windows::Forms::Label());
@@ -218,6 +201,11 @@ namespace FNM {
 			this->button_save_report = (gcnew System::Windows::Forms::Button());
 			this->label_cur_budget = (gcnew System::Windows::Forms::Label());
 			this->cur_budget = (gcnew System::Windows::Forms::Label());
+			this->ID = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Sum = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Type = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Event = (gcnew System::Windows::Forms::DataGridViewCheckBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart_incomes))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart_expenses))->BeginInit();
@@ -280,6 +268,7 @@ namespace FNM {
 			// 
 			// button_login
 			// 
+			this->button_login->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->button_login->FlatAppearance->BorderColor = System::Drawing::Color::Black;
 			this->button_login->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
 			this->button_login->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
@@ -296,7 +285,9 @@ namespace FNM {
 			// 
 			// link_sing_up
 			// 
+			this->link_sing_up->ActiveLinkColor = System::Drawing::Color::White;
 			this->link_sing_up->AutoSize = true;
+			this->link_sing_up->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->link_sing_up->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->link_sing_up->LinkColor = System::Drawing::Color::Black;
@@ -306,10 +297,12 @@ namespace FNM {
 			this->link_sing_up->TabIndex = 6;
 			this->link_sing_up->TabStop = true;
 			this->link_sing_up->Text = L"Зарегистрироваться";
+			this->link_sing_up->VisitedLinkColor = System::Drawing::Color::Gainsboro;
 			this->link_sing_up->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &MainForm::link_sing_up_LinkClicked);
 			// 
 			// button_sing_up
 			// 
+			this->button_sing_up->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->button_sing_up->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
 			this->button_sing_up->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
 			this->button_sing_up->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
@@ -325,6 +318,11 @@ namespace FNM {
 			// 
 			// button_incomes
 			// 
+			this->button_incomes->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->button_incomes->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->button_incomes->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
+			this->button_incomes->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
+			this->button_incomes->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->button_incomes->Location = System::Drawing::Point(354, 192);
 			this->button_incomes->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_incomes->Name = L"button_incomes";
@@ -337,6 +335,11 @@ namespace FNM {
 			// 
 			// button_expenses
 			// 
+			this->button_expenses->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->button_expenses->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->button_expenses->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
+			this->button_expenses->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
+			this->button_expenses->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->button_expenses->Location = System::Drawing::Point(354, 251);
 			this->button_expenses->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_expenses->Name = L"button_expenses";
@@ -349,6 +352,11 @@ namespace FNM {
 			// 
 			// button_analyze
 			// 
+			this->button_analyze->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->button_analyze->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->button_analyze->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
+			this->button_analyze->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
+			this->button_analyze->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->button_analyze->Location = System::Drawing::Point(354, 310);
 			this->button_analyze->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_analyze->Name = L"button_analyze";
@@ -361,6 +369,11 @@ namespace FNM {
 			// 
 			// button_report
 			// 
+			this->button_report->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->button_report->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->button_report->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
+			this->button_report->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
+			this->button_report->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->button_report->Location = System::Drawing::Point(354, 369);
 			this->button_report->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_report->Name = L"button_report";
@@ -373,6 +386,11 @@ namespace FNM {
 			// 
 			// button_exit
 			// 
+			this->button_exit->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->button_exit->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->button_exit->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
+			this->button_exit->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
+			this->button_exit->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->button_exit->Location = System::Drawing::Point(354, 427);
 			this->button_exit->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_exit->Name = L"button_exit";
@@ -401,47 +419,6 @@ namespace FNM {
 			this->dataGridView->TabIndex = 14;
 			this->dataGridView->Visible = false;
 			// 
-			// ID
-			// 
-			this->ID->HeaderText = L"Номер";
-			this->ID->MinimumWidth = 6;
-			this->ID->Name = L"ID";
-			this->ID->ReadOnly = true;
-			this->ID->Width = 125;
-			// 
-			// Date
-			// 
-			this->Date->HeaderText = L"Дата";
-			this->Date->MinimumWidth = 6;
-			this->Date->Name = L"Date";
-			this->Date->ReadOnly = true;
-			this->Date->Width = 125;
-			// 
-			// Sum
-			// 
-			this->Sum->HeaderText = L"Сумма";
-			this->Sum->MinimumWidth = 6;
-			this->Sum->Name = L"Sum";
-			this->Sum->ReadOnly = true;
-			this->Sum->Width = 125;
-			// 
-			// Type
-			// 
-			this->Type->HeaderText = L"Тип";
-			this->Type->MinimumWidth = 6;
-			this->Type->Name = L"Type";
-			this->Type->ReadOnly = true;
-			this->Type->Width = 125;
-			// 
-			// Event
-			// 
-			this->Event->HeaderText = L"Выбрать";
-			this->Event->MinimumWidth = 6;
-			this->Event->Name = L"Event";
-			this->Event->Resizable = System::Windows::Forms::DataGridViewTriState::True;
-			this->Event->SortMode = System::Windows::Forms::DataGridViewColumnSortMode::Automatic;
-			this->Event->Width = 125;
-			// 
 			// label_header_transaction
 			// 
 			this->label_header_transaction->AutoSize = true;
@@ -466,6 +443,8 @@ namespace FNM {
 			// 
 			// total_sum_incomes
 			// 
+			this->total_sum_incomes->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Underline)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
 			this->total_sum_incomes->Location = System::Drawing::Point(59, 173);
 			this->total_sum_incomes->Name = L"total_sum_incomes";
 			this->total_sum_incomes->Size = System::Drawing::Size(231, 25);
@@ -475,6 +454,11 @@ namespace FNM {
 			// 
 			// button_delete_incomes
 			// 
+			this->button_delete_incomes->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->button_delete_incomes->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->button_delete_incomes->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
+			this->button_delete_incomes->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
+			this->button_delete_incomes->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->button_delete_incomes->Location = System::Drawing::Point(725, 324);
 			this->button_delete_incomes->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_delete_incomes->Name = L"button_delete_incomes";
@@ -487,6 +471,7 @@ namespace FNM {
 			// 
 			// button_back
 			// 
+			this->button_back->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->button_back->FlatAppearance->BorderColor = System::Drawing::Color::Black;
 			this->button_back->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
 			this->button_back->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
@@ -505,6 +490,7 @@ namespace FNM {
 			// 
 			// dateTimePicker
 			// 
+			this->dateTimePicker->Format = System::Windows::Forms::DateTimePickerFormat::Short;
 			this->dateTimePicker->Location = System::Drawing::Point(140, 148);
 			this->dateTimePicker->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->dateTimePicker->Name = L"dateTimePicker";
@@ -514,7 +500,8 @@ namespace FNM {
 			// 
 			// sum_transaction
 			// 
-			this->sum_transaction->Location = System::Drawing::Point(426, 148);
+			this->sum_transaction->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->sum_transaction->Location = System::Drawing::Point(425, 147);
 			this->sum_transaction->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->sum_transaction->Name = L"sum_transaction";
 			this->sum_transaction->Size = System::Drawing::Size(92, 30);
@@ -523,7 +510,8 @@ namespace FNM {
 			// 
 			// type_transaction
 			// 
-			this->type_transaction->Location = System::Drawing::Point(588, 144);
+			this->type_transaction->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->type_transaction->Location = System::Drawing::Point(585, 146);
 			this->type_transaction->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->type_transaction->Name = L"type_transaction";
 			this->type_transaction->Size = System::Drawing::Size(92, 30);
@@ -543,7 +531,7 @@ namespace FNM {
 			// label_sum
 			// 
 			this->label_sum->AutoSize = true;
-			this->label_sum->Location = System::Drawing::Point(333, 148);
+			this->label_sum->Location = System::Drawing::Point(330, 149);
 			this->label_sum->Name = L"label_sum";
 			this->label_sum->Size = System::Drawing::Size(90, 25);
 			this->label_sum->TabIndex = 24;
@@ -562,6 +550,11 @@ namespace FNM {
 			// 
 			// button_add_income
 			// 
+			this->button_add_income->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->button_add_income->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->button_add_income->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
+			this->button_add_income->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
+			this->button_add_income->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->button_add_income->Location = System::Drawing::Point(712, 141);
 			this->button_add_income->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_add_income->Name = L"button_add_income";
@@ -575,7 +568,7 @@ namespace FNM {
 			// label_head_of_list
 			// 
 			this->label_head_of_list->AutoSize = true;
-			this->label_head_of_list->Location = System::Drawing::Point(68, 220);
+			this->label_head_of_list->Location = System::Drawing::Point(44, 219);
 			this->label_head_of_list->Name = L"label_head_of_list";
 			this->label_head_of_list->Size = System::Drawing::Size(174, 25);
 			this->label_head_of_list->TabIndex = 27;
@@ -584,6 +577,11 @@ namespace FNM {
 			// 
 			// button_save_incomes
 			// 
+			this->button_save_incomes->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->button_save_incomes->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->button_save_incomes->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
+			this->button_save_incomes->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
+			this->button_save_incomes->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->button_save_incomes->Location = System::Drawing::Point(725, 251);
 			this->button_save_incomes->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_save_incomes->Name = L"button_save_incomes";
@@ -596,6 +594,11 @@ namespace FNM {
 			// 
 			// button_add_expense
 			// 
+			this->button_add_expense->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->button_add_expense->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->button_add_expense->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
+			this->button_add_expense->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
+			this->button_add_expense->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->button_add_expense->Location = System::Drawing::Point(712, 141);
 			this->button_add_expense->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_add_expense->Name = L"button_add_expense";
@@ -608,6 +611,11 @@ namespace FNM {
 			// 
 			// button_save_expenses
 			// 
+			this->button_save_expenses->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->button_save_expenses->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->button_save_expenses->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
+			this->button_save_expenses->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
+			this->button_save_expenses->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->button_save_expenses->Location = System::Drawing::Point(725, 252);
 			this->button_save_expenses->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_save_expenses->Name = L"button_save_expenses";
@@ -620,6 +628,11 @@ namespace FNM {
 			// 
 			// button_delete_expense
 			// 
+			this->button_delete_expense->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->button_delete_expense->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->button_delete_expense->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
+			this->button_delete_expense->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
+			this->button_delete_expense->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->button_delete_expense->Location = System::Drawing::Point(725, 324);
 			this->button_delete_expense->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_delete_expense->Name = L"button_delete_expense";
@@ -641,7 +654,7 @@ namespace FNM {
 			legend1->Position->X = 50.69782F;
 			legend1->Position->Y = 3;
 			this->chart_incomes->Legends->Add(legend1);
-			this->chart_incomes->Location = System::Drawing::Point(23, 324);
+			this->chart_incomes->Location = System::Drawing::Point(25, 290);
 			this->chart_incomes->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->chart_incomes->Name = L"chart_incomes";
 			series1->ChartArea = L"ChartArea1";
@@ -680,6 +693,7 @@ namespace FNM {
 			// 
 			// button_set_budget
 			// 
+			this->button_set_budget->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->button_set_budget->FlatAppearance->BorderColor = System::Drawing::Color::Black;
 			this->button_set_budget->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
 			this->button_set_budget->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
@@ -696,6 +710,11 @@ namespace FNM {
 			// 
 			// button_go_to_reset_budget
 			// 
+			this->button_go_to_reset_budget->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->button_go_to_reset_budget->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->button_go_to_reset_budget->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
+			this->button_go_to_reset_budget->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
+			this->button_go_to_reset_budget->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->button_go_to_reset_budget->Location = System::Drawing::Point(354, 133);
 			this->button_go_to_reset_budget->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_go_to_reset_budget->Name = L"button_go_to_reset_budget";
@@ -708,6 +727,7 @@ namespace FNM {
 			// 
 			// button_reset_budget
 			// 
+			this->button_reset_budget->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->button_reset_budget->FlatAppearance->BorderColor = System::Drawing::Color::Black;
 			this->button_reset_budget->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
 			this->button_reset_budget->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
@@ -745,7 +765,9 @@ namespace FNM {
 			// 
 			// recover_password
 			// 
+			this->recover_password->ActiveLinkColor = System::Drawing::Color::White;
 			this->recover_password->AutoSize = true;
+			this->recover_password->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->recover_password->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->recover_password->LinkColor = System::Drawing::Color::Black;
@@ -755,10 +777,12 @@ namespace FNM {
 			this->recover_password->TabIndex = 40;
 			this->recover_password->TabStop = true;
 			this->recover_password->Text = L"Восстановить пароль";
+			this->recover_password->VisitedLinkColor = System::Drawing::Color::Gainsboro;
 			this->recover_password->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &MainForm::recover_password_LinkClicked);
 			// 
 			// button_back_to_main
 			// 
+			this->button_back_to_main->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->button_back_to_main->FlatAppearance->BorderColor = System::Drawing::Color::Black;
 			this->button_back_to_main->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
 			this->button_back_to_main->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
@@ -779,6 +803,7 @@ namespace FNM {
 			// 
 			this->button_get_password->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(242)),
 				static_cast<System::Int32>(static_cast<System::Byte>(241)), static_cast<System::Int32>(static_cast<System::Byte>(240)));
+			this->button_get_password->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->button_get_password->FlatAppearance->BorderColor = System::Drawing::Color::Black;
 			this->button_get_password->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
 			this->button_get_password->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
@@ -806,6 +831,8 @@ namespace FNM {
 			// 
 			// total_sum_expenses
 			// 
+			this->total_sum_expenses->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Underline)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
 			this->total_sum_expenses->Location = System::Drawing::Point(361, 173);
 			this->total_sum_expenses->Name = L"total_sum_expenses";
 			this->total_sum_expenses->Size = System::Drawing::Size(231, 25);
@@ -825,6 +852,8 @@ namespace FNM {
 			// 
 			// total_sum_budget
 			// 
+			this->total_sum_budget->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Underline)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
 			this->total_sum_budget->Location = System::Drawing::Point(673, 169);
 			this->total_sum_budget->Name = L"total_sum_budget";
 			this->total_sum_budget->Size = System::Drawing::Size(231, 25);
@@ -843,7 +872,7 @@ namespace FNM {
 			legend2->Position->X = 50.69782F;
 			legend2->Position->Y = 3;
 			this->chart_expenses->Legends->Add(legend2);
-			this->chart_expenses->Location = System::Drawing::Point(478, 324);
+			this->chart_expenses->Location = System::Drawing::Point(468, 290);
 			this->chart_expenses->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->chart_expenses->Name = L"chart_expenses";
 			series2->ChartArea = L"ChartArea1";
@@ -862,8 +891,12 @@ namespace FNM {
 			// 
 			// button_report_for_day
 			// 
-			this->button_report_for_day->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(38)),
-				static_cast<System::Int32>(static_cast<System::Byte>(53)), static_cast<System::Int32>(static_cast<System::Byte>(140)));
+			this->button_report_for_day->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->button_report_for_day->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->button_report_for_day->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
+			this->button_report_for_day->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
+			this->button_report_for_day->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button_report_for_day->ForeColor = System::Drawing::Color::Black;
 			this->button_report_for_day->Location = System::Drawing::Point(49, 133);
 			this->button_report_for_day->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_report_for_day->Name = L"button_report_for_day";
@@ -876,6 +909,11 @@ namespace FNM {
 			// 
 			// button_report_for_month
 			// 
+			this->button_report_for_month->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->button_report_for_month->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->button_report_for_month->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
+			this->button_report_for_month->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
+			this->button_report_for_month->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->button_report_for_month->Location = System::Drawing::Point(250, 132);
 			this->button_report_for_month->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_report_for_month->Name = L"button_report_for_month";
@@ -888,6 +926,11 @@ namespace FNM {
 			// 
 			// button_report_for_year
 			// 
+			this->button_report_for_year->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->button_report_for_year->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->button_report_for_year->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
+			this->button_report_for_year->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
+			this->button_report_for_year->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->button_report_for_year->Location = System::Drawing::Point(458, 133);
 			this->button_report_for_year->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_report_for_year->Name = L"button_report_for_year";
@@ -901,7 +944,7 @@ namespace FNM {
 			// label_report_transactions
 			// 
 			this->label_report_transactions->AutoSize = true;
-			this->label_report_transactions->Location = System::Drawing::Point(68, 220);
+			this->label_report_transactions->Location = System::Drawing::Point(44, 219);
 			this->label_report_transactions->Name = L"label_report_transactions";
 			this->label_report_transactions->Size = System::Drawing::Size(209, 25);
 			this->label_report_transactions->TabIndex = 52;
@@ -956,6 +999,11 @@ namespace FNM {
 			// 
 			// button_save_report
 			// 
+			this->button_save_report->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->button_save_report->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->button_save_report->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
+			this->button_save_report->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
+			this->button_save_report->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->button_save_report->Location = System::Drawing::Point(725, 252);
 			this->button_save_report->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_save_report->Name = L"button_save_report";
@@ -978,6 +1026,8 @@ namespace FNM {
 			// 
 			// cur_budget
 			// 
+			this->cur_budget->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Underline)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
 			this->cur_budget->Location = System::Drawing::Point(673, 239);
 			this->cur_budget->Name = L"cur_budget";
 			this->cur_budget->Size = System::Drawing::Size(231, 25);
@@ -986,6 +1036,47 @@ namespace FNM {
 			this->cur_budget->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			this->cur_budget->Visible = false;
 			// 
+			// ID
+			// 
+			this->ID->HeaderText = L"Номер";
+			this->ID->MinimumWidth = 6;
+			this->ID->Name = L"ID";
+			this->ID->ReadOnly = true;
+			this->ID->Width = 90;
+			// 
+			// Date
+			// 
+			this->Date->HeaderText = L"Дата";
+			this->Date->MinimumWidth = 6;
+			this->Date->Name = L"Date";
+			this->Date->ReadOnly = true;
+			this->Date->Width = 125;
+			// 
+			// Sum
+			// 
+			this->Sum->HeaderText = L"Сумма";
+			this->Sum->MinimumWidth = 6;
+			this->Sum->Name = L"Sum";
+			this->Sum->ReadOnly = true;
+			this->Sum->Width = 125;
+			// 
+			// Type
+			// 
+			this->Type->HeaderText = L"Тип";
+			this->Type->MinimumWidth = 6;
+			this->Type->Name = L"Type";
+			this->Type->ReadOnly = true;
+			this->Type->Width = 125;
+			// 
+			// Event
+			// 
+			this->Event->HeaderText = L"Выбрать";
+			this->Event->MinimumWidth = 6;
+			this->Event->Name = L"Event";
+			this->Event->Resizable = System::Windows::Forms::DataGridViewTriState::True;
+			this->Event->SortMode = System::Windows::Forms::DataGridViewColumnSortMode::Automatic;
+			this->Event->Width = 125;
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(13, 25);
@@ -993,65 +1084,65 @@ namespace FNM {
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(242)), static_cast<System::Int32>(static_cast<System::Byte>(241)),
 				static_cast<System::Int32>(static_cast<System::Byte>(240)));
 			this->ClientSize = System::Drawing::Size(933, 722);
-			this->Controls->Add(this->button_back);
 			this->Controls->Add(this->cur_budget);
 			this->Controls->Add(this->label_cur_budget);
-			this->Controls->Add(this->button_save_report);
-			this->Controls->Add(this->label_report_transactions);
-			this->Controls->Add(this->button_report_for_day);
-			this->Controls->Add(this->total_sum_budget);
-			this->Controls->Add(this->label_sum_budget);
-			this->Controls->Add(this->total_sum_expenses);
-			this->Controls->Add(this->label_total_sum_icomes);
 			this->Controls->Add(this->button_back_to_main);
-			this->Controls->Add(this->button_delete_expense);
-			this->Controls->Add(this->button_save_expenses);
-			this->Controls->Add(this->button_add_expense);
-			this->Controls->Add(this->button_save_incomes);
-			this->Controls->Add(this->label_head_of_list);
-			this->Controls->Add(this->button_add_income);
-			this->Controls->Add(this->label_type);
-			this->Controls->Add(this->label_sum);
-			this->Controls->Add(this->label_date);
-			this->Controls->Add(this->type_transaction);
-			this->Controls->Add(this->sum_transaction);
-			this->Controls->Add(this->dateTimePicker);
-			this->Controls->Add(this->button_delete_incomes);
-			this->Controls->Add(this->total_sum_incomes);
 			this->Controls->Add(this->label_header_transaction);
-			this->Controls->Add(this->label_set_budget);
-			this->Controls->Add(this->set_budget);
-			this->Controls->Add(this->button_set_budget);
-			this->Controls->Add(this->dataGridView);
-			this->Controls->Add(this->chart_expenses);
-			this->Controls->Add(this->chart_incomes);
-			this->Controls->Add(this->dataGridView_report_transactions);
-			this->Controls->Add(this->button_exit);
+			this->Controls->Add(this->label_total_sum_icomes);
+			this->Controls->Add(this->total_sum_budget);
+			this->Controls->Add(this->total_sum_expenses);
+			this->Controls->Add(this->label_head_of_list);
+			this->Controls->Add(this->label_report_transactions);
+			this->Controls->Add(this->dateTimePicker);
+			this->Controls->Add(this->sum_transaction);
+			this->Controls->Add(this->label_sum);
+			this->Controls->Add(this->label_total_sum_expenses);
+			this->Controls->Add(this->button_report_for_month);
+			this->Controls->Add(this->button_report_for_year);
+			this->Controls->Add(this->label_type);
+			this->Controls->Add(this->type_transaction);
 			this->Controls->Add(this->label_header);
-			this->Controls->Add(this->button_expenses);
 			this->Controls->Add(this->user_login);
-			this->Controls->Add(this->button_analyze);
-			this->Controls->Add(this->label_login);
 			this->Controls->Add(this->user_password);
+			this->Controls->Add(this->button_save_incomes);
+			this->Controls->Add(this->button_save_report);
+			this->Controls->Add(this->button_save_expenses);
+			this->Controls->Add(this->button_delete_incomes);
+			this->Controls->Add(this->button_delete_expense);
+			this->Controls->Add(this->button_add_income);
+			this->Controls->Add(this->label_sum_budget);
+			this->Controls->Add(this->button_add_expense);
+			this->Controls->Add(this->button_go_to_reset_budget);
+			this->Controls->Add(this->button_expenses);
+			this->Controls->Add(this->button_incomes);
+			this->Controls->Add(this->button_analyze);
 			this->Controls->Add(this->button_report);
-			this->Controls->Add(this->label_password);
-			this->Controls->Add(this->label_secret_word);
+			this->Controls->Add(this->button_exit);
 			this->Controls->Add(this->button_get_password);
-			this->Controls->Add(this->secret_word);
 			this->Controls->Add(this->link_sing_up);
 			this->Controls->Add(this->recover_password);
 			this->Controls->Add(this->button_sing_up);
+			this->Controls->Add(this->secret_word);
 			this->Controls->Add(this->button_login);
 			this->Controls->Add(this->button_reset_budget);
-			this->Controls->Add(this->button_report_for_month);
-			this->Controls->Add(this->button_report_for_year);
-			this->Controls->Add(this->label_total_sum_expenses);
-			this->Controls->Add(this->button_go_to_reset_budget);
-			this->Controls->Add(this->button_incomes);
+			this->Controls->Add(this->button_set_budget);
+			this->Controls->Add(this->dataGridView);
+			this->Controls->Add(this->set_budget);
+			this->Controls->Add(this->label_secret_word);
+			this->Controls->Add(this->label_password);
+			this->Controls->Add(this->label_login);
+			this->Controls->Add(this->label_set_budget);
+			this->Controls->Add(this->dataGridView_report_transactions);
+			this->Controls->Add(this->total_sum_incomes);
+			this->Controls->Add(this->button_back);
+			this->Controls->Add(this->chart_expenses);
+			this->Controls->Add(this->chart_incomes);
+			this->Controls->Add(this->button_report_for_day);
+			this->Controls->Add(this->label_date);
 			this->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->ForeColor = System::Drawing::Color::Black;
-			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::SizableToolWindow;
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedToolWindow;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->Name = L"MainForm";
@@ -1668,13 +1759,18 @@ namespace FNM {
 
 	private: System::Void insert_data_word(Microsoft::Office::Interop::Word::Document^ doc, DataGridView^ dgv)
 		   {
-				Object^ t1 = 0;
-				Object^ t2 = 1;
+				Object^ t1 = 24;
+				Object^ t2 = 25;
 				Object^ t3 = Microsoft::Office::Interop::Word::WdDefaultTableBehavior::wdWord8TableBehavior;
 				Object^ t4 = Microsoft::Office::Interop::Word::WdAutoFitBehavior::wdAutoFitContent;
-				string date = utils.convert_system_string_to_stdString(dateTimePicker->Value.Day.ToString() + "/" + dateTimePicker->Value.Month.ToString() + "/" + dateTimePicker->Value.Year.ToString());
+				String^ date = L"Дата создания: " + dateTimePicker->Value.Today.ToShortDateString();
+				
+				doc->Content->InsertBefore(L"Список транзакций: ");
+				doc->Content->InsertParagraphBefore();
+				doc->Content->InsertBefore(L"Отчет");
 
-			   auto table = doc->Tables->Add(doc->Range(t1,t2), dgv->Rows->Count + 1, dgv->Columns->Count, t3, t4);
+
+			   auto table = doc->Tables->Add(doc->Range(t1, t2), dgv->Rows->Count + 1, dgv->Columns->Count, t3, t4);
 
 			   for (int j = 0; j < dgv->Columns->Count; j++)
 			   {
@@ -1696,6 +1792,11 @@ namespace FNM {
 			   table->Rows[1]->Range->ParagraphFormat->Alignment = Microsoft::Office::Interop::Word::WdParagraphAlignment::wdAlignParagraphCenter;
 			   table->Range->ParagraphFormat->SpaceAfter = 6;
 			   table->Borders->Enable = 1;
+
+			   doc->Content->InsertParagraphAfter();
+			   doc->Content->InsertAfter(date);
+			   
+
 		   }
 
 };

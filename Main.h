@@ -96,7 +96,7 @@ namespace FNM {
 
 	int Expense::ID = 0;
 
-	class Incomes {
+	class Incomes : public Income {
 	private:
 		vector<Income> incomes;
 	public:
@@ -132,7 +132,7 @@ namespace FNM {
 		}
 	};
 
-	class Expenses {
+	class Expenses : public Expense{
 	private:
 		vector<Expense> expenses;
 	public:
@@ -168,7 +168,7 @@ namespace FNM {
 		}
 	};
 
-	class FinancialReport {
+	class FinancialReport : public Incomes, public Expenses {
 	private:
 		vector<Transaction> transactions;
 	public:
@@ -227,7 +227,7 @@ namespace FNM {
 		}
 	};
 
-	class Users {
+	class Users : public User{
 	private:
 		vector<User> users;
 	public:
@@ -244,6 +244,15 @@ namespace FNM {
 
 		void add_user(User user) {
 			this->users.push_back(user);
+		}
+
+		void delete_user_by_login(wstring login) {
+			for (auto it = users.begin(); it != users.end(); ++it) {
+				if (it->get_login() == login) {
+					it = users.erase(it);
+					break;
+				}
+			}
 		}
 	};
 
@@ -536,10 +545,5 @@ namespace FNM {
 			}
 		}
 
-
-
-
-
 	};
-
 }

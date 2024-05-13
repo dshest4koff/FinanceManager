@@ -120,6 +120,8 @@ namespace FNM {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ report_date_transaction;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ report_sum_transaction;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ report_type_t;
+	private: System::Windows::Forms::Label^ label_cur_budget;
+	private: System::Windows::Forms::Label^ cur_budget;
 
 
 
@@ -214,6 +216,8 @@ namespace FNM {
 			this->report_sum_transaction = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->report_type_t = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->button_save_report = (gcnew System::Windows::Forms::Button());
+			this->label_cur_budget = (gcnew System::Windows::Forms::Label());
+			this->cur_budget = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart_incomes))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart_expenses))->BeginInit();
@@ -223,53 +227,68 @@ namespace FNM {
 			// label_header
 			// 
 			this->label_header->AutoSize = true;
-			this->label_header->Font = (gcnew System::Drawing::Font(L"Verdana", 36, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->label_header->Location = System::Drawing::Point(440, 192);
+			this->label_header->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 36, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label_header->ForeColor = System::Drawing::Color::Black;
+			this->label_header->Location = System::Drawing::Point(414, 239);
 			this->label_header->Name = L"label_header";
-			this->label_header->RightToLeft = System::Windows::Forms::RightToLeft::No;
-			this->label_header->Size = System::Drawing::Size(200, 73);
+			this->label_header->Size = System::Drawing::Size(172, 69);
 			this->label_header->TabIndex = 0;
 			this->label_header->Text = L"Вход";
+			this->label_header->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
 			// user_login
 			// 
-			this->user_login->Location = System::Drawing::Point(408, 309);
+			this->user_login->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->user_login->ForeColor = System::Drawing::Color::Black;
+			this->user_login->Location = System::Drawing::Point(380, 325);
+			this->user_login->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->user_login->Name = L"user_login";
-			this->user_login->Size = System::Drawing::Size(230, 32);
+			this->user_login->Size = System::Drawing::Size(215, 30);
 			this->user_login->TabIndex = 1;
 			// 
 			// user_password
 			// 
-			this->user_password->Location = System::Drawing::Point(408, 374);
+			this->user_password->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->user_password->ForeColor = System::Drawing::Color::Black;
+			this->user_password->Location = System::Drawing::Point(380, 374);
+			this->user_password->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->user_password->Name = L"user_password";
 			this->user_password->PasswordChar = '*';
-			this->user_password->Size = System::Drawing::Size(230, 32);
+			this->user_password->Size = System::Drawing::Size(215, 30);
 			this->user_password->TabIndex = 2;
 			// 
 			// label_login
 			// 
 			this->label_login->AutoSize = true;
-			this->label_login->Location = System::Drawing::Point(312, 309);
+			this->label_login->ForeColor = System::Drawing::Color::Black;
+			this->label_login->Location = System::Drawing::Point(299, 327);
 			this->label_login->Name = L"label_login";
-			this->label_login->Size = System::Drawing::Size(90, 25);
+			this->label_login->Size = System::Drawing::Size(80, 25);
 			this->label_login->TabIndex = 3;
 			this->label_login->Text = L"Логин:";
 			// 
 			// label_password
 			// 
 			this->label_password->AutoSize = true;
-			this->label_password->Location = System::Drawing::Point(297, 374);
+			this->label_password->ForeColor = System::Drawing::Color::Black;
+			this->label_password->Location = System::Drawing::Point(287, 377);
 			this->label_password->Name = L"label_password";
-			this->label_password->Size = System::Drawing::Size(105, 25);
+			this->label_password->Size = System::Drawing::Size(93, 25);
 			this->label_password->TabIndex = 4;
 			this->label_password->Text = L"Пароль:";
 			// 
 			// button_login
 			// 
-			this->button_login->Location = System::Drawing::Point(408, 422);
+			this->button_login->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->button_login->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
+			this->button_login->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
+			this->button_login->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button_login->ForeColor = System::Drawing::Color::Black;
+			this->button_login->Location = System::Drawing::Point(380, 415);
+			this->button_login->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_login->Name = L"button_login";
-			this->button_login->Size = System::Drawing::Size(230, 53);
+			this->button_login->Size = System::Drawing::Size(213, 52);
 			this->button_login->TabIndex = 5;
 			this->button_login->Text = L"Войти";
 			this->button_login->UseVisualStyleBackColor = true;
@@ -278,11 +297,12 @@ namespace FNM {
 			// link_sing_up
 			// 
 			this->link_sing_up->AutoSize = true;
-			this->link_sing_up->Font = (gcnew System::Drawing::Font(L"Verdana", 7.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->link_sing_up->Location = System::Drawing::Point(455, 478);
+			this->link_sing_up->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->link_sing_up->LinkColor = System::Drawing::Color::Black;
+			this->link_sing_up->Location = System::Drawing::Point(409, 478);
 			this->link_sing_up->Name = L"link_sing_up";
-			this->link_sing_up->Size = System::Drawing::Size(146, 16);
+			this->link_sing_up->Size = System::Drawing::Size(205, 20);
 			this->link_sing_up->TabIndex = 6;
 			this->link_sing_up->TabStop = true;
 			this->link_sing_up->Text = L"Зарегистрироваться";
@@ -290,9 +310,13 @@ namespace FNM {
 			// 
 			// button_sing_up
 			// 
-			this->button_sing_up->Location = System::Drawing::Point(382, 461);
+			this->button_sing_up->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
+			this->button_sing_up->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
+			this->button_sing_up->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button_sing_up->Location = System::Drawing::Point(354, 466);
+			this->button_sing_up->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_sing_up->Name = L"button_sing_up";
-			this->button_sing_up->Size = System::Drawing::Size(274, 53);
+			this->button_sing_up->Size = System::Drawing::Size(255, 52);
 			this->button_sing_up->TabIndex = 7;
 			this->button_sing_up->Text = L"Зарегистрироваться";
 			this->button_sing_up->UseVisualStyleBackColor = true;
@@ -301,9 +325,10 @@ namespace FNM {
 			// 
 			// button_incomes
 			// 
-			this->button_incomes->Location = System::Drawing::Point(382, 192);
+			this->button_incomes->Location = System::Drawing::Point(354, 192);
+			this->button_incomes->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_incomes->Name = L"button_incomes";
-			this->button_incomes->Size = System::Drawing::Size(274, 53);
+			this->button_incomes->Size = System::Drawing::Size(255, 52);
 			this->button_incomes->TabIndex = 9;
 			this->button_incomes->Text = L"Доходы";
 			this->button_incomes->UseVisualStyleBackColor = true;
@@ -312,9 +337,10 @@ namespace FNM {
 			// 
 			// button_expenses
 			// 
-			this->button_expenses->Location = System::Drawing::Point(382, 251);
+			this->button_expenses->Location = System::Drawing::Point(354, 251);
+			this->button_expenses->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_expenses->Name = L"button_expenses";
-			this->button_expenses->Size = System::Drawing::Size(274, 53);
+			this->button_expenses->Size = System::Drawing::Size(255, 52);
 			this->button_expenses->TabIndex = 10;
 			this->button_expenses->Text = L"Расходы";
 			this->button_expenses->UseVisualStyleBackColor = true;
@@ -323,9 +349,10 @@ namespace FNM {
 			// 
 			// button_analyze
 			// 
-			this->button_analyze->Location = System::Drawing::Point(382, 310);
+			this->button_analyze->Location = System::Drawing::Point(354, 310);
+			this->button_analyze->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_analyze->Name = L"button_analyze";
-			this->button_analyze->Size = System::Drawing::Size(274, 53);
+			this->button_analyze->Size = System::Drawing::Size(255, 52);
 			this->button_analyze->TabIndex = 11;
 			this->button_analyze->Text = L"Анализ";
 			this->button_analyze->UseVisualStyleBackColor = true;
@@ -334,9 +361,10 @@ namespace FNM {
 			// 
 			// button_report
 			// 
-			this->button_report->Location = System::Drawing::Point(382, 369);
+			this->button_report->Location = System::Drawing::Point(354, 369);
+			this->button_report->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_report->Name = L"button_report";
-			this->button_report->Size = System::Drawing::Size(274, 53);
+			this->button_report->Size = System::Drawing::Size(255, 52);
 			this->button_report->TabIndex = 12;
 			this->button_report->Text = L"Отчет";
 			this->button_report->UseVisualStyleBackColor = true;
@@ -345,9 +373,10 @@ namespace FNM {
 			// 
 			// button_exit
 			// 
-			this->button_exit->Location = System::Drawing::Point(382, 428);
+			this->button_exit->Location = System::Drawing::Point(354, 427);
+			this->button_exit->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_exit->Name = L"button_exit";
-			this->button_exit->Size = System::Drawing::Size(274, 53);
+			this->button_exit->Size = System::Drawing::Size(255, 52);
 			this->button_exit->TabIndex = 13;
 			this->button_exit->Text = L"Выход";
 			this->button_exit->UseVisualStyleBackColor = true;
@@ -362,12 +391,13 @@ namespace FNM {
 				this->ID, this->Date,
 					this->Sum, this->Type, this->Event
 			});
-			this->dataGridView->Location = System::Drawing::Point(52, 252);
+			this->dataGridView->Location = System::Drawing::Point(49, 252);
+			this->dataGridView->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->dataGridView->MultiSelect = false;
 			this->dataGridView->Name = L"dataGridView";
 			this->dataGridView->RowHeadersWidth = 51;
 			this->dataGridView->RowTemplate->Height = 24;
-			this->dataGridView->Size = System::Drawing::Size(680, 427);
+			this->dataGridView->Size = System::Drawing::Size(632, 427);
 			this->dataGridView->TabIndex = 14;
 			this->dataGridView->Visible = false;
 			// 
@@ -417,7 +447,7 @@ namespace FNM {
 			this->label_header_transaction->AutoSize = true;
 			this->label_header_transaction->Font = (gcnew System::Drawing::Font(L"Verdana", 24, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label_header_transaction->Location = System::Drawing::Point(390, 60);
+			this->label_header_transaction->Location = System::Drawing::Point(361, 60);
 			this->label_header_transaction->Name = L"label_header_transaction";
 			this->label_header_transaction->Size = System::Drawing::Size(200, 48);
 			this->label_header_transaction->TabIndex = 15;
@@ -427,27 +457,28 @@ namespace FNM {
 			// label_total_sum_icomes
 			// 
 			this->label_total_sum_icomes->AutoSize = true;
-			this->label_total_sum_icomes->Location = System::Drawing::Point(47, 144);
+			this->label_total_sum_icomes->Location = System::Drawing::Point(42, 144);
 			this->label_total_sum_icomes->Name = L"label_total_sum_icomes";
-			this->label_total_sum_icomes->Size = System::Drawing::Size(281, 25);
+			this->label_total_sum_icomes->Size = System::Drawing::Size(252, 25);
 			this->label_total_sum_icomes->TabIndex = 16;
 			this->label_total_sum_icomes->Text = L"Общая сумма доходов:";
 			this->label_total_sum_icomes->Visible = false;
 			// 
 			// total_sum_incomes
 			// 
-			this->total_sum_incomes->Location = System::Drawing::Point(63, 172);
+			this->total_sum_incomes->Location = System::Drawing::Point(59, 173);
 			this->total_sum_incomes->Name = L"total_sum_incomes";
-			this->total_sum_incomes->Size = System::Drawing::Size(250, 25);
+			this->total_sum_incomes->Size = System::Drawing::Size(231, 25);
 			this->total_sum_incomes->TabIndex = 17;
 			this->total_sum_incomes->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			this->total_sum_incomes->Visible = false;
 			// 
 			// button_delete_incomes
 			// 
-			this->button_delete_incomes->Location = System::Drawing::Point(780, 324);
+			this->button_delete_incomes->Location = System::Drawing::Point(725, 324);
+			this->button_delete_incomes->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_delete_incomes->Name = L"button_delete_incomes";
-			this->button_delete_incomes->Size = System::Drawing::Size(194, 66);
+			this->button_delete_incomes->Size = System::Drawing::Size(179, 66);
 			this->button_delete_incomes->TabIndex = 18;
 			this->button_delete_incomes->Text = L"Удалить выбранные";
 			this->button_delete_incomes->UseVisualStyleBackColor = true;
@@ -456,47 +487,55 @@ namespace FNM {
 			// 
 			// button_back
 			// 
-			this->button_back->Font = (gcnew System::Drawing::Font(L"Verdana", 19.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->button_back->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->button_back->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
+			this->button_back->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
+			this->button_back->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button_back->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button_back->Location = System::Drawing::Point(13, 13);
+			this->button_back->Location = System::Drawing::Point(12, 14);
+			this->button_back->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_back->Name = L"button_back";
-			this->button_back->Size = System::Drawing::Size(65, 50);
+			this->button_back->Size = System::Drawing::Size(40, 40);
 			this->button_back->TabIndex = 19;
-			this->button_back->Text = L"←";
+			this->button_back->Text = L"<";
 			this->button_back->UseVisualStyleBackColor = true;
 			this->button_back->Visible = false;
 			this->button_back->Click += gcnew System::EventHandler(this, &MainForm::button_back_Click);
 			// 
 			// dateTimePicker
 			// 
-			this->dateTimePicker->Location = System::Drawing::Point(152, 147);
+			this->dateTimePicker->Location = System::Drawing::Point(140, 148);
+			this->dateTimePicker->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->dateTimePicker->Name = L"dateTimePicker";
-			this->dateTimePicker->Size = System::Drawing::Size(200, 32);
+			this->dateTimePicker->Size = System::Drawing::Size(186, 30);
 			this->dateTimePicker->TabIndex = 20;
 			this->dateTimePicker->Visible = false;
 			// 
 			// sum_transaction
 			// 
-			this->sum_transaction->Location = System::Drawing::Point(458, 147);
+			this->sum_transaction->Location = System::Drawing::Point(426, 148);
+			this->sum_transaction->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->sum_transaction->Name = L"sum_transaction";
-			this->sum_transaction->Size = System::Drawing::Size(100, 32);
+			this->sum_transaction->Size = System::Drawing::Size(92, 30);
 			this->sum_transaction->TabIndex = 21;
 			this->sum_transaction->Visible = false;
 			// 
 			// type_transaction
 			// 
-			this->type_transaction->Location = System::Drawing::Point(632, 144);
+			this->type_transaction->Location = System::Drawing::Point(588, 144);
+			this->type_transaction->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->type_transaction->Name = L"type_transaction";
-			this->type_transaction->Size = System::Drawing::Size(100, 32);
+			this->type_transaction->Size = System::Drawing::Size(92, 30);
 			this->type_transaction->TabIndex = 22;
 			this->type_transaction->Visible = false;
 			// 
 			// label_date
 			// 
 			this->label_date->AutoSize = true;
-			this->label_date->Location = System::Drawing::Point(73, 147);
+			this->label_date->Location = System::Drawing::Point(68, 148);
 			this->label_date->Name = L"label_date";
-			this->label_date->Size = System::Drawing::Size(74, 25);
+			this->label_date->Size = System::Drawing::Size(72, 25);
 			this->label_date->TabIndex = 23;
 			this->label_date->Text = L"Дата:";
 			this->label_date->Visible = false;
@@ -504,9 +543,9 @@ namespace FNM {
 			// label_sum
 			// 
 			this->label_sum->AutoSize = true;
-			this->label_sum->Location = System::Drawing::Point(358, 147);
+			this->label_sum->Location = System::Drawing::Point(333, 148);
 			this->label_sum->Name = L"label_sum";
-			this->label_sum->Size = System::Drawing::Size(94, 25);
+			this->label_sum->Size = System::Drawing::Size(90, 25);
 			this->label_sum->TabIndex = 24;
 			this->label_sum->Text = L"Сумма:";
 			this->label_sum->Visible = false;
@@ -514,18 +553,19 @@ namespace FNM {
 			// label_type
 			// 
 			this->label_type->AutoSize = true;
-			this->label_type->Location = System::Drawing::Point(564, 147);
+			this->label_type->Location = System::Drawing::Point(523, 148);
 			this->label_type->Name = L"label_type";
-			this->label_type->Size = System::Drawing::Size(62, 25);
+			this->label_type->Size = System::Drawing::Size(56, 25);
 			this->label_type->TabIndex = 25;
 			this->label_type->Text = L"Тип:";
 			this->label_type->Visible = false;
 			// 
 			// button_add_income
 			// 
-			this->button_add_income->Location = System::Drawing::Point(768, 141);
+			this->button_add_income->Location = System::Drawing::Point(712, 141);
+			this->button_add_income->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_add_income->Name = L"button_add_income";
-			this->button_add_income->Size = System::Drawing::Size(146, 42);
+			this->button_add_income->Size = System::Drawing::Size(135, 42);
 			this->button_add_income->TabIndex = 26;
 			this->button_add_income->Text = L"Добавить";
 			this->button_add_income->UseVisualStyleBackColor = true;
@@ -535,18 +575,19 @@ namespace FNM {
 			// label_head_of_list
 			// 
 			this->label_head_of_list->AutoSize = true;
-			this->label_head_of_list->Location = System::Drawing::Point(73, 220);
+			this->label_head_of_list->Location = System::Drawing::Point(68, 220);
 			this->label_head_of_list->Name = L"label_head_of_list";
-			this->label_head_of_list->Size = System::Drawing::Size(197, 25);
+			this->label_head_of_list->Size = System::Drawing::Size(174, 25);
 			this->label_head_of_list->TabIndex = 27;
 			this->label_head_of_list->Text = L"Список доходов";
 			this->label_head_of_list->Visible = false;
 			// 
 			// button_save_incomes
 			// 
-			this->button_save_incomes->Location = System::Drawing::Point(780, 251);
+			this->button_save_incomes->Location = System::Drawing::Point(725, 251);
+			this->button_save_incomes->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_save_incomes->Name = L"button_save_incomes";
-			this->button_save_incomes->Size = System::Drawing::Size(194, 66);
+			this->button_save_incomes->Size = System::Drawing::Size(179, 66);
 			this->button_save_incomes->TabIndex = 28;
 			this->button_save_incomes->Text = L"Сохранить";
 			this->button_save_incomes->UseVisualStyleBackColor = true;
@@ -555,9 +596,10 @@ namespace FNM {
 			// 
 			// button_add_expense
 			// 
-			this->button_add_expense->Location = System::Drawing::Point(768, 141);
+			this->button_add_expense->Location = System::Drawing::Point(712, 141);
+			this->button_add_expense->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_add_expense->Name = L"button_add_expense";
-			this->button_add_expense->Size = System::Drawing::Size(146, 42);
+			this->button_add_expense->Size = System::Drawing::Size(135, 42);
 			this->button_add_expense->TabIndex = 29;
 			this->button_add_expense->Text = L"Добавить";
 			this->button_add_expense->UseVisualStyleBackColor = true;
@@ -566,9 +608,10 @@ namespace FNM {
 			// 
 			// button_save_expenses
 			// 
-			this->button_save_expenses->Location = System::Drawing::Point(780, 252);
+			this->button_save_expenses->Location = System::Drawing::Point(725, 252);
+			this->button_save_expenses->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_save_expenses->Name = L"button_save_expenses";
-			this->button_save_expenses->Size = System::Drawing::Size(194, 66);
+			this->button_save_expenses->Size = System::Drawing::Size(179, 66);
 			this->button_save_expenses->TabIndex = 30;
 			this->button_save_expenses->Text = L"Сохранить";
 			this->button_save_expenses->UseVisualStyleBackColor = true;
@@ -577,9 +620,10 @@ namespace FNM {
 			// 
 			// button_delete_expense
 			// 
-			this->button_delete_expense->Location = System::Drawing::Point(780, 324);
+			this->button_delete_expense->Location = System::Drawing::Point(725, 324);
+			this->button_delete_expense->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_delete_expense->Name = L"button_delete_expense";
-			this->button_delete_expense->Size = System::Drawing::Size(194, 66);
+			this->button_delete_expense->Size = System::Drawing::Size(179, 66);
 			this->button_delete_expense->TabIndex = 31;
 			this->button_delete_expense->Text = L"Удалить выбранные";
 			this->button_delete_expense->UseVisualStyleBackColor = true;
@@ -597,14 +641,15 @@ namespace FNM {
 			legend1->Position->X = 50.69782F;
 			legend1->Position->Y = 3;
 			this->chart_incomes->Legends->Add(legend1);
-			this->chart_incomes->Location = System::Drawing::Point(24, 324);
+			this->chart_incomes->Location = System::Drawing::Point(23, 324);
+			this->chart_incomes->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->chart_incomes->Name = L"chart_incomes";
 			series1->ChartArea = L"ChartArea1";
 			series1->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
 			series1->Legend = L"Legend1";
 			series1->Name = L" Сумма дохода";
 			this->chart_incomes->Series->Add(series1);
-			this->chart_incomes->Size = System::Drawing::Size(469, 355);
+			this->chart_incomes->Size = System::Drawing::Size(436, 355);
 			this->chart_incomes->TabIndex = 32;
 			this->chart_incomes->Text = L"Доходы";
 			title1->Alignment = System::Drawing::ContentAlignment::TopLeft;
@@ -616,26 +661,33 @@ namespace FNM {
 			// label_set_budget
 			// 
 			this->label_set_budget->AutoSize = true;
-			this->label_set_budget->Location = System::Drawing::Point(347, 206);
+			this->label_set_budget->Location = System::Drawing::Point(336, 302);
 			this->label_set_budget->Name = L"label_set_budget";
-			this->label_set_budget->Size = System::Drawing::Size(385, 25);
+			this->label_set_budget->Size = System::Drawing::Size(344, 25);
 			this->label_set_budget->TabIndex = 33;
 			this->label_set_budget->Text = L"Установите начальный бюджет:";
 			this->label_set_budget->Visible = false;
 			// 
 			// set_budget
 			// 
-			this->set_budget->Location = System::Drawing::Point(424, 251);
+			this->set_budget->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->set_budget->Location = System::Drawing::Point(385, 340);
+			this->set_budget->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->set_budget->Name = L"set_budget";
-			this->set_budget->Size = System::Drawing::Size(232, 32);
+			this->set_budget->Size = System::Drawing::Size(215, 30);
 			this->set_budget->TabIndex = 34;
 			this->set_budget->Visible = false;
 			// 
 			// button_set_budget
 			// 
-			this->button_set_budget->Location = System::Drawing::Point(444, 291);
+			this->button_set_budget->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->button_set_budget->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
+			this->button_set_budget->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
+			this->button_set_budget->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button_set_budget->Location = System::Drawing::Point(400, 382);
+			this->button_set_budget->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_set_budget->Name = L"button_set_budget";
-			this->button_set_budget->Size = System::Drawing::Size(194, 66);
+			this->button_set_budget->Size = System::Drawing::Size(179, 66);
 			this->button_set_budget->TabIndex = 35;
 			this->button_set_budget->Text = L"Установить";
 			this->button_set_budget->UseVisualStyleBackColor = true;
@@ -644,9 +696,10 @@ namespace FNM {
 			// 
 			// button_go_to_reset_budget
 			// 
-			this->button_go_to_reset_budget->Location = System::Drawing::Point(382, 133);
+			this->button_go_to_reset_budget->Location = System::Drawing::Point(354, 133);
+			this->button_go_to_reset_budget->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_go_to_reset_budget->Name = L"button_go_to_reset_budget";
-			this->button_go_to_reset_budget->Size = System::Drawing::Size(274, 53);
+			this->button_go_to_reset_budget->Size = System::Drawing::Size(255, 52);
 			this->button_go_to_reset_budget->TabIndex = 36;
 			this->button_go_to_reset_budget->Text = L"Начальный бюджет";
 			this->button_go_to_reset_budget->UseVisualStyleBackColor = true;
@@ -655,9 +708,14 @@ namespace FNM {
 			// 
 			// button_reset_budget
 			// 
-			this->button_reset_budget->Location = System::Drawing::Point(444, 289);
+			this->button_reset_budget->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->button_reset_budget->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
+			this->button_reset_budget->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
+			this->button_reset_budget->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button_reset_budget->Location = System::Drawing::Point(413, 384);
+			this->button_reset_budget->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_reset_budget->Name = L"button_reset_budget";
-			this->button_reset_budget->Size = System::Drawing::Size(194, 66);
+			this->button_reset_budget->Size = System::Drawing::Size(179, 66);
 			this->button_reset_budget->TabIndex = 37;
 			this->button_reset_budget->Text = L"Установить";
 			this->button_reset_budget->UseVisualStyleBackColor = true;
@@ -666,18 +724,21 @@ namespace FNM {
 			// 
 			// secret_word
 			// 
-			this->secret_word->Location = System::Drawing::Point(408, 419);
+			this->secret_word->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->secret_word->Location = System::Drawing::Point(380, 420);
+			this->secret_word->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->secret_word->Name = L"secret_word";
-			this->secret_word->Size = System::Drawing::Size(230, 32);
+			this->secret_word->Size = System::Drawing::Size(215, 30);
 			this->secret_word->TabIndex = 38;
 			this->secret_word->Visible = false;
 			// 
 			// label_secret_word
 			// 
 			this->label_secret_word->AutoSize = true;
-			this->label_secret_word->Location = System::Drawing::Point(218, 422);
+			this->label_secret_word->ForeColor = System::Drawing::Color::Black;
+			this->label_secret_word->Location = System::Drawing::Point(211, 423);
 			this->label_secret_word->Name = L"label_secret_word";
-			this->label_secret_word->Size = System::Drawing::Size(193, 25);
+			this->label_secret_word->Size = System::Drawing::Size(169, 25);
 			this->label_secret_word->TabIndex = 39;
 			this->label_secret_word->Text = L"Кодовое слово:";
 			this->label_secret_word->Visible = false;
@@ -685,11 +746,12 @@ namespace FNM {
 			// recover_password
 			// 
 			this->recover_password->AutoSize = true;
-			this->recover_password->Font = (gcnew System::Drawing::Font(L"Verdana", 7.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->recover_password->Location = System::Drawing::Point(455, 498);
+			this->recover_password->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->recover_password->LinkColor = System::Drawing::Color::Black;
+			this->recover_password->Location = System::Drawing::Point(409, 498);
 			this->recover_password->Name = L"recover_password";
-			this->recover_password->Size = System::Drawing::Size(152, 16);
+			this->recover_password->Size = System::Drawing::Size(213, 20);
 			this->recover_password->TabIndex = 40;
 			this->recover_password->TabStop = true;
 			this->recover_password->Text = L"Восстановить пароль";
@@ -697,22 +759,35 @@ namespace FNM {
 			// 
 			// button_back_to_main
 			// 
-			this->button_back_to_main->Font = (gcnew System::Drawing::Font(L"Verdana", 19.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->button_back_to_main->Location = System::Drawing::Point(13, 13);
+			this->button_back_to_main->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->button_back_to_main->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
+			this->button_back_to_main->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
+			this->button_back_to_main->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button_back_to_main->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->button_back_to_main->Location = System::Drawing::Point(12, 14);
+			this->button_back_to_main->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_back_to_main->Name = L"button_back_to_main";
-			this->button_back_to_main->Size = System::Drawing::Size(65, 50);
+			this->button_back_to_main->Size = System::Drawing::Size(40, 40);
 			this->button_back_to_main->TabIndex = 41;
-			this->button_back_to_main->Text = L"←";
+			this->button_back_to_main->Text = L"<";
 			this->button_back_to_main->UseVisualStyleBackColor = true;
 			this->button_back_to_main->Visible = false;
 			this->button_back_to_main->Click += gcnew System::EventHandler(this, &MainForm::button_back_to_main_Click);
 			// 
 			// button_get_password
 			// 
-			this->button_get_password->Location = System::Drawing::Point(444, 415);
+			this->button_get_password->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(242)),
+				static_cast<System::Int32>(static_cast<System::Byte>(241)), static_cast<System::Int32>(static_cast<System::Byte>(240)));
+			this->button_get_password->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->button_get_password->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Gainsboro;
+			this->button_get_password->FlatAppearance->MouseOverBackColor = System::Drawing::Color::White;
+			this->button_get_password->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button_get_password->ForeColor = System::Drawing::Color::Black;
+			this->button_get_password->Location = System::Drawing::Point(400, 413);
+			this->button_get_password->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_get_password->Name = L"button_get_password";
-			this->button_get_password->Size = System::Drawing::Size(194, 66);
+			this->button_get_password->Size = System::Drawing::Size(179, 66);
 			this->button_get_password->TabIndex = 42;
 			this->button_get_password->Text = L"Восстановить пароль";
 			this->button_get_password->UseVisualStyleBackColor = true;
@@ -722,18 +797,18 @@ namespace FNM {
 			// label_total_sum_expenses
 			// 
 			this->label_total_sum_expenses->AutoSize = true;
-			this->label_total_sum_expenses->Location = System::Drawing::Point(364, 144);
+			this->label_total_sum_expenses->Location = System::Drawing::Point(338, 144);
 			this->label_total_sum_expenses->Name = L"label_total_sum_expenses";
-			this->label_total_sum_expenses->Size = System::Drawing::Size(292, 25);
+			this->label_total_sum_expenses->Size = System::Drawing::Size(261, 25);
 			this->label_total_sum_expenses->TabIndex = 43;
 			this->label_total_sum_expenses->Text = L"Общая сумма расходов:";
 			this->label_total_sum_expenses->Visible = false;
 			// 
 			// total_sum_expenses
 			// 
-			this->total_sum_expenses->Location = System::Drawing::Point(390, 172);
+			this->total_sum_expenses->Location = System::Drawing::Point(361, 173);
 			this->total_sum_expenses->Name = L"total_sum_expenses";
-			this->total_sum_expenses->Size = System::Drawing::Size(250, 25);
+			this->total_sum_expenses->Size = System::Drawing::Size(231, 25);
 			this->total_sum_expenses->TabIndex = 44;
 			this->total_sum_expenses->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			this->total_sum_expenses->Visible = false;
@@ -741,18 +816,18 @@ namespace FNM {
 			// label_sum_budget
 			// 
 			this->label_sum_budget->AutoSize = true;
-			this->label_sum_budget->Location = System::Drawing::Point(738, 144);
+			this->label_sum_budget->Location = System::Drawing::Point(686, 144);
 			this->label_sum_budget->Name = L"label_sum_budget";
-			this->label_sum_budget->Size = System::Drawing::Size(220, 25);
+			this->label_sum_budget->Size = System::Drawing::Size(197, 25);
 			this->label_sum_budget->TabIndex = 45;
 			this->label_sum_budget->Text = L"Текущий бюджет:";
 			this->label_sum_budget->Visible = false;
 			// 
 			// total_sum_budget
 			// 
-			this->total_sum_budget->Location = System::Drawing::Point(724, 169);
+			this->total_sum_budget->Location = System::Drawing::Point(673, 169);
 			this->total_sum_budget->Name = L"total_sum_budget";
-			this->total_sum_budget->Size = System::Drawing::Size(250, 25);
+			this->total_sum_budget->Size = System::Drawing::Size(231, 25);
 			this->total_sum_budget->TabIndex = 46;
 			this->total_sum_budget->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			this->total_sum_budget->Visible = false;
@@ -768,14 +843,15 @@ namespace FNM {
 			legend2->Position->X = 50.69782F;
 			legend2->Position->Y = 3;
 			this->chart_expenses->Legends->Add(legend2);
-			this->chart_expenses->Location = System::Drawing::Point(514, 324);
+			this->chart_expenses->Location = System::Drawing::Point(478, 324);
+			this->chart_expenses->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->chart_expenses->Name = L"chart_expenses";
 			series2->ChartArea = L"ChartArea1";
 			series2->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
 			series2->Legend = L"Legend1";
 			series2->Name = L" Сумма расхода";
 			this->chart_expenses->Series->Add(series2);
-			this->chart_expenses->Size = System::Drawing::Size(469, 355);
+			this->chart_expenses->Size = System::Drawing::Size(436, 355);
 			this->chart_expenses->TabIndex = 47;
 			this->chart_expenses->Text = L"Доходы";
 			title2->Alignment = System::Drawing::ContentAlignment::TopLeft;
@@ -786,9 +862,12 @@ namespace FNM {
 			// 
 			// button_report_for_day
 			// 
-			this->button_report_for_day->Location = System::Drawing::Point(52, 133);
+			this->button_report_for_day->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(38)),
+				static_cast<System::Int32>(static_cast<System::Byte>(53)), static_cast<System::Int32>(static_cast<System::Byte>(140)));
+			this->button_report_for_day->Location = System::Drawing::Point(49, 133);
+			this->button_report_for_day->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_report_for_day->Name = L"button_report_for_day";
-			this->button_report_for_day->Size = System::Drawing::Size(194, 66);
+			this->button_report_for_day->Size = System::Drawing::Size(179, 66);
 			this->button_report_for_day->TabIndex = 48;
 			this->button_report_for_day->Text = L"За день";
 			this->button_report_for_day->UseVisualStyleBackColor = true;
@@ -797,9 +876,10 @@ namespace FNM {
 			// 
 			// button_report_for_month
 			// 
-			this->button_report_for_month->Location = System::Drawing::Point(271, 132);
+			this->button_report_for_month->Location = System::Drawing::Point(250, 132);
+			this->button_report_for_month->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_report_for_month->Name = L"button_report_for_month";
-			this->button_report_for_month->Size = System::Drawing::Size(194, 66);
+			this->button_report_for_month->Size = System::Drawing::Size(179, 66);
 			this->button_report_for_month->TabIndex = 50;
 			this->button_report_for_month->Text = L"За месяц";
 			this->button_report_for_month->UseVisualStyleBackColor = true;
@@ -808,9 +888,10 @@ namespace FNM {
 			// 
 			// button_report_for_year
 			// 
-			this->button_report_for_year->Location = System::Drawing::Point(493, 133);
+			this->button_report_for_year->Location = System::Drawing::Point(458, 133);
+			this->button_report_for_year->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_report_for_year->Name = L"button_report_for_year";
-			this->button_report_for_year->Size = System::Drawing::Size(194, 66);
+			this->button_report_for_year->Size = System::Drawing::Size(179, 66);
 			this->button_report_for_year->TabIndex = 51;
 			this->button_report_for_year->Text = L"За год";
 			this->button_report_for_year->UseVisualStyleBackColor = true;
@@ -820,9 +901,9 @@ namespace FNM {
 			// label_report_transactions
 			// 
 			this->label_report_transactions->AutoSize = true;
-			this->label_report_transactions->Location = System::Drawing::Point(73, 220);
+			this->label_report_transactions->Location = System::Drawing::Point(68, 220);
 			this->label_report_transactions->Name = L"label_report_transactions";
-			this->label_report_transactions->Size = System::Drawing::Size(233, 25);
+			this->label_report_transactions->Size = System::Drawing::Size(209, 25);
 			this->label_report_transactions->TabIndex = 52;
 			this->label_report_transactions->Text = L"Список транзакций";
 			this->label_report_transactions->Visible = false;
@@ -835,12 +916,13 @@ namespace FNM {
 				this->report_type_transaction,
 					this->report_date_transaction, this->report_sum_transaction, this->report_type_t
 			});
-			this->dataGridView_report_transactions->Location = System::Drawing::Point(52, 252);
+			this->dataGridView_report_transactions->Location = System::Drawing::Point(49, 252);
+			this->dataGridView_report_transactions->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->dataGridView_report_transactions->MultiSelect = false;
 			this->dataGridView_report_transactions->Name = L"dataGridView_report_transactions";
 			this->dataGridView_report_transactions->RowHeadersWidth = 51;
 			this->dataGridView_report_transactions->RowTemplate->Height = 24;
-			this->dataGridView_report_transactions->Size = System::Drawing::Size(680, 427);
+			this->dataGridView_report_transactions->Size = System::Drawing::Size(632, 427);
 			this->dataGridView_report_transactions->TabIndex = 53;
 			this->dataGridView_report_transactions->Visible = false;
 			// 
@@ -874,38 +956,54 @@ namespace FNM {
 			// 
 			// button_save_report
 			// 
-			this->button_save_report->Location = System::Drawing::Point(780, 252);
+			this->button_save_report->Location = System::Drawing::Point(725, 252);
+			this->button_save_report->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button_save_report->Name = L"button_save_report";
-			this->button_save_report->Size = System::Drawing::Size(194, 66);
+			this->button_save_report->Size = System::Drawing::Size(179, 66);
 			this->button_save_report->TabIndex = 54;
 			this->button_save_report->Text = L"Сохранить";
 			this->button_save_report->UseVisualStyleBackColor = true;
 			this->button_save_report->Visible = false;
 			this->button_save_report->Click += gcnew System::EventHandler(this, &MainForm::button_save_report_Click);
 			// 
+			// label_cur_budget
+			// 
+			this->label_cur_budget->AutoSize = true;
+			this->label_cur_budget->Location = System::Drawing::Point(686, 206);
+			this->label_cur_budget->Name = L"label_cur_budget";
+			this->label_cur_budget->Size = System::Drawing::Size(197, 25);
+			this->label_cur_budget->TabIndex = 55;
+			this->label_cur_budget->Text = L"Текущий бюджет:";
+			this->label_cur_budget->Visible = false;
+			// 
+			// cur_budget
+			// 
+			this->cur_budget->Location = System::Drawing::Point(673, 239);
+			this->cur_budget->Name = L"cur_budget";
+			this->cur_budget->Size = System::Drawing::Size(231, 25);
+			this->cur_budget->TabIndex = 56;
+			this->cur_budget->Text = L"hhtrh";
+			this->cur_budget->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->cur_budget->Visible = false;
+			// 
 			// MainForm
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(14, 25);
+			this->AutoScaleDimensions = System::Drawing::SizeF(13, 25);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->BackColor = System::Drawing::SystemColors::Window;
-			this->ClientSize = System::Drawing::Size(1006, 721);
+			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(242)), static_cast<System::Int32>(static_cast<System::Byte>(241)),
+				static_cast<System::Int32>(static_cast<System::Byte>(240)));
+			this->ClientSize = System::Drawing::Size(933, 722);
+			this->Controls->Add(this->button_back);
+			this->Controls->Add(this->cur_budget);
+			this->Controls->Add(this->label_cur_budget);
 			this->Controls->Add(this->button_save_report);
-			this->Controls->Add(this->dataGridView_report_transactions);
 			this->Controls->Add(this->label_report_transactions);
-			this->Controls->Add(this->button_report_for_year);
-			this->Controls->Add(this->button_report_for_month);
 			this->Controls->Add(this->button_report_for_day);
 			this->Controls->Add(this->total_sum_budget);
 			this->Controls->Add(this->label_sum_budget);
 			this->Controls->Add(this->total_sum_expenses);
-			this->Controls->Add(this->label_total_sum_expenses);
 			this->Controls->Add(this->label_total_sum_icomes);
 			this->Controls->Add(this->button_back_to_main);
-			this->Controls->Add(this->recover_password);
-			this->Controls->Add(this->button_reset_budget);
-			this->Controls->Add(this->button_go_to_reset_budget);
-			this->Controls->Add(this->button_set_budget);
-			this->Controls->Add(this->set_budget);
 			this->Controls->Add(this->button_delete_expense);
 			this->Controls->Add(this->button_save_expenses);
 			this->Controls->Add(this->button_add_expense);
@@ -918,35 +1016,44 @@ namespace FNM {
 			this->Controls->Add(this->type_transaction);
 			this->Controls->Add(this->sum_transaction);
 			this->Controls->Add(this->dateTimePicker);
-			this->Controls->Add(this->button_back);
 			this->Controls->Add(this->button_delete_incomes);
 			this->Controls->Add(this->total_sum_incomes);
 			this->Controls->Add(this->label_header_transaction);
-			this->Controls->Add(this->button_analyze);
-			this->Controls->Add(this->button_expenses);
-			this->Controls->Add(this->button_incomes);
-			this->Controls->Add(this->link_sing_up);
-			this->Controls->Add(this->label_login);
-			this->Controls->Add(this->user_login);
-			this->Controls->Add(this->label_header);
 			this->Controls->Add(this->label_set_budget);
-			this->Controls->Add(this->button_exit);
-			this->Controls->Add(this->button_report);
-			this->Controls->Add(this->button_sing_up);
+			this->Controls->Add(this->set_budget);
+			this->Controls->Add(this->button_set_budget);
 			this->Controls->Add(this->dataGridView);
-			this->Controls->Add(this->chart_incomes);
 			this->Controls->Add(this->chart_expenses);
-			this->Controls->Add(this->label_secret_word);
-			this->Controls->Add(this->secret_word);
-			this->Controls->Add(this->button_get_password);
-			this->Controls->Add(this->button_login);
+			this->Controls->Add(this->chart_incomes);
+			this->Controls->Add(this->dataGridView_report_transactions);
+			this->Controls->Add(this->button_exit);
+			this->Controls->Add(this->label_header);
+			this->Controls->Add(this->button_expenses);
+			this->Controls->Add(this->user_login);
+			this->Controls->Add(this->button_analyze);
+			this->Controls->Add(this->label_login);
 			this->Controls->Add(this->user_password);
+			this->Controls->Add(this->button_report);
 			this->Controls->Add(this->label_password);
-			this->Font = (gcnew System::Drawing::Font(L"Verdana", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedToolWindow;
+			this->Controls->Add(this->label_secret_word);
+			this->Controls->Add(this->button_get_password);
+			this->Controls->Add(this->secret_word);
+			this->Controls->Add(this->link_sing_up);
+			this->Controls->Add(this->recover_password);
+			this->Controls->Add(this->button_sing_up);
+			this->Controls->Add(this->button_login);
+			this->Controls->Add(this->button_reset_budget);
+			this->Controls->Add(this->button_report_for_month);
+			this->Controls->Add(this->button_report_for_year);
+			this->Controls->Add(this->label_total_sum_expenses);
+			this->Controls->Add(this->button_go_to_reset_budget);
+			this->Controls->Add(this->button_incomes);
+			this->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->ForeColor = System::Drawing::Color::Black;
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::SizableToolWindow;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
-			this->Margin = System::Windows::Forms::Padding(5, 3, 5, 3);
+			this->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->Name = L"MainForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Финансовый менеджер";
@@ -961,15 +1068,26 @@ namespace FNM {
 		}
 #pragma endregion
 
+	private: System::Void init_file_users() {
+		if (!utils.file_exists("users")) {
+			utils.write_to_file("users", utils.convert_users_to_string(users.get_users()));
+		}
+	}
+
+	private: System::Void MainForm_Load(System::Object^ sender, System::EventArgs^ e) {
+		init_file_users();
+		users.set_users(utils.convert_string_to_users(utils.read_from_file("users")));
+	}
+
 	private: System::Void button_login_Click(System::Object^ sender, System::EventArgs^ e) {
 		login();
 	}
 
 	private: System::Void link_sing_up_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) {
 		this->label_header->Text = L"Регистрация";
-		this->label_header->Location = System::Drawing::Point(340, 192);
-		this->secret_word->Location = System::Drawing::Point(408, 419);
-		this->label_secret_word->Location = System::Drawing::Point(218, 422);
+		this->label_header->Location = System::Drawing::Point(320, 239);
+		this->secret_word->Location = System::Drawing::Point(380, 420);
+		this->label_secret_word->Location = System::Drawing::Point(224, 423);
 		this->user_login->Clear();
 		this->user_password->Clear();
 		this->secret_word->Clear();
@@ -1003,11 +1121,20 @@ namespace FNM {
 				}
 				if (is_exists == false) {
 					auth_user = User(utils.convert_String_to_wstring(this->user_login->Text), utils.convert_String_to_wstring(this->user_password->Text), 0.0f, utils.convert_String_to_wstring(this->secret_word->Text));
-					users.add_user(auth_user);
-					utils.write_to_file("users", utils.convert_users_to_string(users.get_users()));
-					utils.create_directory(convert_wstring_to_string(auth_user.get_login()));
-					utils.write_to_file(convert_wstring_to_string(auth_user.get_login()) + "/incomes", utils.convert_incomes_to_string(incomes.get_incomes()));
-					utils.write_to_file(convert_wstring_to_string(auth_user.get_login()) + "/expenses", utils.convert_expenses_to_string(expenses.get_expenses()));
+					
+					if (CreateDirectory(auth_user.get_login().c_str(), NULL) == 0)
+					{
+						if (GetLastError() != ERROR_ALREADY_EXISTS)
+						{
+							send_error(L"Не удалось создать пользователя");
+							return false;
+						}
+						else {
+							return true;
+						}
+					}
+					
+					
 					return true;
 				}
 				else {
@@ -1033,6 +1160,7 @@ namespace FNM {
 						&& (user.get_password() == utils.convert_String_to_wstring(this->user_password->Text))) {
 						send_message_ok(L"Успешный вход");
 						auth_user = user;
+						this->cur_budget->Text = auth_user.get_budget().ToString() + L" руб.";
 						go_to_main_window(convert_wstring_to_string(auth_user.get_login()));
 						correct_auth = true;
 						break;
@@ -1086,10 +1214,14 @@ namespace FNM {
 
 	private: System::Void go_to_reset_budget() {
 		hide_all();
+		this->set_budget->Clear();
 		this->label_set_budget->Visible = true;
 		this->set_budget->Visible = true;
 		this->button_reset_budget->Visible = true;
 		this->button_back->Visible = true;
+		this->label_cur_budget->Visible = true;
+		this->cur_budget->Text = auth_user.get_budget().ToString() + L" руб.";
+		this->cur_budget->Visible = true;
 	}
 
 	private: System::Void hide_all() {
@@ -1146,6 +1278,8 @@ namespace FNM {
 		this->button_save_report->Visible = false;
 		this->label_report_transactions->Visible = false;
 		this->dataGridView_report_transactions->Visible = false;
+		this->label_cur_budget->Visible = false;
+		this->cur_budget->Visible = false;
 	}
 
 	private: System::Void show_incomes() {
@@ -1253,12 +1387,6 @@ namespace FNM {
 		expenses.set_expenses(utils.convert_string_to_expenses(utils.read_from_file(login + "/expenses")));
 	}
 
-	private: System::Void init_file_users() {
-		if (!utils.file_exists("users")) {
-			utils.write_to_file("users", utils.convert_users_to_string(users.get_users()));
-		}
-	}
-
 	private: System::Void calc_chart_incomes() {
 		this->chart_incomes->Series[0]->Points->Clear();
 		this->chart_incomes->Series[0]->BorderWidth = 3;
@@ -1300,11 +1428,6 @@ namespace FNM {
 		for (auto& expense : expenses.get_expenses()) {
 			this->dataGridView->Rows->Add(expense.get_id(), (gcnew System::String(expense.get_date().c_str())), expense.get_sum(), (gcnew System::String(expense.get_type().c_str())));
 		}
-	}
-
-	private: System::Void MainForm_Load(System::Object^ sender, System::EventArgs^ e) {
-		init_file_users();
-		users.set_users(utils.convert_string_to_users(utils.read_from_file("users")));
 	}
 
 	private: System::Void button_add_income_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -1375,13 +1498,11 @@ namespace FNM {
 		}
 		else {
 			if (utils.validate_set_budget(utils.convert_system_string_to_stdString(this->set_budget->Text))) {
-				for (User user : users.get_users()) {
-					if (user.get_login() == utils.convert_String_to_wstring(this->user_login->Text)) {
-						user.set_budget(stof(utils.convert_system_string_to_stdString(this->set_budget->Text)));
-						auth_user = user;
-						break;
-					}
-				}
+				auth_user.set_budget(stof(utils.convert_String_to_string(this->set_budget->Text)));
+				users.add_user(auth_user);
+				utils.write_to_file("users", utils.convert_users_to_string(users.get_users()));
+				utils.write_to_file(convert_wstring_to_string(auth_user.get_login()) + "/incomes", utils.convert_incomes_to_string(incomes.get_incomes()));
+				utils.write_to_file(convert_wstring_to_string(auth_user.get_login()) + "/expenses", utils.convert_expenses_to_string(expenses.get_expenses()));
 				send_message_ok(L"Аккаунт успешно создан");
 				go_to_main_window(utils.convert_system_string_to_stdString(this->user_login->Text));
 			}
@@ -1398,13 +1519,12 @@ namespace FNM {
 		}
 		else {
 			if (utils.validate_set_budget(utils.convert_system_string_to_stdString(this->set_budget->Text))) {
-				for (User user : users.get_users()) {
-					if (user.get_login() == utils.convert_String_to_wstring(this->user_login->Text)) {
-						user.set_budget(stof(utils.convert_system_string_to_stdString(this->set_budget->Text)));
-						auth_user = user;
-						break;
-					}
-				}
+				auth_user.set_budget(stof(utils.convert_system_string_to_stdString(this->set_budget->Text)));
+				users.delete_user_by_login(auth_user.get_login());
+				users.add_user(auth_user);
+				utils.write_to_file("users", utils.convert_users_to_string(users.get_users()));
+				this->cur_budget->Text = auth_user.get_budget().ToString() + L" руб.";
+				this->set_budget->Clear();
 				send_message_ok(L"Бюджет успешно изменен!");
 			}
 			else {
@@ -1424,7 +1544,7 @@ namespace FNM {
 	private: System::Void go_to_login() {
 		hide_all();
 		this->label_header->Text = L"Вход";
-		this->label_header->Location = System::Drawing::Point(440, 192);
+		this->label_header->Location = System::Drawing::Point(414, 239);
 		this->user_login->Clear();
 		this->user_password->Clear();
 		this->secret_word->Clear();
@@ -1444,9 +1564,9 @@ namespace FNM {
 		this->user_login->Clear();
 		this->user_password->Clear();
 		this->secret_word->Clear();
-		this->label_header->Location = System::Drawing::Point(170, 182);
-		this->label_secret_word->Location = System::Drawing::Point(225, 374);
-		this->secret_word->Location = System::Drawing::Point(408, 374);
+		this->label_header->Location = System::Drawing::Point(170, 239);
+		this->label_secret_word->Location = System::Drawing::Point(224, 374);
+		this->secret_word->Location = System::Drawing::Point(380, 374);
 		this->label_header->Visible = true;
 		this->label_login->Visible = true;
 		this->user_login->Visible = true;
@@ -1503,6 +1623,7 @@ namespace FNM {
 			this->dataGridView_report_transactions->Rows->Add((gcnew System::String(trn.get_type_t().c_str())), (gcnew System::String(trn.get_date().c_str())), trn.get_sum(), (gcnew System::String(trn.get_type().c_str())));
 		}
 	}
+
 	private: System::Void button_report_for_month_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->dataGridView_report_transactions->Rows->Clear();
 		string date = utils.convert_system_string_to_stdString(dateTimePicker->Value.Day.ToString() + "/" + dateTimePicker->Value.Month.ToString() + "/" + dateTimePicker->Value.Year.ToString());
@@ -1511,6 +1632,7 @@ namespace FNM {
 			this->dataGridView_report_transactions->Rows->Add((gcnew System::String(trn.get_type_t().c_str())), (gcnew System::String(trn.get_date().c_str())), trn.get_sum(), (gcnew System::String(trn.get_type().c_str())));
 		}
 	}
+
 	private: System::Void button_report_for_year_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->dataGridView_report_transactions->Rows->Clear();
 		string date = utils.convert_system_string_to_stdString(dateTimePicker->Value.Day.ToString() + "/" + dateTimePicker->Value.Month.ToString() + "/" + dateTimePicker->Value.Year.ToString());
@@ -1519,6 +1641,7 @@ namespace FNM {
 			this->dataGridView_report_transactions->Rows->Add((gcnew System::String(trn.get_type_t().c_str())), (gcnew System::String(trn.get_date().c_str())), trn.get_sum(), (gcnew System::String(trn.get_type().c_str())));
 		}
 	}
+
 	private: System::Void button_save_report_Click(System::Object^ sender, System::EventArgs^ e) {
 		SaveFileDialog^ saveFileDialog = gcnew SaveFileDialog();
 		saveFileDialog->Filter = "Docx-файлы (*.docx)|*.docx";

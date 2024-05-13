@@ -77,7 +77,7 @@ namespace FNM {
 		}
 	};
 
-	int Income::ID = 0;
+	int Income::ID = -2;
 
 	class Expense : public Transaction {
 	private:
@@ -94,7 +94,7 @@ namespace FNM {
 		}
 	};
 
-	int Expense::ID = 0;
+	int Expense::ID = -2;
 
 	class Incomes : public Income {
 	private:
